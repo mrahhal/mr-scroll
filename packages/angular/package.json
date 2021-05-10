@@ -25,6 +25,10 @@
   "bugs": {
     "url": "https://github.com/mrahhal/mr-scroll/issues"
   },
+  "files": [
+    "dist",
+    "src/scss"
+  ],
   "engines": {
     "node": ">=6.0.0"
   },
