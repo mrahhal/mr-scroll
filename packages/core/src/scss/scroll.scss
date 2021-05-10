@@ -1,0 +1,112 @@
+:root {
+  --mr-scroll-width-scroll: 12px;
+  --mr-scroll-width-overlay: 8px;
+  --mr-scroll-border-radius: 2px;
+  --mr-scroll-thumb-color: #aaa;
+}
+
+@mixin mr-scroll-flex-adaptive() {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-flow: column;
+}
+
+.mr-scroll {
+  @include mr-scroll-flex-adaptive();
+  overflow: hidden;
+  position: relative;
+
+  &--mode-scroll {
+    > .mr-scroll_bar {
+      width: var(--mr-scroll-width-scroll);
+    }
+  }
+
+  &--mode-overlay {
+    > .mr-scroll_bar {
+      width: var(--mr-scroll-width-overlay);
+    }
+  }
+
+  &--mode-hidden {
+    > .mr-scroll_bar {
+      display: none;
+    }
+  }
+
+  &--force-scroll {
+    > .mr-scroll_content {
+      overflow-y: scroll;
+    }
+  }
+
+  &--show-on-hover {
+    > .mr-scroll_bar {
+      opacity: 0;
+      transition: opacity linear .2s;
+    }
+
+    &:hover {
+      > .mr-scroll_bar {
+        opacity: 1;
+      }
+    }
+  }
+
+  &--width-0 {
+    > .mr-scroll_bar {
+      display: none;
+    }
+  }
+
+  &--hidden {
+    > .mr-scroll_bar {
+      opacity: 0 !important;
+    }
+  }
+
+  > .mr-scroll_bar-thumb {
+    background: var(--mr-scroll-thumb-color);
+  }
+}
+
+.mr-scroll_content::-webkit-scrollbar {
+  width: var(--mr-scroll-width-scroll);
+}
+
+.mr-scroll_content {
+  @include mr-scroll-flex-adaptive();
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &--overlay-fallback {
+    padding-right: var(--mr-scroll-width-overlay);
+  }
+}
+
+.mr-scroll_bar {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+}
+
+.mr-scroll_bar-track {
+  margin: 3px;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.mr-scroll_bar-thumb {
+  border-radius: var(--mr-scroll-border-radius);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 3px;
+}
