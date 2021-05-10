@@ -5,9 +5,10 @@
   "version": "0.1.0",
   "scripts": {
     "compile": "ngc",
-    "build": "ng-packagr -p package.json",
+    "build": "ng-packagr -p package.json && npm run bundle-scss",
     "lint": "npx eslint \"src/**/*.ts\"",
-    "check-peer-dependencies": "check-peer-dependencies"
+    "check-peer-dependencies": "check-peer-dependencies",
+    "bundle-scss": "npx sass src/scroll.scss dist/styles.css"
   },
   "keywords": [
     "custom",
@@ -54,6 +55,7 @@
     "eslint": "^7.25.0",
     "ng-packagr": "^11.0.0",
     "rxjs": ">=6.0.0",
+    "sass": "^1.32.12",
     "ts-node": "9.1.1",
     "tslib": "^2.2.0",
     "typescript": "~4.0.0",

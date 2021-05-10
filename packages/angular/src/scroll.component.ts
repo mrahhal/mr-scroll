@@ -17,7 +17,6 @@ import { Scroll, ScrollMode, ScrollPosition, ScrollState } from '@mr-scroll/core
 @Component({
   selector: 'mr-scroll',
   templateUrl: './scroll.html',
-  styleUrls: ['./scroll.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
