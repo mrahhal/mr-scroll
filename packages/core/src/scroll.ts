@@ -33,8 +33,8 @@ export class Scroll {
   private _config: ScrollConfig;
   private _barElement: HTMLElement;
   private _thumbElement: HTMLElement;
-  private _mo: MutationObserver;
-  private _ro: ResizeObserver;
+  private _mo: MutationObserver = null!;
+  private _ro: ResizeObserver = null!;
   private _marginsProcessed = false;
   private _browserScrollWidth: number;
   private _position: ScrollPosition = 'top';
@@ -83,6 +83,24 @@ export class Scroll {
     trackElement.classList.add(`${BAR_CLASS}-track`);
     const thumbElement = this._thumbElement = barElement.appendChild(document.createElement('div'));
     thumbElement.classList.add(`${BAR_CLASS}-thumb`);
+  }
+
+  get mode() { return this._config.mode; }
+
+  get scrollTop() { return this._contentElement.scrollTop; }
+
+  get scrolled() { return this._scrolled.asObservable(); }
+  get scrolledRaw() { return this._scrolledRaw.asObservable(); }
+  get topReached() { return this._topReached.asObservable(); }
+  get bottomReached() { return this._bottomReached.asObservable(); }
+  get positionChanged() { return this._positionChanged.asObservable(); }
+  get stateChanged() { return this._stateChanged.asObservable(); }
+
+  private get _ownHeight() { return this._contentElement.clientHeight; }
+
+  private get _totalHeight() { return this._contentElement.scrollHeight; }
+
+  initialize() {
 
     // Setup subjects
     this._scrolledOrigin.pipe(
@@ -126,24 +144,8 @@ export class Scroll {
       this.update();
     });
     this._mo.observe(this._contentElement, { childList: true });
-  }
 
-  get mode() { return this._config.mode; }
-
-  get scrollTop() { return this._contentElement.scrollTop; }
-
-  get scrolled() { return this._scrolled.asObservable(); }
-  get scrolledRaw() { return this._scrolledRaw.asObservable(); }
-  get topReached() { return this._topReached.asObservable(); }
-  get bottomReached() { return this._bottomReached.asObservable(); }
-  get positionChanged() { return this._positionChanged.asObservable(); }
-  get stateChanged() { return this._stateChanged.asObservable(); }
-
-  private get _ownHeight() { return this._contentElement.clientHeight; }
-
-  private get _totalHeight() { return this._contentElement.scrollHeight; }
-
-  initialize() {
+    //
     this._browserScrollWidth = this._resolveBrowserScrollbarWidth();
     const browserScrollWidth = this._browserScrollWidth;
 
