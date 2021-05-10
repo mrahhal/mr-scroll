@@ -66,10 +66,6 @@
       opacity: 0 !important;
     }
   }
-
-  > .mr-scroll_bar-thumb {
-    background: var(--mr-scroll-thumb-color);
-  }
 }
 
 .mr-scroll_content::-webkit-scrollbar {
@@ -103,6 +99,7 @@
 }
 
 .mr-scroll_bar-thumb {
+  background: var(--mr-scroll-thumb-color);
   border-radius: var(--mr-scroll-border-radius);
   position: absolute;
   top: 0;
