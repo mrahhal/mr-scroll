@@ -1,0 +1,43 @@
+{
+  "name": "@mr-scroll/core",
+  "description": "The best custom scroll for the web. This is the core package.",
+  "version": "0.1.0",
+  "main": "dist/umd/index.js",
+  "module": "dist/es/index.js",
+  "types": "dist/es/index.d.ts",
+  "scripts": {
+    "start": "rollup -c rollup.config.es.js -w",
+    "build": "rollup -c rollup.config.es.js",
+    "lint": "npx eslint \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "custom",
+    "scroll",
+    "scrollbar"
+  ],
+  "author": "Mohammad Rahhal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrahhal/mr-scroll"
+  },
+  "files": [
+    "dist",
+    "src/scss"
+  ],
+  "peerDependencies": {
+    "rxjs": ">=6.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
+    "@typescript-eslint/parser": "^4.22.1",
+    "eslint": "^7.25.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "rollup": "^2.47.0",
+    "tslib": "^2.2.0",
+    "typescript": "~4.0.0"
+  }
+}
