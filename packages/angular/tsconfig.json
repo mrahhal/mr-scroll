@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "module": "es2020",
+    "target": "es2015",
+    "lib": ["es6", "dom"],
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "rootDir": "src",
+    "outDir": "lib",
+    "declaration": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true
+  },
+  "files": ["src/index.ts"]
+}
