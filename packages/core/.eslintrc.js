@@ -10,19 +10,11 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/indent': [
-      'warn',
-      2,
-    ],
+    '@typescript-eslint/indent': ['warn', 2],
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/quotes': [
-      'warn',
-      'single',
-    ],
-    'comma-dangle': [
-      'warn',
-      'always-multiline',
-    ],
+    '@typescript-eslint/quotes': ['warn', 'single'],
+    'semi': ['error', 'always'],
+    'comma-dangle': ['warn', 'always-multiline'],
   },
 };
