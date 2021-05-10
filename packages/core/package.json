@@ -2,7 +2,6 @@
   "name": "@mr-scroll/core",
   "description": "The best custom scroll for the web. This is the core package.",
   "version": "0.1.0",
-  "main": "dist/umd/index.js",
   "module": "dist/es/index.js",
   "types": "dist/es/index.d.ts",
   "scripts": {
@@ -21,6 +20,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/mrahhal/mr-scroll"
+  },
+  "bugs": {
+    "url": "https://github.com/mrahhal/mr-scroll/issues"
   },
   "files": [
     "dist",
