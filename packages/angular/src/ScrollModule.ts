@@ -10,5 +10,8 @@ import { ScrollComponent } from './scroll.component';
   declarations: [
     ScrollComponent,
   ],
+  exports: [
+    ScrollComponent,
+  ],
 })
 export class ScrollModule { }
