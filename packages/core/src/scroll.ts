@@ -57,6 +57,11 @@ export class Scroll {
     private _contentElement: HTMLElement,
     config?: Partial<ScrollConfig>,
   ) {
+    // Filter out undefined
+    config = Object.entries(config || {})
+      .filter(([, value]) => value !== undefined)
+      .reduce((obj, [key, value]) => (obj[key] = value, obj), {} as any);
+
     this._config = config = { ...DEFAULT_CONFIG, ...config };
 
     _hostElement.classList.add(HOST_CLASS);
