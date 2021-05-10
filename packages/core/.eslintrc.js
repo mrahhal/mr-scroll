@@ -13,6 +13,7 @@ module.exports = {
     '@typescript-eslint/indent': ['warn', 2],
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/quotes': ['warn', 'single'],
     'semi': ['error', 'always'],
     'comma-dangle': ['warn', 'always-multiline'],
