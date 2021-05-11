@@ -1,6 +1,5 @@
 import ResizeObserver from 'resize-observer-polyfill';
 import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 
 import { getScrollbarWidth, isScrollbarStylingSupported } from './support';
 
@@ -11,7 +10,6 @@ export type ScrollState = 'hidden' | 'scrolling';
 export interface ScrollConfig {
   mode: ScrollMode;
   showOnHover: boolean;
-  scrolledDebounce: number;
   topThreshold: number;
   bottomThreshold: number;
 }
@@ -19,8 +17,7 @@ export interface ScrollConfig {
 const DEFAULT_CONFIG: ScrollConfig = {
   mode: 'overlay',
   showOnHover: false,
-  scrolledDebounce: 500,
-  topThreshold: 100,
+  topThreshold: 50,
   bottomThreshold: 50,
 };
 
@@ -44,9 +41,7 @@ export class Scroll {
 
   private _boundUpdate = this.update.bind(this);
 
-  private _scrolledOrigin = new Subject<number>();
   private _scrolled = new Subject<number>();
-  private _scrolledRaw = new Subject<number>();
   private _topReached = new Subject<void>();
   private _bottomReached = new Subject<void>();
   private _positionChanged = new Subject<ScrollPosition>();
@@ -95,7 +90,6 @@ export class Scroll {
   get scrollTop() { return this._contentElement.scrollTop; }
 
   get scrolled() { return this._scrolled.asObservable(); }
-  get scrolledRaw() { return this._scrolledRaw.asObservable(); }
   get topReached() { return this._topReached.asObservable(); }
   get bottomReached() { return this._bottomReached.asObservable(); }
   get positionChanged() { return this._positionChanged.asObservable(); }
@@ -106,13 +100,7 @@ export class Scroll {
   private get _totalHeight() { return this._contentElement.scrollHeight; }
 
   initialize() {
-
     // Setup subjects
-    this._scrolledOrigin.pipe(
-      debounceTime(this._config.scrolledDebounce),
-    ).subscribe(top => this._scrolled.next(top));
-    this._scrolledOrigin.subscribe(top => this._scrolledRaw.next(top));
-
     this._positionChanged.subscribe((position: ScrollPosition) => {
       switch (position) {
         case 'top': this._topReached.next(); break;
@@ -177,9 +165,7 @@ export class Scroll {
     this._mo.disconnect();
     this._ro.disconnect();
 
-    this._scrolledOrigin.complete();
     this._scrolled.complete();
-    this._scrolledRaw.complete();
     this._topReached.complete();
     this._bottomReached.complete();
     this._positionChanged.complete();
@@ -198,7 +184,7 @@ export class Scroll {
       const top = (scrollTop / totalHeight) * 100;
 
       if (this._prevScrollTop == null || this._prevScrollTop != scrollTop) {
-        this._scrolledOrigin.next(scrollTop);
+        this._scrolled.next(scrollTop);
         this._prevScrollTop = scrollTop;
       }
 
