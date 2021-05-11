@@ -89,9 +89,7 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this._zone.runOutsideAngular(() => {
-      Promise.resolve().then(() => {
-        this._scroll.initialize();
-      });
+      this._scroll.initialize();
     });
   }
 
