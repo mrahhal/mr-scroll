@@ -18,21 +18,24 @@
   overflow: hidden;
   position: relative;
 
-  &--mode-scroll {
-    > .mr-scroll_bar {
-      width: var(--mr-scroll-width-scroll);
-    }
-  }
-
-  &--mode-overlay {
-    > .mr-scroll_bar {
-      width: var(--mr-scroll-width-overlay);
-    }
-  }
-
   &--mode-hidden {
     > .mr-scroll_bar {
       display: none;
+    }
+  }
+
+  &--mode-overlay,
+  &--mode-hidden {
+    .mr-scroll_bar {
+      &:after {
+        content: ' ';
+        position: absolute;
+        width: var(--mr-scroll-browser-scroll-width);
+        top: 0;
+        right: calc(-1 * var(--mr-scroll-browser-scroll-width));
+        bottom: 0;
+        pointer-events: all;
+      }
     }
   }
 
@@ -90,6 +93,7 @@
   right: 0;
   bottom: 0;
   display: flex;
+  width: var(--mr-scroll-width);
 }
 
 .mr-scroll_bar-track {

@@ -143,10 +143,11 @@ export class Scroll {
     this._mo.observe(this._contentElement, { childList: true });
 
     //
-    this._browserScrollWidth = this._resolveBrowserScrollbarWidth();
-    const browserScrollWidth = this._browserScrollWidth;
+    const effectiveScrollbarWidth = this._resolveScrollbarWidth();
+    this._setCssProperty('--mr-scroll-width', `${effectiveScrollbarWidth}px`);
+    this._setCssProperty('--mr-scroll-browser-scroll-width', `${this._browserScrollWidth}px`);
 
-    if (!browserScrollWidth) {
+    if (!this._browserScrollWidth) {
       this._hostElement.classList.add(`${HOST_CLASS}--width-0`);
     }
 
@@ -266,6 +267,10 @@ export class Scroll {
 
   private _getCssProperty(name: string) {
     return getComputedStyle(this._hostElement).getPropertyValue(name);
+  }
+
+  private _setCssProperty(name: string, value: string) {
+    this._hostElement.style.setProperty(name, value);
   }
 
   private _resolveScrollbarWidth(mode = this.mode) {
