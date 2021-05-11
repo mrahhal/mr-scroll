@@ -61,12 +61,27 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
       bottomThreshold: this.bottomThreshold,
     });
 
-    const delegatedEvents = ['scrolled', 'scrolledRaw', 'topReached', 'bottomReached', 'positionChanged', 'stateChanged'];
-    for (const e of delegatedEvents) {
-      (this._scroll[e]).subscribe((x: any) => {
-        this._zone.run(() => {
-          this[e].emit(x);
-        });
+    // Events that will normally trigger change detection.
+    const delegatedEvents = ['topReached', 'bottomReached', 'positionChanged', 'stateChanged'];
+    // Events that won't trigger change detection. Change detection should be handled by the consumer.
+    const delegatedEventsOutsideNgZone = ['scrolled'];
+
+    for (const eventName of delegatedEvents) {
+      (this._scroll[eventName]).subscribe((x: any) => {
+        const e = this[eventName] as EventEmitter<any>;
+        // Avoid calling zone.run if there are no subscribers to avoid triggering change detection
+        if (e.observers.length) {
+          this._zone.run(() => {
+            e.emit(x);
+          });
+        }
+      });
+    }
+
+    for (const eventName of delegatedEventsOutsideNgZone) {
+      (this._scroll[eventName]).subscribe((x: any) => {
+        const e = this[eventName] as EventEmitter<any>;
+        e.emit(x);
       });
     }
   }
