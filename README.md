@@ -9,6 +9,7 @@ The best custom scroll for the web.
 - Different modes: normal, overlay, hidden, show on hover, etc
 - Emits various events for you to handle (scrolled, top reached, bottom reached, etc)
 - Great for implementing infinite paging
+- Supports mobile browsers
 
 ## Frameworks
 
