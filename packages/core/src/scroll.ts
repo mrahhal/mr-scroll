@@ -89,6 +89,10 @@ export class Scroll {
 
   get scrollTop() { return this._contentElement.scrollTop; }
 
+  get position() { return this._position; }
+
+  get state() { return this._state; }
+
   get scrolled() { return this._scrolled.asObservable(); }
   get topReached() { return this._topReached.asObservable(); }
   get bottomReached() { return this._bottomReached.asObservable(); }
