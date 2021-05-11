@@ -27,8 +27,6 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() showOnHover?: boolean;
 
-  @Input() scrolledDebounce?: number;
-
   @Input() topThreshold?: number;
 
   @Input() bottomThreshold?: number;
@@ -60,7 +58,6 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
     this._scroll = new Scroll(this._el.nativeElement, this._content.nativeElement, {
       mode: this.mode,
       showOnHover: this.showOnHover,
-      scrolledDebounce: this.scrolledDebounce,
       topThreshold: this.topThreshold,
       bottomThreshold: this.bottomThreshold,
     });
