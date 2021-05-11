@@ -1,3 +1,25 @@
-.scroll-content-1 {
+:host {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 30px;
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  border: 1.5px solid #666;
+  border-radius: 3px;
+  background: #efe;
+}
+
+.content {
   height: 200px;
+}
+
+.content-item {
+  padding: 10px;
+
+  &:hover {
+    background: rgba(aqua, .4);
+  }
 }
