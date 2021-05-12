@@ -11,13 +11,17 @@ The best custom scroll for the web.
 - Great for implementing infinite paging
 - Supports mobile browsers
 
-## Frameworks
+## Packages
 
-We have the a [core package](./packages/core) that does the heavy lifting, but you'll probably want to use a framework wrapper from below:
+We have a [core package](./packages/core) that does the heavy lifting, but you'll probably want to use a framework wrapper from below:
 
-- [Angular](./packages/angular)
+- [Angular](./packages/angular): The wrapper package in Angular.
 
-Can't find your framework? This means we don't have a wrapper for it yet. Feel free to suggest/contribute.
+We also have extra support packages:
+
+- [css-theming](./packages/css-theming): A support package for styling the scrollbar according to the active theme when using [css-theming](https://github.com/mrahhal/css-theming).
+
+Can't find your framework? This means we don't have a wrapper for it yet. Feel free to suggest/contribute one.
 
 ## Samples
 
