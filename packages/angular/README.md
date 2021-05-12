@@ -5,13 +5,15 @@
 
 The best custom scroll for the web.
 
-This is the angular wrapper.
+This is the angular wrapper. [Check here](../..) (root of this repo) for an overview on mr-scroll.
 
 ## Install
 
 ```
-npm i @mr-scroll/angular
+npm i @mr-scroll/core @mr-scroll/angular
 ```
+
+Note: If you're using [css-theming](https://github.com/mrahhal/css-theming), check the [css-theming support package](../css-theming).
 
 ## Usage
 

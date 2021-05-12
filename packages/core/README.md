@@ -5,7 +5,7 @@
 
 The best custom scroll for the web.
 
-This is the core package. [Check here](../..) to use a framework wrapper.
+This is the core package. [Check here](../..) (root of this repo) for an overview on mr-scroll.
 
 ## Usage
 
