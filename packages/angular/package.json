@@ -42,10 +42,8 @@
   },
   "devDependencies": {
     "@angular/animations": "^11.0.0",
-    "@angular/common": "^11.0.0",
     "@angular/compiler": "^11.0.0",
     "@angular/compiler-cli": "^11.0.0",
-    "@angular/core": "^11.0.0",
     "@angular/platform-browser": "^11.0.0",
     "@angular/platform-browser-dynamic": "^11.0.0",
     "@mr-scroll/core": "file:../core",
@@ -54,7 +52,6 @@
     "check-peer-dependencies": "^4.0.0",
     "eslint": "^7.25.0",
     "ng-packagr": "^11.0.0",
-    "rxjs": ">=6.0.0",
     "sass": "^1.32.12",
     "ts-node": "9.1.1",
     "tslib": "^2.2.0",
