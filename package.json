@@ -1,6 +1,6 @@
 {
-  "name": "root",
   "private": true,
-  "devDependencies": {
-  }
+  "workspaces": [
+    "packages/*"
+  ]
 }
