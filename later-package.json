@@ -1,0 +1,11 @@
+// To be used later for workspaces. But right now, this for some reason
+// is causing weird problems locally with using ScrollModule in the
+// angular sample.
+// https://github.com/npm/rfcs/blob/latest/implemented/0026-workspaces.md
+// https://docs.npmjs.com/cli/v7/using-npm/workspaces#installing-workspaces
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
