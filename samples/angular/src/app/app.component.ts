@@ -1,4 +1,5 @@
 import { Component, DoCheck } from '@angular/core';
+import { getCurrentTheme, getTheme, initializeTheming, setTheme } from 'css-theming';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,19 @@ export class AppComponent implements DoCheck {
   values: number[] = [];
 
   constructor() {
+    // css-theming stuff
+    initializeTheming();
+    document.addEventListener('keypress', e => {
+      if (e.defaultPrevented) return;
+
+      if (e.key === 't') {
+        const previousTheme = getCurrentTheme();
+        const newTheme = previousTheme.name == 'default' ? 'default-dark' : 'default';
+        setTheme(getTheme(newTheme));
+      }
+    });
+    //-------------------
+
     for (let i = 0; i < 10; i++) {
       this.values.push(i);
     }

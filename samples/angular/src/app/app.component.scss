@@ -7,9 +7,9 @@
 .container {
   display: flex;
   flex-flow: column;
-  border: 1.5px solid #666;
+  border: 1.5px solid var(--bd);
   border-radius: 3px;
-  background: #efe;
+  background: var(--fg-0);
 }
 
 .content {
@@ -20,6 +20,6 @@
   padding: 10px;
 
   &:hover {
-    background: rgba(aqua, .4);
+    background: var(--bg);
   }
 }

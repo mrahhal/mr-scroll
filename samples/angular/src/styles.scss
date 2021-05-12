@@ -1,3 +1,11 @@
+@import '../node_modules/css-theming/src/scss/css-theming';
+@import '../node_modules/@mr-scroll/css-theming/src/scss/css-theming';
+
+// You can optionally provide the $thumb-color-light and $thumb-color-dark variables.
+// These default to #aaa and white respectively.
+@include msct-apply();
+
 html {
   font-family: Camphor, Open Sans, Segoe UI, sans-serif;
+  overflow-x: hidden;
 }
