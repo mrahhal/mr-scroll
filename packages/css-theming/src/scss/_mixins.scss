@@ -1,0 +1,7 @@
+@use '../../node_modules/css-theming/src/scss/themes';
+
+@mixin apply($thumb-color-light: #aaa, $thumb-color-dark: white) {
+  @include themes.themes-apply {
+    --mr-scroll-thumb-color: #{if(themes.$brightness == 'light', $thumb-color-light, $thumb-color-dark)};
+  }
+}
