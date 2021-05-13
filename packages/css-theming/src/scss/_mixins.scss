@@ -1,7 +1,13 @@
+@use 'sass:string';
 @use '../../node_modules/css-theming/src/scss/themes';
 
-@mixin apply($thumb-color-light: #aaa, $thumb-color-dark: white) {
+@mixin apply(
+  $thumb-color-light: #aaa,
+  $thumb-color-dark: white,
+  $hidden-content-gradient-color-light: "255, 255, 255",
+  $hidden-content-gradient-color-dark: "0, 0, 0") {
   @include themes.themes-apply {
     --mr-scroll-thumb-color: #{if(themes.$brightness == 'light', $thumb-color-light, $thumb-color-dark)};
+    --mr-scroll-hidden-content-indicator-gradient-color: #{if(themes.$brightness == 'light', string.unquote($hidden-content-gradient-color-light), string.unquote($hidden-content-gradient-color-dark))};
   }
 }

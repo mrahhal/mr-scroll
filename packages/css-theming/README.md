@@ -7,7 +7,7 @@ The best custom scroll for the web.
 
 This is the [css-theming](https://github.com/mrahhal/css-theming) support package. [Check here](../..) (root of this repo) for an overview on mr-scroll.
 
-This package styles the scrollbar according to the active theme when using [css-theming](https://github.com/mrahhal/css-theming).
+This package styles the scroll (thumb, etc) according to the active theme when using [css-theming](https://github.com/mrahhal/css-theming).
 
 ## Install
 
@@ -27,8 +27,9 @@ You only need to import the scss file that this package provides in our global s
 // From @mr-scroll/css-theming
 @import '../node_modules/@mr-scroll/css-theming/src/scss/css-theming';
 
-// You can optionally provide the $thumb-color-light and $thumb-color-dark variables.
-// These default to #aaa and white respectively.
+// You can optionally override some values by providing arguments here.
+// For example, the $thumb-color-light and $thumb-color-dark variables,
+// which default to #aaa and white respectively.
 @include msct-apply();
 ```
 
