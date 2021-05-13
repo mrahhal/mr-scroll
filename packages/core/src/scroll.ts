@@ -98,6 +98,8 @@ export class Scroll {
 
   get position() { return this._position; }
 
+  get positionAbsolute() { return this._positionAbsolute; }
+
   get state() { return this._state; }
 
   get scrolled() { return this._scrolled.asObservable(); }
