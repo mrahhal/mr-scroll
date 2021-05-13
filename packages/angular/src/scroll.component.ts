@@ -54,6 +54,8 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
     private _zone: NgZone,
   ) { }
 
+  get scrollTop() { return this._scroll.scrollTop; }
+
   get position() { return this._scroll.position; }
 
   get positionAbsolute() { return this._scroll.positionAbsolute; }
