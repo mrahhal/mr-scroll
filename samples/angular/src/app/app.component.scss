@@ -1,6 +1,6 @@
 :host {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
   gap: 30px;
 }
 
@@ -27,7 +27,7 @@
 .example-note {
   margin-top: 5px;
   padding: 4px 8px;
-  background: var(--bg);
+  background: var(--fg-0);
   border-left: 2px solid var(--info);
   border-radius: 2px;
 }
@@ -42,4 +42,8 @@
   &:hover {
     background: var(--bg);
   }
+}
+
+.content-item + .content-item {
+  border-top: 1px solid var(--bd);
 }
