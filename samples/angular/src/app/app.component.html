@@ -1,25 +1,37 @@
-<div class="container">
-  <mr-scroll mode="scroll" (topReached)="_onTopReached()">
-    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-  </mr-scroll>
+<div class="example">
+  <div class="example-title">Normal scroll</div>
+  <div class="example-content">
+    <mr-scroll mode="scroll" (topReached)="_onTopReached()">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </mr-scroll>
+  </div>
 </div>
 
-<div class="container">
-  <mr-scroll mode="overlay" (scrolled)="_onScrolled()">
-    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-  </mr-scroll>
+<div class="example">
+  <div class="example-title">Overlay</div>
+  <div class="example-content">
+    <mr-scroll mode="overlay" (scrolled)="_onScrolled()">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </mr-scroll>
+  </div>
 </div>
 
-<div class="container">
-  <mr-scroll mode="hidden">
-    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-  </mr-scroll>
+<div class="example">
+  <div class="example-title">Hidden</div>
+  <div class="example-content">
+    <mr-scroll mode="hidden">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </mr-scroll>
+  </div>
 </div>
 
-<div class="container">
-  <mr-scroll [showOnHover]="true">
-    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-  </mr-scroll>
+<div class="example">
+  <div class="example-title">Show on hover</div>
+  <div class="example-content">
+    <mr-scroll [showOnHover]="true">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </mr-scroll>
+  </div>
 </div>
 
 <ng-template #contentTemplate>

@@ -4,12 +4,32 @@
   gap: 30px;
 }
 
-.container {
+.example {
   display: flex;
   flex-flow: column;
+}
+
+.example-title {
+  padding: 6px 2px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.example-content {
+  flex: 1;
+  flex-grow: 0;
   border: 1.5px solid var(--bd);
   border-radius: 3px;
   background: var(--fg-0);
+}
+
+.example-note {
+  margin-top: 5px;
+  padding: 4px 8px;
+  background: var(--bg);
+  border-left: 2px solid var(--info);
+  border-radius: 2px;
 }
 
 .content {
