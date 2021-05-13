@@ -10,6 +10,13 @@ The best custom scroll for the web.
 - Emits various events for you to handle (scrolled, top reached, bottom reached, etc)
 - Great for implementing infinite paging
 - Supports mobile browsers
+- Hidden content gradient indicators
+
+And more! Check the demo for a deeper look.
+
+## Demo
+
+[TODO]
 
 ## Packages
 
