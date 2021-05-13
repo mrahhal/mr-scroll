@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { getScrollbarWidth, isScrollbarStylingSupported } from './support';
 
 export type ScrollMode = 'scroll' | 'overlay' | 'hidden';
-export type ScrollPosition = 'top' | 'middle' | 'bottom' | 'full';
+export type ScrollPosition = 'start' | 'middle' | 'end' | 'full';
 export type ScrollState = 'hidden' | 'scrolling';
 
 export interface ScrollConfig {
@@ -39,8 +39,8 @@ export class Scroll {
   private _ro: ResizeObserver = null!;
   private _marginsProcessed = false;
   private _browserScrollWidth: number;
-  private _position: ScrollPosition = 'top';
-  private _positionAbsolute: ScrollPosition = 'top'; // Position without thresholds
+  private _position: ScrollPosition = 'start';
+  private _positionAbsolute: ScrollPosition = 'start'; // Position without thresholds
   private _state: ScrollState = 'hidden';
   private _scrollRatio = 0;
   private _scrollTop: number | null = null;
@@ -115,8 +115,8 @@ export class Scroll {
     // Setup subjects
     this.positionChanged.subscribe((position: ScrollPosition) => {
       switch (position) {
-        case 'top': this._topReached.next(); break;
-        case 'bottom': this._bottomReached.next(); break;
+        case 'start': this._topReached.next(); break;
+        case 'end': this._bottomReached.next(); break;
       }
     });
 
@@ -217,13 +217,13 @@ export class Scroll {
         } else {
           const isTop = scrollTop <= topThreshold;
           if (isTop) {
-            p = 'top';
+            p = 'start';
           }
 
           if (!isTop) {
             const attainedHeight = scrollTop + ownHeight + bottomThreshold;
             if (attainedHeight >= totalHeight) {
-              p = 'bottom';
+              p = 'end';
             }
           }
         }
@@ -303,7 +303,7 @@ export class Scroll {
         setClasses(null);
         break;
 
-      case 'top':
+      case 'start':
         setClasses(['end']);
         break;
 
@@ -311,7 +311,7 @@ export class Scroll {
         setClasses(['start', 'end']);
         break;
 
-      case 'bottom':
+      case 'end':
         setClasses(['start']);
         break;
     }
