@@ -1,4 +1,5 @@
 @import '../../node_modules/@mr-scroll/core/src/scss/pure';
+@import '../../node_modules/@mr-scroll/css-theming/src/scss/css-theming';
 
 .app-root {
   position: fixed;
@@ -34,6 +35,12 @@
   border: 1.5px solid var(--bd);
   border-radius: 3px;
   background: var(--fg-0);
+
+  > .mr-scroll {
+    // We're using css-theming so we can simply give this the variable for fg-0.
+    // Of course, you can set the colors to whatever you like.
+    @include msct-apply-hidden-content-gradient-color(var(--fg-0-rgb), var(--fg-0-rgb));
+  }
 }
 
 .example-note {
