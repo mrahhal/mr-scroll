@@ -1,8 +1,13 @@
-:host {
+@import '../../node_modules/@mr-scroll/core/src/scss/pure';
+
+.app-root {
   position: fixed;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  display: flex;
+  @include msc-flex-adaptive-container();
+  @include msc-scroll-pad-content(10px);
 }
 
 .examples {
