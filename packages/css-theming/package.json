@@ -22,6 +22,6 @@
     "src/scss"
   ],
   "peerDependencies": {
-    "css-theming": ">=1.3.0"
+    "css-theming": ">=1.5.0"
   }
 }
