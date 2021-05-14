@@ -1,0 +1,15 @@
+@mixin flex-adaptive-container($flex: true) {
+  @if ($flex == true) {
+    flex: 1;
+  }
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-flow: column;
+}
+
+@mixin scroll-pad-content($padding) {
+  > .mr-scroll > .mr-scroll_content {
+    padding: $padding;
+  }
+}

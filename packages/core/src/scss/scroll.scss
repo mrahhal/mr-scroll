@@ -1,3 +1,5 @@
+@use 'mixins' as *;
+
 :root {
   --mr-scroll-width-normal: 12px;
   --mr-scroll-width-overlay: 8px;
@@ -7,14 +9,6 @@
   --mr-scroll-hidden-content-indicator-gradient-color: 255, 255, 255;
 }
 
-@mixin mr-scroll-flex-adaptive() {
-  flex: 1;
-  min-width: 0;
-  min-height: 0;
-  display: flex;
-  flex-flow: column;
-}
-
 .mr-scroll {
   --mr-scroll-hidden-content-indicator-gradient-content: rgba(var(--mr-scroll-hidden-content-indicator-gradient-color), 0) 0%, rgba(var(--mr-scroll-hidden-content-indicator-gradient-color), 1) 100%;
   --mr-scroll-hidden-content-indicator-top: linear-gradient(to top, var(--mr-scroll-hidden-content-indicator-gradient-content));
@@ -22,7 +16,7 @@
   --mr-scroll-hidden-content-indicator-bottom: linear-gradient(to bottom, var(--mr-scroll-hidden-content-indicator-gradient-content));
   --mr-scroll-hidden-content-indicator-left: linear-gradient(to left, var(--mr-scroll-hidden-content-indicator-gradient-content));
 
-  @include mr-scroll-flex-adaptive();
+  @include flex-adaptive-container();
   overflow: hidden;
   position: relative;
 
@@ -116,11 +110,11 @@
 }
 
 .mr-scroll_content::-webkit-scrollbar {
-  width: var(--mr-scroll-width-scroll);
+  width: var(--mr-scroll-width-normal);
 }
 
 .mr-scroll_content {
-  @include mr-scroll-flex-adaptive();
+  @include flex-adaptive-container();
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
