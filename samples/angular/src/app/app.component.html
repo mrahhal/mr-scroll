@@ -3,7 +3,7 @@
     <div class="example">
       <div class="example-title">Normal</div>
       <div class="example-content">
-        <mr-scroll mode="scroll" (topReached)="_onTopReached()">
+        <mr-scroll mode="normal" (topReached)="_onTopReached()">
           <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         </mr-scroll>
       </div>
@@ -27,7 +27,7 @@
     <div class="example">
       <div class="example-title">Show on hover</div>
       <div class="example-content">
-        <mr-scroll [showOnHover]="true">
+        <mr-scroll mode="overlay" [showOnHover]="true">
           <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         </mr-scroll>
       </div>
@@ -35,7 +35,7 @@
     <div class="example">
       <div class="example-title">Show hidden content indicator</div>
       <div class="example-content">
-        <mr-scroll mode="scroll" [showHiddenContentIndicator]="true">
+        <mr-scroll [showHiddenContentIndicator]="true">
           <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         </mr-scroll>
       </div>

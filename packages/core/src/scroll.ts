@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import { getScrollbarWidth, isScrollbarStylingSupported } from './support';
 
-export type ScrollMode = 'scroll' | 'overlay' | 'hidden';
+export type ScrollMode = 'normal' | 'overlay' | 'hidden';
 export type ScrollPosition = 'start' | 'middle' | 'end' | 'full';
 export type ScrollState = 'hidden' | 'scrolling';
 
@@ -16,7 +16,7 @@ export interface ScrollConfig {
 }
 
 const DEFAULT_CONFIG: ScrollConfig = {
-  mode: 'overlay',
+  mode: 'normal',
   topThreshold: 50,
   bottomThreshold: 50,
   showOnHover: false,
@@ -73,7 +73,7 @@ export class Scroll {
       this._hostElement.classList.add(`${HOST_CLASS}--show-on-hover`);
     }
 
-    if (config.mode == 'scroll' && !isScrollbarStylingSupported()) {
+    if (config.mode == 'normal' && !isScrollbarStylingSupported()) {
       // We can't support 'scroll' mode if scrollbar styling isn't supported by the browser
       config.mode = 'overlay';
       _contentElement.classList.add(`${CONTENT_CLASS}--overlay-fallback`);
@@ -352,7 +352,7 @@ export class Scroll {
 
   private _resolveBrowserScrollbarWidth() {
     if (isScrollbarStylingSupported()) {
-      return this._resolveScrollbarWidth('scroll') as number;
+      return this._resolveScrollbarWidth('normal') as number;
     } else {
       return getScrollbarWidth();
     }
