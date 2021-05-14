@@ -4,15 +4,15 @@ The best custom scroll for the web.
 
 ## Features
 
-- Custom scrollbar with fully supported styling
-- Uses the native browser scrollbar behind the scenes -> smooth scrolling experience, follows the behavior of the browser you're using
-- Different modes: normal, overlay, hidden, show on hover, etc
-- Emits various events for you to handle (scrolled, top reached, bottom reached, etc)
+- Custom scrollbar with full styling
+- Uses the native browser scrollbar behind the scenes -> smooth scrolling experience, follows the behavior you're used to
+- Different modes: normal, overlay, hidden
+- Emits various useful events you can handle (scrolled, state changed, position changed, top reached, bottom reached, etc)
 - Great for implementing infinite paging
+- Hidden content indicators (shows a gradient to indicate there's hidden content out of view)
 - Supports mobile browsers
-- Hidden content gradient indicators
 
-And more! Check the demo for a deeper look.
+And finally, we have efficient and idiomatic wrapper packages for popular frameworks (as of now: angular).
 
 ## Demo
 
@@ -20,15 +20,14 @@ And more! Check the demo for a deeper look.
 
 ## Packages
 
-We have a [core package](./packages/core) that does the heavy lifting, but you'll probably want to use a framework wrapper from below:
-
+- [Core](./packages/core): The core package. This does the heavy lifting.
 - [Angular](./packages/angular): The wrapper package in Angular.
+
+Can't find your framework? This means we don't have a wrapper for it just yet. Feel free to suggest/contribute one.
 
 We also have extra support packages:
 
 - [css-theming](./packages/css-theming): A support package for styling the scrollbar according to the active theme when using [css-theming](https://github.com/mrahhal/css-theming).
-
-Can't find your framework? This means we don't have a wrapper for it yet. Feel free to suggest/contribute one.
 
 ## Samples
 
