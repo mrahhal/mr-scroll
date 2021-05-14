@@ -1,6 +1,13 @@
 :host {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.examples {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 30px;
 }
 
