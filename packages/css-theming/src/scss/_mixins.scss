@@ -1,13 +1,43 @@
-@use 'sass:string';
 @use '../../node_modules/css-theming/src/scss/themes';
 
-@mixin apply(
-  $thumb-color-light: #aaa,
-  $thumb-color-dark: white,
-  $hidden-content-gradient-color-light: "255, 255, 255",
-  $hidden-content-gradient-color-dark: "0, 0, 0") {
+@mixin apply-thumb-color(
+  $thumb-color-light: null,
+  $thumb-color-dark: null,
+) {
+  @if ($thumb-color-light == null) {
+    $thumb-color-light: #aaa;
+  }
+  @if ($thumb-color-dark == null) {
+    $thumb-color-dark: white;
+  }
+
   @include themes.themes-apply {
     --mr-scroll-thumb-color: #{if(themes.$brightness == 'light', $thumb-color-light, $thumb-color-dark)};
-    --mr-scroll-hidden-content-indicator-gradient-color: #{if(themes.$brightness == 'light', string.unquote($hidden-content-gradient-color-light), string.unquote($hidden-content-gradient-color-dark))};
   }
+}
+
+@mixin apply-hidden-content-gradient-color(
+  $hidden-content-gradient-color-light: null,
+  $hidden-content-gradient-color-dark: null,
+) {
+  @if ($hidden-content-gradient-color-light == null) {
+    $hidden-content-gradient-color-light: 255, 255, 255;
+  }
+  @if ($hidden-content-gradient-color-dark == null) {
+    $hidden-content-gradient-color-dark: 0, 0, 0;
+  }
+
+  @include themes.themes-apply {
+    --mr-scroll-hidden-content-indicator-gradient-color: #{if(themes.$brightness == 'light', $hidden-content-gradient-color-light, $hidden-content-gradient-color-dark)};
+  }
+}
+
+@mixin apply(
+  $thumb-color-light: null,
+  $thumb-color-dark: null,
+  $hidden-content-gradient-color-light: null,
+  $hidden-content-gradient-color-dark: null,
+) {
+  @include apply-thumb-color($thumb-color-light, $thumb-color-dark);
+  @include apply-hidden-content-gradient-color($hidden-content-gradient-color-light, $hidden-content-gradient-color-dark);
 }

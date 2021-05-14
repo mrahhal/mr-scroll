@@ -27,9 +27,7 @@ You only need to import the scss file that this package provides in our global s
 // From @mr-scroll/css-theming
 @import '../node_modules/@mr-scroll/css-theming/src/scss/css-theming';
 
-// You can optionally override some values by providing arguments here.
-// For example, the $thumb-color-light and $thumb-color-dark variables,
-// which default to #aaa and white respectively.
+// You can optionally provide values here
 @include msct-apply();
 ```
 
