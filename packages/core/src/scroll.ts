@@ -31,6 +31,9 @@ const HOST_HIDDEN_CONTENT_END_CLASS = `${HOST_CLASS}--hidden-content-end`;
 const CONTENT_CLASS = `${HOST_CLASS}_content`;
 const BAR_CLASS = `${HOST_CLASS}_bar`;
 
+/**
+ * The core class that implements the custom scroll logic.
+ */
 export class Scroll {
   private _config: ScrollConfig;
   private _barElement: HTMLElement;
@@ -113,6 +116,9 @@ export class Scroll {
 
   private get _totalHeight() { return this._contentElement.scrollHeight; }
 
+  /**
+   * Initializes the scroll.
+   */
   initialize() {
     // Setup subjects
     this.positionChanged.subscribe((position: ScrollPosition) => {
@@ -182,6 +188,10 @@ export class Scroll {
     this.update();
   }
 
+  /**
+   * Destroys the scroll. It's required to call this after you finish using the scroll
+   * so that it can properly deallocate resources and clean after itself.
+   */
   destroy() {
     this._contentElement.removeEventListener('scroll', this._boundUpdate);
     this._contentElement.removeEventListener('mouseenter', this._boundUpdate);
@@ -197,6 +207,10 @@ export class Scroll {
     this._stateChanged.complete();
   }
 
+  /**
+   * Updates the scroll's state. Usually you don't need to call this manually as the scroll detects and updates
+   * itself automatically whenever it needs to.
+   */
   update() {
     requestAnimationFrame(() => {
       const totalHeight = this._totalHeight;
@@ -261,10 +275,8 @@ export class Scroll {
       return;
     }
 
-    if (stateChanged) {
-      if (state == 'scrolling') {
-        this._addMargins();
-      }
+    if (stateChanged && state == 'scrolling') {
+      this._addMargins();
     }
 
     this._position = position;
