@@ -38,6 +38,8 @@ Use `mr-scroll` component:
 </mr-scroll>
 ```
 
+> NOTE: For more general usage info check the [README](../..) in the root of this repo.
+
 ## Release notes
 
 ### 0.1.0
