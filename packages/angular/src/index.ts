@@ -1,2 +1,2 @@
 export * from './scroll.component';
-export * from './ScrollModule';
+export * from './scroll.module';

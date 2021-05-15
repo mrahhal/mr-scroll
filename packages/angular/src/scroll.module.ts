@@ -3,15 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { ScrollComponent } from './scroll.component';
 
+const exportedDeclarations = [
+  ScrollComponent,
+];
+
 @NgModule({
   imports: [
     CommonModule,
   ],
-  declarations: [
-    ScrollComponent,
-  ],
-  exports: [
-    ScrollComponent,
-  ],
+  declarations: exportedDeclarations,
+  exports: exportedDeclarations,
 })
 export class ScrollModule { }
