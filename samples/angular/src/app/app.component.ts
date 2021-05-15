@@ -25,7 +25,7 @@ export class AppComponent implements DoCheck {
         setTheme(getTheme(newTheme));
       }
     });
-    //-------------------
+    //------------------
 
     for (let i = 0; i < 10; i++) {
       this.values.push(i);
@@ -44,7 +44,7 @@ export class AppComponent implements DoCheck {
   _onScrolled() {
     console.log('_onScrolled');
 
-    // This event doesn't run inside angular on purpose for performance.
-    // To trigger change detection you should call `zone.run()`.
+    // This event doesn't trigger change detection on purpose for performance reasons.
+    // To trigger change detection you should call `NgZone.run()`.
   }
 }

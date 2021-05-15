@@ -21,7 +21,7 @@ Import `ScrollModule` into your module.
 
 [Example from sample here.](https://github.com/mrahhal/mr-scroll/blob/f2ca71702f9916f0b0a70b65e61a536506879bf3/samples/angular/src/app/app.module.ts#L13)
 
-Import the css styles in `angular.json`, in projects>angular>architect>build>options>styles:
+Import the CSS styles in `angular.json`, in projects>angular>architect>build>options>styles:
 ```json
 "styles": [
   //...
@@ -38,7 +38,19 @@ Use `mr-scroll` component:
 </mr-scroll>
 ```
 
-> NOTE: For more general usage info check the [README](../..) in the root of this repo.
+> For more general usage info check the [README](../..) in the root of this repo.
+
+**NOTE:** The `scrolled` event is the only event that won't trigger change detection. This is by design as it's fired a lot. If you need change detection when you react to it, you can do this easily by using `NgZone`:
+```ts
+// Inject NgZone in your component
+constructor(private _zone: NgZone) { }
+
+_onScrolled() {
+  _zone.Run(() => {
+    // Handle the event
+  });
+}
+```
 
 ## Release notes
 
