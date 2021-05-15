@@ -4,7 +4,7 @@ The best custom scroll for the web.
 
 ## Features
 
-- Custom scrollbar with full styling
+- Custom scrollbar with full easy CSS styling
 - Uses the native browser scrollbar behind the scenes -> smooth scrolling experience, follows the behavior you're used to
 - Different modes: normal, overlay, hidden
 - Emits various useful events you can handle (scrolled, state changed, position changed, top reached, bottom reached, etc)
@@ -25,7 +25,9 @@ And finally, we have efficient and idiomatic wrapper packages for popular framew
 
 Can't find your framework? This means we don't have a wrapper for it just yet. Feel free to suggest/contribute one.
 
-We also have extra support packages:
+### Support packages
+
+We also have support packages:
 
 - [css-theming](./packages/css-theming): A support package for styling the scrollbar according to the active theme when using [css-theming](https://github.com/mrahhal/css-theming).
 
