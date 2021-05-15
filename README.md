@@ -21,7 +21,7 @@ And finally, we have efficient and idiomatic wrapper packages for popular framew
 ## Packages
 
 - [Core](./packages/core): The core package. This does the heavy lifting.
-- [Angular](./packages/angular): The wrapper package in Angular.
+- [Angular](./packages/angular): The wrapper package for Angular.
 
 Can't find your framework? This means we don't have a wrapper for it just yet. Feel free to suggest/contribute one.
 
