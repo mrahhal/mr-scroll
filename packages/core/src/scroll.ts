@@ -254,6 +254,8 @@ export class Scroll {
       if (newPosition == 'full') {
         this._hostElement.classList.add(HOST_HIDDEN_CLASS);
       } else {
+        this._hostElement.classList.remove(HOST_HIDDEN_CLASS);
+
         const cssText =
           `height:${height}%;` +
           `top:${top}%;`;
