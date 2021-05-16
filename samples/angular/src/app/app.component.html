@@ -1,55 +1,8 @@
-<mr-scroll>
-  <div class="examples">
-    <div class="example">
-      <div class="example-title">Normal</div>
-      <div class="example-content">
-        <mr-scroll mode="normal" (topReached)="_onTopReached()">
-          <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        </mr-scroll>
-      </div>
-    </div>
-    <div class="example">
-      <div class="example-title">Overlay</div>
-      <div class="example-content">
-        <mr-scroll mode="overlay" (scrolled)="_onScrolled()">
-          <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        </mr-scroll>
-      </div>
-    </div>
-    <div class="example">
-      <div class="example-title">Hidden</div>
-      <div class="example-content">
-        <mr-scroll mode="hidden">
-          <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        </mr-scroll>
-      </div>
-    </div>
-    <div class="example">
-      <div class="example-title">Show on hover</div>
-      <div class="example-content">
-        <mr-scroll mode="overlay" [showOnHover]="true">
-          <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        </mr-scroll>
-      </div>
-    </div>
-    <div class="example">
-      <div class="example-title">Hidden content indicator</div>
-      <div class="example-content">
-        <mr-scroll [showHiddenContentIndicator]="true">
-          <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        </mr-scroll>
-      </div>
-      <div class="example-note">
-        This shows a gradient over the top/bottom side when there's scroll and content is hidden.
-      </div>
-    </div>
-  </div>
-</mr-scroll>
-
-<ng-template #contentTemplate>
-  <div class="content">
-    <div *ngFor="let item of values" class="content-item">
-      Item #{{item}}
-    </div>
-  </div>
-</ng-template>
+<div class="layout-nav">
+  <div [class.active]="page == 'general'" (click)="setPage('general')">General</div>
+  <div [class.active]="page == 'full-page'" (click)="setPage('full-page')">Full page</div>
+</div>
+<div class="layout-page">
+  <general *ngIf="page == 'general'"></general>
+  <full-page *ngIf="page == 'full-page'"></full-page>
+</div>

@@ -1,0 +1,57 @@
+<div class="general-examples">
+  <div class="general-example">
+    <div class="general-example-title">Normal</div>
+    <div class="general-example-content">
+      <mr-scroll mode="normal" (topReached)="_onTopReached()">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </mr-scroll>
+    </div>
+  </div>
+
+  <div class="general-example">
+    <div class="general-example-title">Overlay</div>
+    <div class="general-example-content">
+      <mr-scroll mode="overlay" (scrolled)="_onScrolled()">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </mr-scroll>
+    </div>
+  </div>
+
+  <div class="general-example">
+    <div class="general-example-title">Hidden</div>
+    <div class="general-example-content">
+      <mr-scroll mode="hidden">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </mr-scroll>
+    </div>
+  </div>
+
+  <div class="general-example">
+    <div class="general-example-title">Show on hover</div>
+    <div class="general-example-content">
+      <mr-scroll mode="overlay" [showOnHover]="true">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </mr-scroll>
+    </div>
+  </div>
+
+  <div class="general-example">
+    <div class="general-example-title">Hidden content indicator</div>
+    <div class="general-example-content">
+      <mr-scroll [showHiddenContentIndicator]="true">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </mr-scroll>
+    </div>
+    <div class="general-example-note">
+      This shows a gradient over the top/bottom side when there's scroll and content is hidden.
+    </div>
+  </div>
+</div>
+
+<ng-template #contentTemplate>
+  <div class="general-content">
+    <div *ngFor="let item of values" class="general-content-item">
+      Item #{{item}}
+    </div>
+  </div>
+</ng-template>

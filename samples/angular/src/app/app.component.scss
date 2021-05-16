@@ -1,5 +1,4 @@
 @import '../../node_modules/@mr-scroll/core/src/scss/pure';
-@import '../../node_modules/@mr-scroll/css-theming/src/scss/css-theming';
 
 .app-root {
   position: fixed;
@@ -8,61 +7,30 @@
   width: 100%;
   height: 100%;
   @include msc-flex-adaptive-container();
-  @include msc-scroll-pad-content(10px);
 }
 
-.examples {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
-}
-
-.example {
+.layout-nav {
+  flex-shrink: 0;
   display: flex;
-  flex-flow: column;
+  flex-flow: row wrap;
+  gap: 10px;
+  border-bottom: 1px solid var(--bd);
+
+  > * {
+    cursor: pointer;
+    padding: 8px 4px;
+    opacity: .5;
+
+    &.active {
+      pointer-events: none;
+      color: var(--primary);
+      opacity: 1;
+    }
+  }
 }
 
-.example-title {
-  padding: 6px 2px;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.example-content {
+.layout-page {
   flex: 1;
-  flex-grow: 0;
-  border: 1.5px solid var(--bd);
-  border-radius: 3px;
-  background: var(--fg-0);
-
-  > .mr-scroll {
-    // We're using css-theming so we can simply give this the variable for fg-0.
-    // Of course, you can set the colors to whatever you like.
-    @include msct-apply-hidden-content-gradient-color(var(--fg-0-rgb), var(--fg-0-rgb));
-  }
-}
-
-.example-note {
-  margin-top: 10px;
-  padding: 4px 8px;
-  background: var(--fg-0);
-  border-left: 2px solid var(--info);
-  border-radius: 2px;
-}
-
-.content {
-  height: 200px;
-}
-
-.content-item {
-  padding: 10px;
-
-  &:hover {
-    background: var(--bg);
-  }
-}
-
-.content-item + .content-item {
-  border-top: 1px solid var(--bd);
+  position: relative;
+  @include msc-flex-adaptive-container();
 }

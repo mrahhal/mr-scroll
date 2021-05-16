@@ -1,0 +1,67 @@
+@import '../../../node_modules/@mr-scroll/core/src/scss/pure';
+@import '../../../node_modules/@mr-scroll/css-theming/src/scss/css-theming';
+
+.general {
+  @include msc-flex-adaptive-container();
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.general-examples {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+.general-example {
+  display: flex;
+  flex-flow: column;
+}
+
+.general-example-title {
+  padding: 6px 2px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.general-example-content {
+  border: 1.5px solid var(--bd);
+  border-radius: 3px;
+  background: var(--fg-0);
+
+  // Sometimes we'll have to add `overflow: hidden` to mr-scroll's parent.
+  // This is because mr-scroll's size might go outside of what you see visually, because it uses the native browser scroll inside.
+  // The extra size can sometimes cause issues, this ensures the box size is clipped to what you can see.
+  overflow: hidden;
+
+  > .mr-scroll {
+    // We're using css-theming so we can simply give this the variable for fg-0.
+    // Of course, you can set the colors to whatever you like.
+    @include msct-apply-hidden-content-gradient-color(var(--fg-0-rgb), var(--fg-0-rgb));
+  }
+}
+
+.general-example-note {
+  margin-top: 10px;
+  padding: 4px 8px;
+  background: var(--fg-0);
+  border-left: 2px solid var(--info);
+  border-radius: 2px;
+}
+
+.general-content {
+  height: 200px;
+}
+
+.general-content-item {
+  padding: 10px;
+
+  &:hover {
+    background: var(--bg);
+  }
+}
+
+.general-content-item + .general-content-item {
+  border-top: 1px solid var(--bd);
+}

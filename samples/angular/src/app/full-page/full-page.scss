@@ -1,0 +1,33 @@
+@import '../../../node_modules/@mr-scroll/core/src/scss/pure';
+@import '../../../node_modules/@mr-scroll/css-theming/src/scss/css-theming';
+
+.full-page {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  @include msc-flex-adaptive-container();
+  flex-flow: row;
+}
+
+.full-page-sidebar {
+  width: 150px;
+  @include msc-flex-adaptive-container($flex: false);
+  background: var(--indigo);
+  @include msc-scroll-pad-content(10px);
+  overflow: hidden;
+
+  > .mr-scroll {
+    @include msct-apply-hidden-content-gradient-color(var(--indigo-rgb), var(--indigo-rgb));
+  }
+}
+
+.full-page-sidebar-item {
+  padding: 8px 4px;
+}
+
+.full-page-content {
+  @include msc-flex-adaptive-container();
+  @include msc-scroll-pad-content(10px);
+}

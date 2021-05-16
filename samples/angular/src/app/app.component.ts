@@ -11,7 +11,7 @@ import { getCurrentTheme, getTheme, initializeTheming, setTheme } from 'css-them
   },
 })
 export class AppComponent implements DoCheck {
-  values: number[] = [];
+  page: 'general' | 'full-page' = 'general';
 
   constructor() {
     // css-theming stuff
@@ -26,10 +26,6 @@ export class AppComponent implements DoCheck {
       }
     });
     //------------------
-
-    for (let i = 0; i < 10; i++) {
-      this.values.push(i);
-    }
   }
 
   ngDoCheck() {
@@ -37,14 +33,7 @@ export class AppComponent implements DoCheck {
     console.log('ngDoCheck');
   }
 
-  _onTopReached() {
-    console.log('_onTopReached');
-  }
-
-  _onScrolled() {
-    console.log('_onScrolled');
-
-    // This event doesn't trigger change detection on purpose for performance reasons.
-    // To trigger change detection you should call `NgZone.run()`.
+  setPage(page: 'general' | 'full-page') {
+    this.page = page;
   }
 }
