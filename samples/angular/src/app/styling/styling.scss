@@ -17,6 +17,7 @@
   border: 1.5px solid var(--bd);
   border-radius: 3px;
   background: var(--fg-0);
+  overflow: hidden;
 
   &-1 {
     --mr-scroll-thumb-color: var(--primary);
@@ -31,17 +32,6 @@
     --mr-scroll-thumb-color: var(--green);
     --mr-scroll-track-color: var(--green-50);
   }
-}
-
-.styling-example-content {
-  border: 1.5px solid var(--bd);
-  border-radius: 3px;
-  background: var(--fg-0);
-
-  // Sometimes we'll have to add `overflow: hidden` to mr-scroll's parent.
-  // This is because mr-scroll's size might go outside of what you see visually, because it uses the native browser scroll inside.
-  // The extra size can sometimes cause issues, this ensures the box size is clipped to what you can see.
-  overflow: hidden;
 }
 
 .styling-content {
