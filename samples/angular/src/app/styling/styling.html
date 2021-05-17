@@ -1,0 +1,27 @@
+<div class="styling-examples">
+  <div class="styling-example styling-example-1">
+    <mr-scroll mode="normal">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </mr-scroll>
+  </div>
+
+  <div class="styling-example styling-example-2">
+    <mr-scroll mode="overlay">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </mr-scroll>
+  </div>
+
+  <div class="styling-example styling-example-3">
+    <mr-scroll mode="overlay">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </mr-scroll>
+  </div>
+</div>
+
+<ng-template #contentTemplate>
+  <div class="styling-content">
+    <div *ngFor="let item of values" class="styling-content-item">
+      Item #{{item}}
+    </div>
+  </div>
+</ng-template>

@@ -1,8 +1,10 @@
 <div class="layout-nav">
   <div [class.active]="page == 'general'" (click)="setPage('general')">General</div>
   <div [class.active]="page == 'full-page'" (click)="setPage('full-page')">Full page</div>
+  <div [class.active]="page == 'styling'" (click)="setPage('styling')">Styling</div>
 </div>
 <div class="layout-page">
   <general *ngIf="page == 'general'"></general>
   <full-page *ngIf="page == 'full-page'"></full-page>
+  <styling *ngIf="page == 'styling'"></styling>
 </div>

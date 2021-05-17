@@ -11,7 +11,7 @@ import { getCurrentTheme, getTheme, initializeTheming, setTheme } from 'css-them
   },
 })
 export class AppComponent implements DoCheck {
-  page: 'general' | 'full-page' = 'general';
+  page: 'general' | 'full-page' | 'styling' = 'general';
 
   constructor() {
     // css-theming stuff
@@ -33,7 +33,7 @@ export class AppComponent implements DoCheck {
     console.log('ngDoCheck');
   }
 
-  setPage(page: 'general' | 'full-page') {
+  setPage(page: 'general' | 'full-page' | 'styling') {
     this.page = page;
   }
 }
