@@ -4,6 +4,7 @@
   --mr-scroll-width-normal: 12px;
   --mr-scroll-width-overlay: 8px;
   --mr-scroll-border-radius: 2px;
+  --mr-scroll-track-color: transparent;
   --mr-scroll-thumb-color: #aaa;
   --mr-scroll-hidden-content-indicator-size: 20px;
   --mr-scroll-hidden-content-indicator-gradient-color: 255, 255, 255;
@@ -139,6 +140,7 @@
   margin: 3px;
   flex-grow: 1;
   flex-direction: column;
+  background: var(--mr-scroll-track-color);
 }
 
 .mr-scroll_bar-thumb {
