@@ -38,3 +38,7 @@ We also have support packages:
 Samples show you how to use mr-scroll in frameworks.
 
 - [Angular](./samples/angular)
+
+---
+
+This project follows [CCSS](https://mrahhal.net/CCSS) for CSS naming conventions.
