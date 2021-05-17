@@ -4,7 +4,7 @@ The best custom scroll for the web.
 
 ## Features
 
-- Custom scrollbar with full easy CSS styling
+- Custom easy to style scrollbar
 - Uses the native browser scrollbar behind the scenes -> smooth scrolling experience, follows the behavior you're used to
 - Different modes: normal, overlay, hidden
 - Emits various useful events you can handle (scrolled, state changed, position changed, top reached, bottom reached, etc)
