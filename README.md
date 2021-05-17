@@ -6,7 +6,7 @@ The best custom scroll for the web.
 
 - Custom and easy to style scrollbar
 - Uses the native browser scrollbar behind the scenes -> smooth scrolling, middle mouse click drag works, follows the behavior you're used to
-- Behaves exactly like a native scrollbar (auto detects content size changes, so it's always visually in sync unlike most other custom scrollbars)
+- Behaves exactly like a native scrollbar (auto detects content size changes, so it's always visually in sync unlike every other custom scrollbar)
 - Different modes and features: normal, overlay, hidden, show on hover, etc
 - Emits various useful events you can handle (scrolled, state changed, position changed, top reached, bottom reached, etc)
   - Great for implementing infinite paging
