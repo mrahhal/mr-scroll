@@ -17,6 +17,7 @@
   background: var(--indigo);
   @include msc-scroll-pad-content(10px);
   overflow: hidden;
+  color: white;
 
   > .mr-scroll {
     @include msct-apply-hidden-content-gradient-color(var(--indigo-rgb), var(--indigo-rgb));
