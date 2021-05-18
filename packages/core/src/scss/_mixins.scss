@@ -14,6 +14,12 @@
   }
 }
 
+@mixin height($height) {
+  > .mr-scroll {
+    height: $height;
+  }
+}
+
 @mixin hidden-content-fade($color-rgb: null) {
   @if ($color-rgb == null) {
     $color-rgb: 255, 255, 255;

@@ -29,6 +29,7 @@
   border: 1.5px solid var(--bd);
   border-radius: 3px;
   background: var(--fg-0);
+  @include msc-height(200px);
 
   &--hidden-content-fade {
     // We're using css-theming so we can simply give this the variable for fg-0.
@@ -43,10 +44,6 @@
   background: var(--fg-0);
   border-left: 2px solid var(--info);
   border-radius: 2px;
-}
-
-.general-content {
-  height: 200px;
 }
 
 .general-content-item {
