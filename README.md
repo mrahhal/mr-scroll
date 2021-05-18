@@ -41,4 +41,4 @@ Samples show you how to use mr-scroll in frameworks.
 
 ---
 
-This project follows [CCSS](https://mrahhal.net/CCSS) for CSS naming conventions.
+This project follows [CCSS](https://github.com/mrahhal/CCSS) for CSS naming conventions.
