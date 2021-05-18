@@ -24,9 +24,9 @@ export class GeneralComponent {
   }
 
   _onScrolled() {
-    console.log('_onScrolled');
-
     // This event doesn't trigger change detection on purpose for performance reasons.
     // To trigger change detection you should call `NgZone.run()`.
+
+    console.log('_onScrolled');
   }
 }
