@@ -1,8 +1,8 @@
 @use 'mixins' as *;
 
 :root {
-  --mr-scroll-width-normal: 12px;
-  --mr-scroll-width-overlay: 8px;
+  --mr-scroll-bar-width-normal: 12px;
+  --mr-scroll-bar-width-overlay: 8px;
   --mr-scroll-border-radius: 2px;
   --mr-scroll-track-color: transparent;
   --mr-scroll-thumb-color: #aaa;
@@ -24,27 +24,6 @@
   &--mode-hidden {
     > .mr-scroll_bar {
       display: none;
-    }
-  }
-
-  &--mode-overlay,
-  &--mode-hidden {
-    .mr-scroll_bar {
-      &:after {
-        content: ' ';
-        position: absolute;
-        width: var(--mr-scroll-browser-scroll-width);
-        top: 0;
-        right: calc(-1 * var(--mr-scroll-browser-scroll-width));
-        bottom: 0;
-        pointer-events: all;
-      }
-    }
-  }
-
-  &--force-scroll {
-    > .mr-scroll_content {
-      overflow-y: scroll;
     }
   }
 
@@ -108,21 +87,19 @@
       opacity: 1;
     }
   }
-}
 
-.mr-scroll_content::-webkit-scrollbar {
-  width: var(--mr-scroll-width-normal);
+  &--mode-normal {
+    > .mr-scroll_content {
+      padding-right: var(--mr-scroll-bar-width);
+    }
+  }
 }
 
 .mr-scroll_content {
   @include flex-adaptive-container();
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
-
-  &--overlay-fallback {
-    padding-right: var(--mr-scroll-width-overlay);
-  }
 }
 
 .mr-scroll_bar {
@@ -133,7 +110,7 @@
   right: 0;
   bottom: 0;
   display: flex;
-  width: var(--mr-scroll-width);
+  width: var(--mr-scroll-bar-width);
 }
 
 .mr-scroll_bar-track {

@@ -1,11 +1,12 @@
 import ResizeObserver from 'resize-observer-polyfill';
 import { Subject } from 'rxjs';
 
-import { getScrollbarWidth, isScrollbarStylingSupported } from './support';
+import { getScrollbarWidth } from './support';
 
 export type ScrollMode = 'normal' | 'overlay' | 'hidden';
 export type ScrollPosition = 'start' | 'middle' | 'end' | 'full';
 export type ScrollState = 'hidden' | 'scrolling';
+export type ScrollExtremity = 'start' | 'end';
 
 export interface ScrollConfig {
   mode: ScrollMode;
@@ -40,8 +41,8 @@ export class Scroll {
   private _thumbElement: HTMLElement;
   private _mo: MutationObserver = null!;
   private _ro: ResizeObserver = null!;
-  private _marginsProcessed = false;
-  private _browserScrollWidth: number;
+  private _browserScrollbarWidth: number;
+  private _scrollbarWidth: number;
   private _position: ScrollPosition = 'start';
   private _positionAbsolute: ScrollPosition = 'start'; // Position without thresholds
   private _state: ScrollState = 'hidden';
@@ -76,15 +77,10 @@ export class Scroll {
       this._hostElement.classList.add(`${HOST_CLASS}--show-on-hover`);
     }
 
-    if (config.mode == 'normal' && !isScrollbarStylingSupported()) {
-      // We can't support 'scroll' mode if scrollbar styling isn't supported by the browser
-      config.mode = 'overlay';
-      _contentElement.classList.add(`${CONTENT_CLASS}--overlay-fallback`);
-    }
-
     this._hostElement.classList.add(`${HOST_CLASS}--mode-` + config.mode);
 
-    this._browserScrollWidth = this._resolveBrowserScrollbarWidth();
+    this._browserScrollbarWidth = this._resolveBrowserScrollbarWidth();
+    this._scrollbarWidth = this._resolveScrollbarWidth()!;
 
     // mr-scroll_bar
     const barElement = this._barElement = _hostElement.appendChild(document.createElement('div'));
@@ -93,6 +89,8 @@ export class Scroll {
     trackElement.classList.add(`${BAR_CLASS}-track`);
     const thumbElement = this._thumbElement = barElement.appendChild(document.createElement('div'));
     thumbElement.classList.add(`${BAR_CLASS}-thumb`);
+
+    this._addMargins();
   }
 
   get mode() { return this._config.mode; }
@@ -168,11 +166,10 @@ export class Scroll {
     this._mo.observe(this._contentElement, { childList: true });
 
     //
-    const effectiveScrollbarWidth = this._resolveScrollbarWidth();
-    this._setCssProperty('--mr-scroll-width', `${effectiveScrollbarWidth}px`);
-    this._setCssProperty('--mr-scroll-browser-scroll-width', `${this._browserScrollWidth}px`);
+    this._setCssProperty('--mr-scroll-browser-bar-width', `${this._browserScrollbarWidth}px`);
+    this._setCssProperty('--mr-scroll-bar-width', `${this._scrollbarWidth}px`);
 
-    if (!this._browserScrollWidth) {
+    if (!this._browserScrollbarWidth) {
       this._hostElement.classList.add(`${HOST_CLASS}--width-0`);
     }
 
@@ -277,10 +274,6 @@ export class Scroll {
       return;
     }
 
-    if (stateChanged && state == 'scrolling') {
-      this._addMargins();
-    }
-
     this._position = position;
     this._positionAbsolute = positionAbsolute;
     this._state = state;
@@ -298,10 +291,10 @@ export class Scroll {
   private _updateHiddentContentClasses() {
     const position = this._positionAbsolute;
 
-    const setClasses = (classes: ('start' | 'end')[] | null) => {
+    const setClasses = (extremities: ScrollExtremity[] | null) => {
       this._hostElement.classList.remove(HOST_HIDDEN_CONTENT_START_CLASS, HOST_HIDDEN_CONTENT_END_CLASS);
-      if (classes != null)
-        for (const c of classes) {
+      if (extremities != null)
+        for (const c of extremities) {
           switch (c) {
             case 'start':
               this._hostElement.classList.add(HOST_HIDDEN_CONTENT_START_CLASS);
@@ -334,18 +327,9 @@ export class Scroll {
   }
 
   private _addMargins() {
-    if (this._marginsProcessed) return;
-    if (this.mode == 'hidden' || this.mode == 'overlay') {
-      this._forceScroll();
-      this._marginsProcessed = true;
-      const browserScrollWidth = this._browserScrollWidth;
-      this._hostElement.style.marginRight = `-${browserScrollWidth}px`;
-      this._barElement.style.marginRight = `${browserScrollWidth}px`;
-    }
-  }
-
-  private _forceScroll() {
-    this._hostElement.classList.add(`${HOST_CLASS}--force-scroll`);
+    const browserScrollWidth = this._browserScrollbarWidth;
+    this._contentElement.style.marginRight = `-${browserScrollWidth}px`;
+    this._contentElement.style.paddingRight = `-${browserScrollWidth}px`;
   }
 
   private _getCssProperty(name: string) {
@@ -356,19 +340,15 @@ export class Scroll {
     this._hostElement.style.setProperty(name, value);
   }
 
+  private _resolveBrowserScrollbarWidth() {
+    return getScrollbarWidth();
+  }
+
   private _resolveScrollbarWidth(mode = this.mode) {
-    const widthRaw = this._getCssProperty(`--mr-scroll-width-${mode}`).trim();
+    const widthRaw = this._getCssProperty(`--mr-scroll-bar-width-${mode}`).trim();
     if (!widthRaw) {
       return null;
     }
     return parseInt(widthRaw.substring(0, widthRaw.length - 2));
-  }
-
-  private _resolveBrowserScrollbarWidth() {
-    if (isScrollbarStylingSupported()) {
-      return this._resolveScrollbarWidth('normal') as number;
-    } else {
-      return getScrollbarWidth();
-    }
   }
 }
