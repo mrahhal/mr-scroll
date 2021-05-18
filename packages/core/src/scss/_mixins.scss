@@ -1,25 +1,39 @@
+/// Sets the element to be a column flex container and adds proper flags to disable the auto min behavior of flexbox.
+/// Check this for more about the auto min behavior: https://stackoverflow.com/a/36247448/2172786.
+/// Note that you can override this to be a row flex container. We made it column because that's the most common case.
+/// @access public
+/// @param {Boolean} $flex [true] - Whether or not to add `flex: 1`
 @mixin flex-adaptive-container($flex: true) {
   @if ($flex == true) {
     flex: 1;
   }
-  min-width: 0;
-  min-height: 0;
   display: flex;
   flex-flow: column;
+  min-width: 0;
+  min-height: 0;
 }
 
+/// Pads the content of the scroll. This makes it so the inner content is padded without affecting the placement of the scrollbar.
+/// @access public
+/// @param {Number} $padding - The padding
 @mixin pad-content($padding) {
   > .mr-scroll > .mr-scroll_content {
     padding: $padding;
   }
 }
 
+/// Sets a fixed height for the content.
+/// @access public
+/// @param {Number} $height - The height
 @mixin height($height) {
   > .mr-scroll {
     height: $height;
   }
 }
 
+/// Applies a hidden content fade to the scroll.
+/// @access public
+/// @param {Color} $color-rgb - The background color in rgb
 @mixin hidden-content-fade($color-rgb: null) {
   @if ($color-rgb == null) {
     $color-rgb: 255, 255, 255;
@@ -34,3 +48,23 @@
   }
 }
 
+/// Overrides the thumb border radius.
+/// @access public
+/// @param {Number} $border-radius - The border radius
+@mixin override-thumb-border-radius($border-radius) {
+  > .mr-scroll > .mr-scroll_bar > .mr-scroll_bar-thumb {
+    border-radius: $border-radius;
+  }
+}
+
+/// Overrides the hidden content fade size.
+/// @access public
+/// @param {Number} $size - The size
+@mixin override-hidden-content-fade-size($size) {
+  > .mr-scroll {
+    &::after,
+    &::before {
+      height: $size;
+    }
+  }
+}
