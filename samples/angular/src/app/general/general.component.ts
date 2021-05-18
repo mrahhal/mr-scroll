@@ -12,10 +12,15 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 })
 export class GeneralComponent {
   values: number[] = [];
+  valuesLess: number[] = [];
 
   constructor() {
     for (let i = 0; i < 10; i++) {
       this.values.push(i);
+    }
+
+    for (let i = 0; i < 3; i++) {
+      this.valuesLess.push(i);
     }
   }
 

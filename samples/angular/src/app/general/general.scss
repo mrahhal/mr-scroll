@@ -36,6 +36,13 @@
     // Of course, you can set the colors to whatever you like.
     @include msc-hidden-content-fade(var(--fg-0-rgb));
   }
+
+  &--max-height {
+    > .mr-scroll {
+      height: unset;
+      max-height: 200px;
+    }
+  }
 }
 
 .general-example-note {

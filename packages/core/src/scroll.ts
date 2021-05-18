@@ -170,11 +170,6 @@ export class Scroll {
     this._contentElement.addEventListener('mouseenter', this._boundUpdate);
     window.addEventListener('resize', this._boundUpdate);
 
-    const css = getComputedStyle(this._contentElement);
-    if (css.height === '0px' && css.maxHeight !== '0px') {
-      this._hostElement.style.height = css.maxHeight;
-    }
-
     this.update();
   }
 
