@@ -17,7 +17,7 @@
   border: 1.5px solid var(--bd);
   border-radius: 3px;
   background: var(--fg-0);
-  overflow: hidden;
+  @include msc-height(200px);
 
   &-1 {
     --mr-scroll-thumb-color: var(--primary);
@@ -32,10 +32,6 @@
     --mr-scroll-thumb-color: var(--green);
     --mr-scroll-track-color: var(--green-50);
   }
-}
-
-.styling-content {
-  height: 200px;
 }
 
 .styling-content-item {
