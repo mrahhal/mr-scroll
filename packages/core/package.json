@@ -5,9 +5,13 @@
   "module": "dist/es/index.js",
   "types": "dist/es/index.d.ts",
   "scripts": {
-    "start": "rollup -c rollup.config.es.js -w",
-    "build": "rollup -c rollup.config.es.js",
+    "start": "npm run watch",
+    "watch": "concurrently \"npm run watch:ts\" \"npm run watch:scss\"",
+    "watch:ts": "rollup -c rollup.config.es.js -w",
+    "watch:scss": "nodemon --watch ./src/scss -e scss -x \"npm run bundle:css\"",
+    "build": "rollup -c rollup.config.es.js && npm run bundle:css",
     "lint": "npx eslint \"src/**/*.ts\"",
+    "bundle:css": "npx sass src/scss/scroll.scss dist/styles.css",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -36,9 +40,12 @@
     "@rollup/plugin-typescript": "^8.2.1",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
+    "concurrently": "^6.1.0",
     "eslint": "^7.25.0",
+    "nodemon": "^2.0.7",
     "rollup": "^2.47.0",
     "rxjs": "^6.6.7",
+    "sass": "^1.32.13",
     "tslib": "^2.2.0",
     "typescript": "~4.2.4"
   },
