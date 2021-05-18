@@ -31,7 +31,7 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() showOnHover?: boolean;
 
-  @Input() showHiddenContentIndicator?: boolean;
+  @Input() showHiddenContentFade?: boolean;
 
   @Output() scrolled = new EventEmitter<number>();
 
@@ -68,7 +68,7 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
       topThreshold: this.topThreshold,
       bottomThreshold: this.bottomThreshold,
       showOnHover: this.showOnHover,
-      showHiddenContentIndicator: this.showHiddenContentIndicator,
+      showHiddenContentFade: this.showHiddenContentFade,
     });
 
     // Events that will normally trigger change detection.

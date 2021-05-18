@@ -28,7 +28,7 @@
   }
 
   @include themes.themes-apply {
-    --mr-scroll-hidden-content-indicator-gradient-color: #{if(themes.$brightness == 'light', $hidden-content-gradient-color-light, $hidden-content-gradient-color-dark)};
+    --mr-scroll-hidden-content-fade-gradient-color: #{if(themes.$brightness == 'light', $hidden-content-gradient-color-light, $hidden-content-gradient-color-dark)};
   }
 }
 
