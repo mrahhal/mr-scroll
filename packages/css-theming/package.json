@@ -22,6 +22,10 @@
     "src/scss"
   ],
   "peerDependencies": {
+    "@mr-scroll/core": "^0.1.0",
     "css-theming": ">=1.5.0"
+  },
+  "devDependencies": {
+    "@mr-scroll/core": "file:../core"
   }
 }

@@ -15,13 +15,9 @@
   width: 150px;
   @include msc-flex-adaptive-container($flex: false);
   background: var(--indigo);
-  @include msc-scroll-pad-content(10px);
-  overflow: hidden;
+  @include msc-pad-content(10px);
   color: white;
-
-  > .mr-scroll {
-    @include msct-apply-hidden-content-gradient-color(var(--indigo-rgb), var(--indigo-rgb));
-  }
+  @include msc-hidden-content-fade(var(--indigo-rgb));
 }
 
 .full-page-sidebar-item {
@@ -30,5 +26,5 @@
 
 .full-page-content {
   @include msc-flex-adaptive-container();
-  @include msc-scroll-pad-content(10px);
+  @include msc-pad-content(10px);
 }

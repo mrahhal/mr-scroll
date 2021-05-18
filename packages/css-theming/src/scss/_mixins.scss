@@ -1,3 +1,4 @@
+@use '../../node_modules/@mr-scroll/core/src/scss/pure' as msc;
 @use '../../node_modules/css-theming/src/scss/themes';
 
 @mixin apply-thumb-color(
@@ -16,28 +17,9 @@
   }
 }
 
-@mixin apply-hidden-content-gradient-color(
-  $hidden-content-gradient-color-light: null,
-  $hidden-content-gradient-color-dark: null,
-) {
-  @if ($hidden-content-gradient-color-light == null) {
-    $hidden-content-gradient-color-light: 255, 255, 255;
-  }
-  @if ($hidden-content-gradient-color-dark == null) {
-    $hidden-content-gradient-color-dark: 0, 0, 0;
-  }
-
-  @include themes.themes-apply {
-    --mr-scroll-hidden-content-fade-gradient-color: #{if(themes.$brightness == 'light', $hidden-content-gradient-color-light, $hidden-content-gradient-color-dark)};
-  }
-}
-
 @mixin apply(
   $thumb-color-light: null,
   $thumb-color-dark: null,
-  $hidden-content-gradient-color-light: null,
-  $hidden-content-gradient-color-dark: null,
 ) {
   @include apply-thumb-color($thumb-color-light, $thumb-color-dark);
-  @include apply-hidden-content-gradient-color($hidden-content-gradient-color-light, $hidden-content-gradient-color-dark);
 }

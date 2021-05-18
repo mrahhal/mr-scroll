@@ -8,8 +8,23 @@
   flex-flow: column;
 }
 
-@mixin scroll-pad-content($padding) {
+@mixin pad-content($padding) {
   > .mr-scroll > .mr-scroll_content {
     padding: $padding;
   }
 }
+
+@mixin hidden-content-fade($color-rgb: null) {
+  @if ($color-rgb == null) {
+    $color-rgb: 255, 255, 255;
+  }
+
+  > .mr-scroll {
+    &::after,
+    &::before {
+      display: initial;
+      --mr-scroll-hidden-content-fade-gradient-color: #{$color-rgb};
+    }
+  }
+}
+

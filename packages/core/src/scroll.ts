@@ -13,7 +13,6 @@ export interface ScrollConfig {
   topThreshold: number;
   bottomThreshold: number;
   showOnHover: boolean;
-  showHiddenContentFade: boolean;
 }
 
 const DEFAULT_CONFIG: ScrollConfig = {
@@ -21,12 +20,10 @@ const DEFAULT_CONFIG: ScrollConfig = {
   topThreshold: 50,
   bottomThreshold: 50,
   showOnHover: false,
-  showHiddenContentFade: false,
 };
 
 const HOST_CLASS = 'mr-scroll';
 const HOST_HIDDEN_CLASS = `${HOST_CLASS}--hidden`;
-const HOST_SHOW_HIDDEN_CONTENT_FADE_CLASS = `${HOST_CLASS}--show-hidden-content-fade`;
 const HOST_HIDDEN_CONTENT_START_CLASS = `${HOST_CLASS}--hidden-content-start`;
 const HOST_HIDDEN_CONTENT_END_CLASS = `${HOST_CLASS}--hidden-content-end`;
 const CONTENT_CLASS = `${HOST_CLASS}_content`;
@@ -126,14 +123,10 @@ export class Scroll {
       }
     });
 
-    if (this._config.showHiddenContentFade) {
-      this._hostElement.classList.add(HOST_SHOW_HIDDEN_CONTENT_FADE_CLASS);
-
-      this.positionAbsoluteChanged.subscribe(() => {
-        this._updateHiddentContentClasses();
-      });
+    this.positionAbsoluteChanged.subscribe(() => {
       this._updateHiddentContentClasses();
-    }
+    });
+    this._updateHiddentContentClasses();
 
     // Setup observers
     this._ro = new ResizeObserver(() => {
