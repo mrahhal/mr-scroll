@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "Angular.ng-template",
+    "CoenraadS.bracket-pair-colorizer",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.editorconfig",
+    "mkaufman.htmlhint",
+    "mrahhal.vscode-ng-tooling",
+    "rbbit.typescript-hero",
+    "stylelint.vscode-stylelint"
+  ]
+}
