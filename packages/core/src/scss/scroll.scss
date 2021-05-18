@@ -1,4 +1,4 @@
-@use 'mixins' as *;
+@use 'pure' as *;
 
 :root {
   --mr-scroll-bar-width-normal: 12px;
@@ -103,14 +103,19 @@
 }
 
 .mr-scroll_bar {
-  z-index: 2; // So that hidden content fade doesn't show over the bar
-  pointer-events: none;
+  z-index: 1; // So that hidden content fade doesn't show over the bar
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   display: flex;
   width: var(--mr-scroll-bar-width);
+
+  &:hover {
+    > .mr-scroll_bar-thumb {
+      opacity: 1;
+    }
+  }
 }
 
 .mr-scroll_bar-track {
@@ -128,4 +133,6 @@
   right: 0;
   left: 0;
   margin: 3px;
+  opacity: .7;
+  transition: opacity linear .1s;
 }
