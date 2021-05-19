@@ -79,6 +79,8 @@ interface DirectionContext {
   state: ScrollState;
   scrollRatio: number;
   scroll: number | null;
+  size: number;
+  translate: number;
 
   positionChanged: Subject<ScrollPosition>;
   positionAbsoluteChanged: Subject<ScrollPosition>;
@@ -91,8 +93,10 @@ function createDirectionContext(): DirectionContext {
     position: null!,
     positionAbsolute: null!,
     state: null!,
-    scrollRatio: 0,
+    scrollRatio: -1,
     scroll: null,
+    size: -1,
+    translate: -1,
 
     positionChanged: new Subject<ScrollPosition>(),
     positionAbsoluteChanged: new Subject<ScrollPosition>(),
@@ -353,9 +357,9 @@ export class Scroll {
 
       const { scrollTop, scrollLeft } = this._contentElement;
       const width = (this._h.scrollRatio) * 100;
-      const left = (scrollLeft / totalWidth) * 100;
+      const leftRatio = scrollLeft / totalWidth;
       const height = (this._v.scrollRatio) * 100;
-      const top = (scrollTop / totalHeight) * 100;
+      const topRatio = scrollTop / totalHeight;
 
       if (this._h.scroll == null || this._h.scroll != scrollLeft) {
         this._h.scroll = scrollLeft;
@@ -400,13 +404,20 @@ export class Scroll {
       if (newPositionH == 'full') {
         this._h.bar.barElement.classList.add(BAR_HIDDEN_CLASS);
       } else {
-        this._h.bar.barElement.classList.remove(BAR_HIDDEN_CLASS);
+        const c = this._h;
 
-        const cssText =
-          `width:${width}%;` +
-          `left:${left}%;`;
+        c.bar.barElement.classList.remove(BAR_HIDDEN_CLASS);
+        const translate = leftRatio * ownWidth;
 
-        this._h.bar.thumbElement.style.cssText = cssText;
+        if (c.size != width) {
+          c.bar.thumbElement.style.width = `${width}%`;
+        }
+        if (c.translate != translate) {
+          c.bar.thumbElement.style.transform = `translateX(${translate}px)`;
+        }
+
+        c.size = width;
+        c.translate = translate;
       }
 
       const newPositionV = computePositionV(this._config.topThreshold, this._config.bottomThreshold);
@@ -416,13 +427,20 @@ export class Scroll {
       if (newPositionV == 'full') {
         this._v.bar.barElement.classList.add(BAR_HIDDEN_CLASS);
       } else {
-        this._v.bar.barElement.classList.remove(BAR_HIDDEN_CLASS);
+        const c = this._v;
 
-        const cssText =
-          `height:${height}%;` +
-          `top:${top}%;`;
+        c.bar.barElement.classList.remove(BAR_HIDDEN_CLASS);
+        const translate = topRatio * ownHeight;
 
-        this._v.bar.thumbElement.style.cssText = cssText;
+        if (c.size != height) {
+          c.bar.thumbElement.style.height = `${height}%`;
+        }
+        if (c.translate != translate) {
+          c.bar.thumbElement.style.transform = `translateY(${translate}px)`;
+        }
+
+        c.size = height;
+        c.translate = translate;
       }
 
       this._setPositionAndStateH(newPositionH, newPositionAbsoluteH, newStateH);
