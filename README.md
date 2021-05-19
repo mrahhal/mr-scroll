@@ -9,12 +9,13 @@ The best custom scroll for the web.
 - Custom and easy to style scrollbar
 - Uses the native browser scrollbar behind the scenes -> smooth scrolling, middle mouse click drag works, follows the behavior you're used to
 - Behaves exactly like a native scrollbar (detects content size changes, so it's always visually in sync unlike every other custom scrollbar)
-- Different modes and features: normal, overlay, hidden, show on hover, etc
+- Different modes: scroll, auto, overlay, hidden
+- Show on hover
+- Hidden content fade (shows a fading effect to indicate there's hidden content out of view)
 - Emits various useful events you can handle (scrolled, state changed, position changed, top/bottom reached with configurable thresholds, etc)
   - Great for implementing infinite paging
-- Hidden content fade (shows a fading effect to indicate there's hidden content out of view)
 - Works exactly the same across supported browsers
-- Supports mobile browsers (behavior remains the same, scrollbar goes into overlay mode)
+- Supports mobile browsers
 
 And finally, we have efficient idiomatic wrapper packages for popular frameworks (as of now: angular).
 
