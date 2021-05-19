@@ -64,3 +64,17 @@
 .general-content-item + .general-content-item {
   border-top: 1px solid var(--bd);
 }
+
+.general-content-h {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.general-content-h-item {
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.general-content-h-item + .general-content-h-item {
+  border-left: 1px solid var(--bd);
+}

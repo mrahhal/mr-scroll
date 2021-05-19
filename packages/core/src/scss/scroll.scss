@@ -1,8 +1,8 @@
 @use 'pure' as *;
 
 :root {
-  --mr-scroll-bar-width-normal: 12px;
-  --mr-scroll-bar-width-overlay: 8px;
+  --mr-scroll-bar-size-normal: 12px;
+  --mr-scroll-bar-size-overlay: 8px;
   --mr-scroll-track-color: transparent;
   --mr-scroll-thumb-border-radius: 2px;
   --mr-scroll-thumb-color: #aaa;
@@ -16,7 +16,7 @@
 
   &--mode-auto {
     > .mr-scroll_content {
-      overflow-y: auto;
+      overflow: auto;
     }
   }
 
@@ -42,12 +42,6 @@
   &--width-0 {
     > .mr-scroll_bar {
       display: none;
-    }
-  }
-
-  &--hidden {
-    > .mr-scroll_bar {
-      opacity: 0 !important;
     }
   }
 
@@ -93,30 +87,55 @@
 .mr-scroll_content {
   @include flex-adaptive-container();
   height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: scroll;
 }
 
 .mr-scroll_bar {
   z-index: 1; // So that hidden content fade doesn't show over the bar
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
-  width: var(--mr-scroll-bar-width);
 
   &:hover {
     > .mr-scroll_bar-thumb {
       opacity: 1;
     }
   }
+
+  &--h {
+    height: var(--mr-scroll-bar-size);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    flex-flow: column;
+
+    > .mr-scroll_bar-thumb {
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  &--v {
+    width: var(--mr-scroll-bar-size);
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    > .mr-scroll_bar-thumb {
+      top: 0;
+      right: 0;
+      left: 0;
+    }
+  }
+
+  &--hidden {
+    opacity: 0 !important;
+  }
 }
 
 .mr-scroll_bar-track {
   margin: 3px;
   flex-grow: 1;
-  flex-direction: column;
   background: var(--mr-scroll-track-color);
 }
 
@@ -124,9 +143,6 @@
   background: var(--mr-scroll-thumb-color);
   border-radius: var(--mr-scroll-thumb-border-radius);
   position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
   margin: 3px;
   opacity: .7;
   transition: opacity linear .1s;

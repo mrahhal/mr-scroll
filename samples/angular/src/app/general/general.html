@@ -77,6 +77,19 @@
       </mr-scroll>
     </div>
   </div>
+
+  <div class="general-example">
+    <div class="general-example-title">Horizontal</div>
+    <div class="general-example-content">
+      <mr-scroll style="height: initial">
+        <div class="general-content-h">
+          <div *ngFor="let item of values" class="general-content-h-item">
+            Item #{{item}}
+          </div>
+        </div>
+      </mr-scroll>
+    </div>
+  </div>
 </div>
 
 <ng-template #contentTemplate>

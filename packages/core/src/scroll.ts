@@ -23,37 +23,53 @@ const DEFAULT_CONFIG: ScrollConfig = {
 };
 
 const HOST_CLASS = 'mr-scroll';
-const HOST_HIDDEN_CLASS = `${HOST_CLASS}--hidden`;
 const HOST_HIDDEN_CONTENT_START_CLASS = `${HOST_CLASS}--hidden-content-start`;
 const HOST_HIDDEN_CONTENT_END_CLASS = `${HOST_CLASS}--hidden-content-end`;
 const CONTENT_CLASS = `${HOST_CLASS}_content`;
 const BAR_CLASS = `${HOST_CLASS}_bar`;
+const BAR_HIDDEN_CLASS = `${BAR_CLASS}--hidden`;
+const BAR_H_CLASS = `${BAR_CLASS}--h`;
+const BAR_V_CLASS = `${BAR_CLASS}--v`;
+
+interface Bar {
+  barElement: HTMLDivElement;
+  trackElement: HTMLDivElement;
+  thumbElement: HTMLDivElement;
+}
 
 /**
  * The core class that implements the custom scroll logic.
  */
 export class Scroll {
   private _config: ScrollConfig;
-  private _barElement: HTMLElement;
-  private _thumbElement: HTMLElement;
   private _mo: MutationObserver = null!;
   private _ro: ResizeObserver = null!;
   private _browserScrollbarWidth: number;
   private _scrollbarWidth: number;
-  private _position: ScrollPosition = null!;
-  private _positionAbsolute: ScrollPosition = null!; // Position without thresholds
-  private _state: ScrollState = null!;
-  private _scrollRatio = 0;
+  private _barH: Bar;
+  private _barV: Bar;
+  private _positionH: ScrollPosition = null!;
+  private _positionHAbsolute: ScrollPosition = null!;
+  private _stateH: ScrollState = null!;
+  private _positionV: ScrollPosition = null!;
+  private _positionVAbsolute: ScrollPosition = null!;
+  private _stateV: ScrollState = null!;
+  private _scrollRatioH = 0;
+  private _scrollRatioV = 0;
   private _scrollTop: number | null = null;
+  private _scrollLeft: number | null = null;
 
   private _boundUpdate = this.update.bind(this);
 
-  private _scrolled = new Subject<number>();
+  private _scrolled = new Subject<{ left: number; top: number }>();
   private _topReached = new Subject<void>();
   private _bottomReached = new Subject<void>();
-  private _positionChanged = new Subject<ScrollPosition>();
-  private _positionAbsoluteChanged = new Subject<ScrollPosition>();
-  private _stateChanged = new Subject<ScrollState>();
+  private _positionHChanged = new Subject<ScrollPosition>();
+  private _positionHAbsoluteChanged = new Subject<ScrollPosition>();
+  private _stateHChanged = new Subject<ScrollState>();
+  private _positionVChanged = new Subject<ScrollPosition>();
+  private _positionVAbsoluteChanged = new Subject<ScrollPosition>();
+  private _stateVChanged = new Subject<ScrollState>();
 
   constructor(
     private _hostElement: HTMLElement,
@@ -80,12 +96,24 @@ export class Scroll {
     this._scrollbarWidth = this._resolveScrollbarWidth()!;
 
     // mr-scroll_bar
-    const barElement = this._barElement = _hostElement.appendChild(document.createElement('div'));
-    barElement.classList.add(`${BAR_CLASS}`);
-    const trackElement = barElement.appendChild(document.createElement('div'));
-    trackElement.classList.add(`${BAR_CLASS}-track`);
-    const thumbElement = this._thumbElement = barElement.appendChild(document.createElement('div'));
-    thumbElement.classList.add(`${BAR_CLASS}-thumb`);
+    const createBar = (): Bar => {
+      const barElement = _hostElement.appendChild(document.createElement('div'));
+      barElement.classList.add(`${BAR_CLASS}`);
+      const trackElement = barElement.appendChild(document.createElement('div'));
+      trackElement.classList.add(`${BAR_CLASS}-track`);
+      const thumbElement = barElement.appendChild(document.createElement('div'));
+      thumbElement.classList.add(`${BAR_CLASS}-thumb`);
+      return {
+        barElement,
+        trackElement,
+        thumbElement,
+      };
+    };
+
+    const barH = this._barH = createBar();
+    barH.barElement.classList.add(BAR_H_CLASS);
+    const barV = this._barV = createBar();
+    barV.barElement.classList.add(BAR_V_CLASS);
 
     if (this.mode != 'auto') {
       // In all modes but auto, we always have spacing
@@ -97,50 +125,69 @@ export class Scroll {
 
   get scrollTop() { return this._scrollTop; }
 
-  get position() { return this._position; }
+  get scrollLeft() { return this._scrollLeft; }
 
-  get positionAbsolute() { return this._positionAbsolute; }
+  get position() { return this._positionV; }
 
-  get state() { return this._state; }
+  get positionAbsolute() { return this._positionVAbsolute; }
+
+  get state() { return this._stateV; }
 
   get scrolled() { return this._scrolled.asObservable(); }
   get topReached() { return this._topReached.asObservable(); }
   get bottomReached() { return this._bottomReached.asObservable(); }
-  get positionChanged() { return this._positionChanged.asObservable(); }
-  get positionAbsoluteChanged() { return this._positionAbsoluteChanged.asObservable(); }
-  get stateChanged() { return this._stateChanged.asObservable(); }
+  get positionHChanged() { return this._positionHChanged.asObservable(); }
+  get positionHAbsoluteChanged() { return this._positionHAbsoluteChanged.asObservable(); }
+  get stateHChanged() { return this._stateHChanged.asObservable(); }
+  get positionVChanged() { return this._positionVChanged.asObservable(); }
+  get positionVAbsoluteChanged() { return this._positionVAbsoluteChanged.asObservable(); }
+  get stateVChanged() { return this._stateVChanged.asObservable(); }
 
   private get _ownHeight() { return this._contentElement.clientHeight; }
-
+  private get _ownWidth() { return this._contentElement.clientWidth; }
   private get _totalHeight() { return this._contentElement.scrollHeight; }
+  private get _totalWidth() { return this._contentElement.scrollWidth; }
 
   /**
    * Initializes the scroll.
    */
   initialize() {
     // Setup subjects
-    this.positionChanged.subscribe((position: ScrollPosition) => {
+    this.positionVChanged.subscribe((position: ScrollPosition) => {
       switch (position) {
         case 'start': this._topReached.next(); break;
         case 'end': this._bottomReached.next(); break;
       }
     });
 
-    this.positionAbsoluteChanged.subscribe(() => {
+    this.positionVAbsoluteChanged.subscribe(() => {
       this._updateHiddentContentClasses();
     });
     this._updateHiddentContentClasses();
 
     if (this.mode == 'auto') {
       // Only in auto mode, we add/remove spacing depending on the state
-      this.stateChanged.subscribe((state: ScrollState) => {
+
+      this.stateHChanged.subscribe((state: ScrollState) => {
         switch (state) {
           case 'scrolling':
-            this._addSpacing();
+            this._addSpacingH();
             break;
 
           case 'hidden':
-            this._removeSpacing();
+            this._removeSpacingH();
+            break;
+        }
+      });
+
+      this.stateVChanged.subscribe((state: ScrollState) => {
+        switch (state) {
+          case 'scrolling':
+            this._addSpacingV();
+            break;
+
+          case 'hidden':
+            this._removeSpacingV();
             break;
         }
       });
@@ -177,8 +224,8 @@ export class Scroll {
     this._mo.observe(this._contentElement, { childList: true });
 
     //
-    this._setCssProperty('--mr-scroll-browser-bar-width', `${this._browserScrollbarWidth}px`);
-    this._setCssProperty('--mr-scroll-bar-width', `${this._scrollbarWidth}px`);
+    this._setCssProperty('--mr-scroll-browser-bar-size', `${this._browserScrollbarWidth}px`);
+    this._setCssProperty('--mr-scroll-bar-size', `${this._scrollbarWidth}px`);
 
     if (!this._browserScrollbarWidth) {
       this._hostElement.classList.add(`${HOST_CLASS}--width-0`);
@@ -205,9 +252,12 @@ export class Scroll {
     this._scrolled.complete();
     this._topReached.complete();
     this._bottomReached.complete();
-    this._positionChanged.complete();
-    this._positionAbsoluteChanged.complete();
-    this._stateChanged.complete();
+    this._positionHChanged.complete();
+    this._positionHAbsoluteChanged.complete();
+    this._stateHChanged.complete();
+    this._positionVChanged.complete();
+    this._positionVAbsoluteChanged.complete();
+    this._stateVChanged.complete();
   }
 
   /**
@@ -216,22 +266,51 @@ export class Scroll {
    */
   update() {
     requestAnimationFrame(() => {
-      const totalHeight = this._totalHeight;
       const ownHeight = this._ownHeight;
+      const ownWidth = this._ownWidth;
+      const totalHeight = this._totalHeight;
+      const totalWidth = this._totalWidth;
 
-      this._scrollRatio = ownHeight / totalHeight;
+      this._scrollRatioH = ownWidth / totalWidth;
+      this._scrollRatioV = ownHeight / totalHeight;
 
-      const scrollTop = this._contentElement.scrollTop;
-      const height = (this._scrollRatio) * 100;
+      const { scrollTop, scrollLeft } = this._contentElement;
+      const width = (this._scrollRatioH) * 100;
+      const left = (scrollLeft / totalWidth) * 100;
+      const height = (this._scrollRatioV) * 100;
       const top = (scrollTop / totalHeight) * 100;
 
+      if (this._scrollLeft == null || this._scrollLeft != scrollLeft) {
+        this._scrollLeft = scrollLeft;
+      }
       if (this._scrollTop == null || this._scrollTop != scrollTop) {
         this._scrollTop = scrollTop;
       }
 
-      const computePosition = (topThreshold: number, bottomThreshold: number) => {
+      const computePositionH = (leftThreshold: number, rightThreshold: number) => {
         let p: ScrollPosition = 'middle';
-        if (this._scrollRatio >= 1) {
+        if (this._scrollRatioH >= 1) {
+          p = 'full';
+        } else {
+          const isLeft = scrollLeft <= leftThreshold;
+          if (isLeft) {
+            p = 'start';
+          }
+
+          if (!isLeft) {
+            const attainedHeight = scrollLeft + ownHeight + rightThreshold;
+            if (attainedHeight >= totalHeight) {
+              p = 'end';
+            }
+          }
+        }
+
+        return p;
+      };
+
+      const computePositionV = (topThreshold: number, bottomThreshold: number) => {
+        let p: ScrollPosition = 'middle';
+        if (this._scrollRatioV >= 1) {
           p = 'full';
         } else {
           const isTop = scrollTop <= topThreshold;
@@ -250,52 +329,92 @@ export class Scroll {
         return p;
       };
 
-      const newPosition = computePosition(this._config.topThreshold, this._config.bottomThreshold);
-      const newPositionAbsolute = computePosition(0, 0);
-      const newState: ScrollState = newPosition == 'full' ? 'hidden' : 'scrolling';
+      const newPositionH = computePositionH(0, 0); // TODO
+      const newPositionHAbsolute = computePositionH(0, 0);
+      const newStateH: ScrollState = newPositionH == 'full' ? 'hidden' : 'scrolling';
 
-      if (newPosition == 'full') {
-        this._hostElement.classList.add(HOST_HIDDEN_CLASS);
+      if (newPositionH == 'full') {
+        this._barH.barElement.classList.add(BAR_HIDDEN_CLASS);
       } else {
-        this._hostElement.classList.remove(HOST_HIDDEN_CLASS);
+        this._barH.barElement.classList.remove(BAR_HIDDEN_CLASS);
+
+        const cssText =
+          `width:${width}%;` +
+          `left:${left}%;`;
+
+        this._barH.thumbElement.style.cssText = cssText;
+      }
+
+      const newPositionV = computePositionV(this._config.topThreshold, this._config.bottomThreshold);
+      const newPositionVAbsolute = computePositionV(0, 0);
+      const newStateV: ScrollState = newPositionV == 'full' ? 'hidden' : 'scrolling';
+
+      if (newPositionV == 'full') {
+        this._barV.barElement.classList.add(BAR_HIDDEN_CLASS);
+      } else {
+        this._barV.barElement.classList.remove(BAR_HIDDEN_CLASS);
 
         const cssText =
           `height:${height}%;` +
           `top:${top}%;`;
 
-        this._thumbElement.style.cssText = cssText;
+        this._barV.thumbElement.style.cssText = cssText;
       }
 
-      this._setPositionAndState(newPosition, newPositionAbsolute, newState);
-      this._scrolled.next(scrollTop);
+      this._setPositionAndStateH(newPositionH, newPositionHAbsolute, newStateH);
+      this._setPositionAndStateV(newPositionV, newPositionVAbsolute, newStateV);
+      this._scrolled.next({ left: scrollLeft, top: scrollTop });
     });
   }
 
-  private _setPositionAndState(position: ScrollPosition, positionAbsolute: ScrollPosition, state: ScrollState) {
-    const positionChanged = position != this._position;
-    const positionAbsoluteChanged = positionAbsolute != this._positionAbsolute;
-    const stateChanged = state != this._state;
+  private _setPositionAndStateH(position: ScrollPosition, positionAbsolute: ScrollPosition, state: ScrollState) {
+    const positionChanged = position != this._positionH;
+    const positionAbsoluteChanged = positionAbsolute != this._positionHAbsolute;
+    const stateChanged = state != this._stateH;
 
     if (!positionChanged && !positionAbsoluteChanged && !stateChanged) {
       return;
     }
 
-    this._position = position;
-    this._positionAbsolute = positionAbsolute;
-    this._state = state;
+    this._positionH = position;
+    this._positionHAbsolute = positionAbsolute;
+    this._stateH = state;
     if (positionChanged) {
-      this._positionChanged.next(position);
+      this._positionHChanged.next(position);
     }
     if (positionAbsoluteChanged) {
-      this._positionAbsoluteChanged.next(positionAbsolute);
+      this._positionHAbsoluteChanged.next(positionAbsolute);
     }
     if (stateChanged) {
-      this._stateChanged.next(state);
+      this._stateHChanged.next(state);
+    }
+  }
+
+  private _setPositionAndStateV(position: ScrollPosition, positionAbsolute: ScrollPosition, state: ScrollState) {
+    const positionChanged = position != this._positionV;
+    const positionAbsoluteChanged = positionAbsolute != this._positionVAbsolute;
+    const stateChanged = state != this._stateV;
+
+    if (!positionChanged && !positionAbsoluteChanged && !stateChanged) {
+      return;
+    }
+
+    this._positionV = position;
+    this._positionVAbsolute = positionAbsolute;
+    this._stateV = state;
+    if (positionChanged) {
+      this._positionVChanged.next(position);
+    }
+    if (positionAbsoluteChanged) {
+      this._positionVAbsoluteChanged.next(positionAbsolute);
+    }
+    if (stateChanged) {
+      this._stateVChanged.next(state);
     }
   }
 
   private _updateHiddentContentClasses() {
-    const position = this._positionAbsolute;
+    const position = this._positionVAbsolute;
 
     const setClasses = (extremities: ScrollExtremity[] | null) => {
       this._hostElement.classList.remove(HOST_HIDDEN_CONTENT_START_CLASS, HOST_HIDDEN_CONTENT_END_CLASS);
@@ -333,13 +452,30 @@ export class Scroll {
   }
 
   private _addSpacing() {
+    this._addSpacingH();
+    this._addSpacingV();
+  }
+
+  private _addSpacingH() {
+    this._contentElement.style.marginBottom = `-${this._browserScrollbarWidth}px`;
+    if (this.mode == 'scroll' || this.mode == 'auto') {
+      this._contentElement.style.paddingBottom = `${this._scrollbarWidth}px`;
+    }
+  }
+
+  private _removeSpacingH() {
+    this._contentElement.style.marginBottom = '';
+    this._contentElement.style.paddingBottom = '';
+  }
+
+  private _addSpacingV() {
     this._contentElement.style.marginRight = `-${this._browserScrollbarWidth}px`;
     if (this.mode == 'scroll' || this.mode == 'auto') {
       this._contentElement.style.paddingRight = `${this._scrollbarWidth}px`;
     }
   }
 
-  private _removeSpacing() {
+  private _removeSpacingV() {
     this._contentElement.style.marginRight = '';
     this._contentElement.style.paddingRight = '';
   }
@@ -361,7 +497,7 @@ export class Scroll {
     if (mode == 'overlay' || mode == 'hidden') {
       type = 'overlay';
     }
-    const widthRaw = this._getCssProperty(`--mr-scroll-bar-width-${type}`).trim();
+    const widthRaw = this._getCssProperty(`--mr-scroll-bar-size-${type}`).trim();
     if (!widthRaw) {
       return null;
     }
