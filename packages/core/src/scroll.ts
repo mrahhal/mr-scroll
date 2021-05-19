@@ -131,9 +131,9 @@ export class Scroll {
     });
     this._updateHiddentContentClasses();
 
-    this.stateChanged.subscribe((state: ScrollState) => {
-      if (this.mode == 'auto') {
-        // Only in auto mode, we add/remove spacing depending on the state
+    if (this.mode == 'auto') {
+      // Only in auto mode, we add/remove spacing depending on the state
+      this.stateChanged.subscribe((state: ScrollState) => {
         switch (state) {
           case 'scrolling':
             this._addSpacing();
@@ -143,8 +143,8 @@ export class Scroll {
             this._removeSpacing();
             break;
         }
-      }
-    });
+      });
+    }
 
     // Setup observers
     this._ro = new ResizeObserver(() => {
