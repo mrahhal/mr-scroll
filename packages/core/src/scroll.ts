@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import { getScrollbarWidth } from './support';
 
-export type ScrollMode = 'normal' | 'overlay' | 'hidden';
+export type ScrollMode = 'scroll' | 'auto' | 'overlay' | 'hidden';
 export type ScrollPosition = 'start' | 'middle' | 'end' | 'full';
 export type ScrollState = 'hidden' | 'scrolling';
 export type ScrollExtremity = 'start' | 'end';
@@ -16,7 +16,7 @@ export interface ScrollConfig {
 }
 
 const DEFAULT_CONFIG: ScrollConfig = {
-  mode: 'normal',
+  mode: 'auto',
   topThreshold: 50,
   bottomThreshold: 50,
   showOnHover: false,
@@ -40,9 +40,9 @@ export class Scroll {
   private _ro: ResizeObserver = null!;
   private _browserScrollbarWidth: number;
   private _scrollbarWidth: number;
-  private _position: ScrollPosition = 'start';
-  private _positionAbsolute: ScrollPosition = 'start'; // Position without thresholds
-  private _state: ScrollState = 'hidden';
+  private _position: ScrollPosition = null!;
+  private _positionAbsolute: ScrollPosition = null!; // Position without thresholds
+  private _state: ScrollState = null!;
   private _scrollRatio = 0;
   private _scrollTop: number | null = null;
 
@@ -87,7 +87,10 @@ export class Scroll {
     const thumbElement = this._thumbElement = barElement.appendChild(document.createElement('div'));
     thumbElement.classList.add(`${BAR_CLASS}-thumb`);
 
-    this._addMargins();
+    if (this.mode != 'auto') {
+      // In all modes but auto, we always have spacing
+      this._addSpacing();
+    }
   }
 
   get mode() { return this._config.mode; }
@@ -127,6 +130,21 @@ export class Scroll {
       this._updateHiddentContentClasses();
     });
     this._updateHiddentContentClasses();
+
+    this.stateChanged.subscribe((state: ScrollState) => {
+      if (this.mode == 'auto') {
+        // Only in auto mode, we add/remove spacing depending on the state
+        switch (state) {
+          case 'scrolling':
+            this._addSpacing();
+            break;
+
+          case 'hidden':
+            this._removeSpacing();
+            break;
+        }
+      }
+    });
 
     // Setup observers
     this._ro = new ResizeObserver(() => {
@@ -314,10 +332,16 @@ export class Scroll {
     }
   }
 
-  private _addMargins() {
-    const browserScrollWidth = this._browserScrollbarWidth;
-    this._contentElement.style.marginRight = `-${browserScrollWidth}px`;
-    this._contentElement.style.paddingRight = `-${browserScrollWidth}px`;
+  private _addSpacing() {
+    this._contentElement.style.marginRight = `-${this._browserScrollbarWidth}px`;
+    if (this.mode == 'scroll' || this.mode == 'auto') {
+      this._contentElement.style.paddingRight = `${this._scrollbarWidth}px`;
+    }
+  }
+
+  private _removeSpacing() {
+    this._contentElement.style.marginRight = '';
+    this._contentElement.style.paddingRight = '';
   }
 
   private _getCssProperty(name: string) {
@@ -333,7 +357,11 @@ export class Scroll {
   }
 
   private _resolveScrollbarWidth(mode = this.mode) {
-    const widthRaw = this._getCssProperty(`--mr-scroll-bar-width-${mode}`).trim();
+    let type = 'normal';
+    if (mode == 'overlay' || mode == 'hidden') {
+      type = 'overlay';
+    }
+    const widthRaw = this._getCssProperty(`--mr-scroll-bar-width-${type}`).trim();
     if (!widthRaw) {
       return null;
     }

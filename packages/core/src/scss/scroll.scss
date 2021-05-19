@@ -14,6 +14,12 @@
   overflow: hidden;
   position: relative;
 
+  &--mode-auto {
+    > .mr-scroll_content {
+      overflow-y: auto;
+    }
+  }
+
   &--mode-hidden {
     > .mr-scroll_bar {
       display: none;
@@ -80,12 +86,6 @@
   &--hidden-content-end {
     &::after {
       opacity: 1;
-    }
-  }
-
-  &--mode-normal {
-    > .mr-scroll_content {
-      padding-right: var(--mr-scroll-bar-width);
     }
   }
 }
