@@ -12,17 +12,20 @@ import { getCurrentTheme, getTheme, initializeTheming, setTheme } from 'css-them
 })
 export class AppComponent implements DoCheck {
   page: 'general' | 'full-page' | 'styling' = 'general';
+  theme: string;
 
   constructor() {
     // css-theming stuff
     initializeTheming();
+    this.theme = getCurrentTheme().name;
+
     document.addEventListener('keypress', e => {
       if (e.defaultPrevented) return;
 
       if (e.key === 't') {
         const previousTheme = getCurrentTheme();
         const newTheme = previousTheme.name == 'default' ? 'default-dark' : 'default';
-        setTheme(getTheme(newTheme));
+        this._setTheme(newTheme);
       }
     });
     //------------------
@@ -35,5 +38,10 @@ export class AppComponent implements DoCheck {
 
   setPage(page: 'general' | 'full-page' | 'styling') {
     this.page = page;
+  }
+
+  _setTheme(theme: string) {
+    setTheme(getTheme(theme));
+    this.theme = theme;
   }
 }
