@@ -113,6 +113,7 @@ export class Scroll {
   private _ro: ResizeObserver = null!;
   private _browserScrollbarWidth: number;
   private _scrollbarWidth: number;
+  private _barTotalMargin: number;
   private _h = createDirectionContext();
   private _v = createDirectionContext();
 
@@ -147,6 +148,7 @@ export class Scroll {
 
     this._browserScrollbarWidth = this._resolveBrowserScrollbarWidth();
     this._scrollbarWidth = this._resolveScrollbarWidth()!;
+    this._barTotalMargin = this._resolveBarMargin() * 2;
 
     // mr-scroll_hidden-content-fade
     const createFade = (t: string) => {
@@ -407,7 +409,7 @@ export class Scroll {
         const c = this._h;
 
         c.bar.barElement.classList.remove(BAR_HIDDEN_CLASS);
-        const translate = leftRatio * ownWidth;
+        const translate = leftRatio * (ownWidth - this._barTotalMargin);
 
         if (c.size != width) {
           c.bar.thumbElement.style.width = `${width}%`;
@@ -430,7 +432,7 @@ export class Scroll {
         const c = this._v;
 
         c.bar.barElement.classList.remove(BAR_HIDDEN_CLASS);
-        const translate = topRatio * ownHeight;
+        const translate = topRatio * (ownHeight - this._barTotalMargin);
 
         if (c.size != height) {
           c.bar.thumbElement.style.height = `${height}%`;
@@ -585,5 +587,10 @@ export class Scroll {
       return null;
     }
     return parseInt(widthRaw.substring(0, widthRaw.length - 2));
+  }
+
+  private _resolveBarMargin() {
+    const margin = this._getCssProperty('--mr-scroll-bar-margin');
+    return parseInt(margin.substring(0, margin.length - 2));
   }
 }
