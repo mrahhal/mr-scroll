@@ -1,17 +1,8 @@
 <div class="general-examples">
   <div class="general-example">
-    <div class="general-example-title">Scroll</div>
+    <div class="general-example-title">Auto (default)</div>
     <div class="general-example-content">
-      <mr-scroll mode="scroll" (topReached)="_onTopReached()">
-        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-      </mr-scroll>
-    </div>
-  </div>
-
-  <div class="general-example">
-    <div class="general-example-title">Auto</div>
-    <div class="general-example-content">
-      <mr-scroll mode="auto">
+      <mr-scroll mode="auto" (topReached)="_onTopReached()">
         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
       </mr-scroll>
     </div>
@@ -80,8 +71,8 @@
 
   <div class="general-example">
     <div class="general-example-title">Horizontal</div>
-    <div class="general-example-content">
-      <mr-scroll style="height: initial">
+    <div class="general-example-content general-example-content--h">
+      <mr-scroll>
         <div class="general-content-h">
           <div *ngFor="let item of values" class="general-content-h-item">
             Item #{{item}}

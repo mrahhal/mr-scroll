@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import { getScrollbarWidth } from './support';
 
-export type ScrollMode = 'scroll' | 'auto' | 'overlay' | 'hidden';
+export type ScrollMode = 'auto' | 'overlay' | 'hidden';
 export type ScrollPosition = 'start' | 'middle' | 'end' | 'full';
 export type ScrollState = 'hidden' | 'scrolling';
 export type ScrollExtremity = 'start' | 'end';
@@ -458,7 +458,7 @@ export class Scroll {
 
   private _addSpacingH() {
     this._contentElement.style.marginBottom = `-${this._browserScrollbarWidth}px`;
-    if (this.mode == 'scroll' || this.mode == 'auto') {
+    if (this.mode == 'auto') {
       this._contentElement.style.paddingBottom = `${this._scrollbarWidth}px`;
     }
   }
@@ -470,7 +470,7 @@ export class Scroll {
 
   private _addSpacingV() {
     this._contentElement.style.marginRight = `-${this._browserScrollbarWidth}px`;
-    if (this.mode == 'scroll' || this.mode == 'auto') {
+    if (this.mode == 'auto') {
       this._contentElement.style.paddingRight = `${this._scrollbarWidth}px`;
     }
   }
