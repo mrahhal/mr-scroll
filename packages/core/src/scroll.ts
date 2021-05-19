@@ -119,17 +119,17 @@ export class Scroll {
       };
     };
 
-    const barH = this._barH = createBar();
-    barH.barElement.classList.add(BAR_H_CLASS);
-    const barV = this._barV = createBar();
-    barV.barElement.classList.add(BAR_V_CLASS);
-
     const createFade = (t: string) => {
       const fadeElement = _hostElement.appendChild(document.createElement('div'));
       fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS);
       fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS + `--${t}`);
     };
     ['t', 'r', 'b', 'l'].forEach(t => createFade(t));
+
+    const barH = this._barH = createBar();
+    barH.barElement.classList.add(BAR_H_CLASS);
+    const barV = this._barV = createBar();
+    barV.barElement.classList.add(BAR_V_CLASS);
 
     if (this.mode != 'auto') {
       // In all modes but auto, we always have spacing

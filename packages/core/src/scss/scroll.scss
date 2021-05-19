@@ -106,7 +106,6 @@
 }
 
 .mr-scroll_bar {
-  z-index: 1; // So that hidden content fade doesn't show over the bar
   position: absolute;
   display: flex;
 
