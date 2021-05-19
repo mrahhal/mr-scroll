@@ -43,6 +43,24 @@
       max-height: 200px;
     }
   }
+
+  &--h {
+    > .mr-scroll {
+      height: initial;
+    }
+  }
+}
+
+.general-content-hv {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  white-space: nowrap;
+  margin: -1px;
+
+  > * {
+    padding: 10px;
+    border: 1px dashed var(--bd);
+  }
 }
 
 .general-example-note {
