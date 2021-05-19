@@ -9,12 +9,38 @@ export type ScrollState = 'hidden' | 'scrolling';
 export type ScrollExtremity = 'start' | 'end';
 export type ScrollDirection = 'h' | 'v';
 
+/**
+ * Contains configuration options for Scroll.
+ */
 export interface ScrollConfig {
+  /**
+   * The mode that the scroll will adapt.
+   */
   mode: ScrollMode;
+
+  /**
+   * The top threshold. Affects when the topReached event is raised.
+   */
   topThreshold: number;
+
+  /**
+   * The bottom threshold. Affects when the bottomReached event is raised.
+   */
   bottomThreshold: number;
+
+  /**
+   * The left threshold. Affects when the leftReached event is raised.
+   */
   leftThreshold: number;
+
+  /**
+   * The right threshold. Affects when the rightReached event is raised.
+   */
   rightThreshold: number;
+
+  /**
+   * Respresents whether or not to show the scrollbar only on hover.
+   */
   showOnHover: boolean;
 }
 
@@ -118,6 +144,14 @@ export class Scroll {
     this._browserScrollbarWidth = this._resolveBrowserScrollbarWidth();
     this._scrollbarWidth = this._resolveScrollbarWidth()!;
 
+    // mr-scroll_hidden-content-fade
+    const createFade = (t: string) => {
+      const fadeElement = _hostElement.appendChild(document.createElement('div'));
+      fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS);
+      fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS + `--${t}`);
+    };
+    ['t', 'r', 'b', 'l'].forEach(t => createFade(t));
+
     // mr-scroll_bar
     const createBar = (): Bar => {
       const barElement = _hostElement.appendChild(document.createElement('div'));
@@ -132,13 +166,6 @@ export class Scroll {
         thumbElement,
       };
     };
-
-    const createFade = (t: string) => {
-      const fadeElement = _hostElement.appendChild(document.createElement('div'));
-      fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS);
-      fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS + `--${t}`);
-    };
-    ['t', 'r', 'b', 'l'].forEach(t => createFade(t));
 
     const barH = this._h.bar = createBar();
     barH.barElement.classList.add(BAR_H_CLASS);
