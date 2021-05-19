@@ -28,6 +28,14 @@ export class GeneralComponent {
     console.log('_onTopReached');
   }
 
+  _onLeftReached() {
+    console.log('_onLeftReached');
+  }
+
+  _onRightReached() {
+    console.log('_onRightReached');
+  }
+
   _onScrolled() {
     // This event doesn't trigger change detection on purpose for performance reasons.
     // To trigger change detection you should call `NgZone.run()`.

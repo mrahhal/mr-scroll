@@ -12,6 +12,8 @@ export interface ScrollConfig {
   mode: ScrollMode;
   topThreshold: number;
   bottomThreshold: number;
+  leftThreshold: number;
+  rightThreshold: number;
   showOnHover: boolean;
 }
 
@@ -19,6 +21,8 @@ const DEFAULT_CONFIG: ScrollConfig = {
   mode: 'auto',
   topThreshold: 50,
   bottomThreshold: 50,
+  leftThreshold: 50,
+  rightThreshold: 50,
   showOnHover: false,
 };
 
@@ -64,6 +68,8 @@ export class Scroll {
   private _scrolled = new Subject<{ left: number; top: number }>();
   private _topReached = new Subject<void>();
   private _bottomReached = new Subject<void>();
+  private _leftReached = new Subject<void>();
+  private _rightReached = new Subject<void>();
   private _positionHChanged = new Subject<ScrollPosition>();
   private _positionHAbsoluteChanged = new Subject<ScrollPosition>();
   private _stateHChanged = new Subject<ScrollState>();
@@ -136,6 +142,8 @@ export class Scroll {
   get scrolled() { return this._scrolled.asObservable(); }
   get topReached() { return this._topReached.asObservable(); }
   get bottomReached() { return this._bottomReached.asObservable(); }
+  get leftReached() { return this._leftReached.asObservable(); }
+  get rightReached() { return this._rightReached.asObservable(); }
   get positionHChanged() { return this._positionHChanged.asObservable(); }
   get positionHAbsoluteChanged() { return this._positionHAbsoluteChanged.asObservable(); }
   get stateHChanged() { return this._stateHChanged.asObservable(); }
@@ -153,6 +161,13 @@ export class Scroll {
    */
   initialize() {
     // Setup subjects
+    this.positionHChanged.subscribe((position: ScrollPosition) => {
+      switch (position) {
+        case 'start': this._leftReached.next(); break;
+        case 'end': this._rightReached.next(); break;
+      }
+    });
+
     this.positionVChanged.subscribe((position: ScrollPosition) => {
       switch (position) {
         case 'start': this._topReached.next(); break;
@@ -252,6 +267,8 @@ export class Scroll {
     this._scrolled.complete();
     this._topReached.complete();
     this._bottomReached.complete();
+    this._leftReached.complete();
+    this._rightReached.complete();
     this._positionHChanged.complete();
     this._positionHAbsoluteChanged.complete();
     this._stateHChanged.complete();
@@ -298,8 +315,8 @@ export class Scroll {
           }
 
           if (!isLeft) {
-            const attainedHeight = scrollLeft + ownHeight + rightThreshold;
-            if (attainedHeight >= totalHeight) {
+            const attainedWidth = scrollLeft + ownWidth + rightThreshold;
+            if (attainedWidth >= totalWidth) {
               p = 'end';
             }
           }
@@ -329,7 +346,7 @@ export class Scroll {
         return p;
       };
 
-      const newPositionH = computePositionH(0, 0); // TODO
+      const newPositionH = computePositionH(this._config.leftThreshold, this._config.rightThreshold);
       const newPositionHAbsolute = computePositionH(0, 0);
       const newStateH: ScrollState = newPositionH == 'full' ? 'hidden' : 'scrolling';
 

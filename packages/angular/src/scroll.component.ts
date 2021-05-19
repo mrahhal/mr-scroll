@@ -29,6 +29,10 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() bottomThreshold?: number;
 
+  @Input() leftThreshold?: number;
+
+  @Input() rightThreshold?: number;
+
   @Input() showOnHover?: boolean;
 
   @Output() scrolled = new EventEmitter<{ left: number; top: number }>();
@@ -36,6 +40,10 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() topReached = new EventEmitter<void>();
 
   @Output() bottomReached = new EventEmitter<void>();
+
+  @Output() leftReached = new EventEmitter<void>();
+
+  @Output() rightReached = new EventEmitter<void>();
 
   @Output() positionHChanged = new EventEmitter<ScrollPosition>();
 
@@ -69,11 +77,13 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
       mode: this.mode,
       topThreshold: this.topThreshold,
       bottomThreshold: this.bottomThreshold,
+      leftThreshold: this.leftThreshold,
+      rightThreshold: this.rightThreshold,
       showOnHover: this.showOnHover,
     });
 
     // Events that will normally trigger change detection.
-    const delegatedEvents = ['topReached', 'bottomReached', 'positionHChanged', 'positionHAbsoluteChanged', 'stateHChanged', 'positionVChanged', 'positionVAbsoluteChanged', 'stateVChanged'];
+    const delegatedEvents = ['topReached', 'bottomReached', 'leftReached', 'rightReached', 'positionHChanged', 'positionHAbsoluteChanged', 'stateHChanged', 'positionVChanged', 'positionVAbsoluteChanged', 'stateVChanged'];
     // Events that won't trigger change detection. Change detection should be handled by the consumer.
     const delegatedEventsOutsideNgZone = ['scrolled'];
 
