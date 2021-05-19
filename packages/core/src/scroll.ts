@@ -384,6 +384,10 @@ export class Scroll {
     });
   }
 
+  scrollTo(options: ScrollToOptions) {
+    this._contentElement.scroll(options);
+  }
+
   private _setPositionAndStateH(position: ScrollPosition, positionAbsolute: ScrollPosition, state: ScrollState) {
     const positionChanged = position != this._positionH;
     const positionAbsoluteChanged = positionAbsolute != this._positionHAbsolute;
