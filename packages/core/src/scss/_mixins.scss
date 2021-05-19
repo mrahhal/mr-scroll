@@ -40,10 +40,9 @@
   }
 
   > .mr-scroll {
-    &::after,
-    &::before {
-      display: initial;
+    > .mr-scroll_hidden-content-fade {
       --mr-scroll-hidden-content-fade-gradient-color: #{$color-rgb};
+      display: initial;
     }
   }
 }

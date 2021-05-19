@@ -27,8 +27,11 @@ const DEFAULT_CONFIG: ScrollConfig = {
 };
 
 const HOST_CLASS = 'mr-scroll';
-const HOST_HIDDEN_CONTENT_START_CLASS = `${HOST_CLASS}--hidden-content-start`;
-const HOST_HIDDEN_CONTENT_END_CLASS = `${HOST_CLASS}--hidden-content-end`;
+const HOST_HIDDEN_CONTENT_LEFT_CLASS = `${HOST_CLASS}--hidden-content-l`;
+const HOST_HIDDEN_CONTENT_RIGHT_CLASS = `${HOST_CLASS}--hidden-content-r`;
+const HOST_HIDDEN_CONTENT_TOP_CLASS = `${HOST_CLASS}--hidden-content-t`;
+const HOST_HIDDEN_CONTENT_BOTTOM_CLASS = `${HOST_CLASS}--hidden-content-b`;
+const HOST_HIDDEN_CONTENT_FADE_CLASS = `${HOST_CLASS}_hidden-content-fade`;
 const CONTENT_CLASS = `${HOST_CLASS}_content`;
 const BAR_CLASS = `${HOST_CLASS}_bar`;
 const BAR_HIDDEN_CLASS = `${BAR_CLASS}--hidden`;
@@ -121,6 +124,13 @@ export class Scroll {
     const barV = this._barV = createBar();
     barV.barElement.classList.add(BAR_V_CLASS);
 
+    const createFade = (t: string) => {
+      const fadeElement = _hostElement.appendChild(document.createElement('div'));
+      fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS);
+      fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS + `--${t}`);
+    };
+    ['t', 'r', 'b', 'l'].forEach(t => createFade(t));
+
     if (this.mode != 'auto') {
       // In all modes but auto, we always have spacing
       this._addSpacing();
@@ -175,10 +185,13 @@ export class Scroll {
       }
     });
 
-    this.positionVAbsoluteChanged.subscribe(() => {
-      this._updateHiddentContentClasses();
+    this.positionHAbsoluteChanged.subscribe(() => {
+      this._updateHiddenContentClasses();
     });
-    this._updateHiddentContentClasses();
+    this.positionVAbsoluteChanged.subscribe(() => {
+      this._updateHiddenContentClasses();
+    });
+    this._updateHiddenContentClasses();
 
     if (this.mode == 'auto') {
       // Only in auto mode, we add/remove spacing depending on the state
@@ -434,40 +447,59 @@ export class Scroll {
     }
   }
 
-  private _updateHiddentContentClasses() {
-    const position = this._positionVAbsolute;
-
-    const setClasses = (extremities: ScrollExtremity[] | null) => {
-      this._hostElement.classList.remove(HOST_HIDDEN_CONTENT_START_CLASS, HOST_HIDDEN_CONTENT_END_CLASS);
+  private _updateHiddenContentClasses() {
+    const setClasses = (classes: { start: string; end: string }, extremities: ScrollExtremity[] | null) => {
+      this._hostElement.classList.remove(classes.start, classes.end);
       if (extremities != null)
         for (const c of extremities) {
           switch (c) {
             case 'start':
-              this._hostElement.classList.add(HOST_HIDDEN_CONTENT_START_CLASS);
+              this._hostElement.classList.add(classes.start);
               break;
 
             case 'end':
-              this._hostElement.classList.add(HOST_HIDDEN_CONTENT_END_CLASS);
+              this._hostElement.classList.add(classes.end);
               break;
           }
         }
     };
 
-    switch (position) {
+    const classesH = { start: HOST_HIDDEN_CONTENT_LEFT_CLASS, end: HOST_HIDDEN_CONTENT_RIGHT_CLASS };
+    const classesV = { start: HOST_HIDDEN_CONTENT_TOP_CLASS, end: HOST_HIDDEN_CONTENT_BOTTOM_CLASS };
+
+    switch (this._positionHAbsolute) {
       case 'full':
-        setClasses(null);
+        setClasses(classesH, null);
         break;
 
       case 'start':
-        setClasses(['end']);
+        setClasses(classesH, ['end']);
         break;
 
       case 'middle':
-        setClasses(['start', 'end']);
+        setClasses(classesH, ['start', 'end']);
         break;
 
       case 'end':
-        setClasses(['start']);
+        setClasses(classesH, ['start']);
+        break;
+    }
+
+    switch (this._positionVAbsolute) {
+      case 'full':
+        setClasses(classesV, null);
+        break;
+
+      case 'start':
+        setClasses(classesV, ['end']);
+        break;
+
+      case 'middle':
+        setClasses(classesV, ['start', 'end']);
+        break;
+
+      case 'end':
+        setClasses(classesV, ['start']);
         break;
     }
   }
