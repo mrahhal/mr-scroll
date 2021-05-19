@@ -47,13 +47,13 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Output() positionHChanged = new EventEmitter<ScrollPosition>();
 
-  @Output() positionHAbsoluteChanged = new EventEmitter<ScrollPosition>();
+  @Output() positionAbsoluteHChanged = new EventEmitter<ScrollPosition>();
 
   @Output() stateHChanged = new EventEmitter<ScrollState>();
 
   @Output() positionVChanged = new EventEmitter<ScrollPosition>();
 
-  @Output() positionVAbsoluteChanged = new EventEmitter<ScrollPosition>();
+  @Output() positionAbsoluteVChanged = new EventEmitter<ScrollPosition>();
 
   @Output() stateVChanged = new EventEmitter<ScrollState>();
 
@@ -83,7 +83,7 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // Events that will normally trigger change detection.
-    const delegatedEvents = ['topReached', 'bottomReached', 'leftReached', 'rightReached', 'positionHChanged', 'positionHAbsoluteChanged', 'stateHChanged', 'positionVChanged', 'positionVAbsoluteChanged', 'stateVChanged'];
+    const delegatedEvents = ['topReached', 'bottomReached', 'leftReached', 'rightReached', 'positionHChanged', 'positionAbsoluteHChanged', 'stateHChanged', 'positionVChanged', 'positionAbsoluteVChanged', 'stateVChanged'];
     // Events that won't trigger change detection. Change detection should be handled by the consumer.
     const delegatedEventsOutsideNgZone = ['scrolled'];
 
