@@ -480,6 +480,14 @@ export class Scroll {
     this._contentElement.scroll(options);
   }
 
+  scrollToTop(behavior: ScrollBehavior = 'auto') {
+    this.scrollTo({ top: 0, behavior });
+  }
+
+  scrollToLeft(behavior: ScrollBehavior = 'auto') {
+    this.scrollTo({ left: 0, behavior });
+  }
+
   //#region dragging
 
   private _addDraggingListeners() {
