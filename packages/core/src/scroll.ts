@@ -125,8 +125,6 @@ export class Scroll {
   private _prevPageX = 0;
   private _prevPageY = 0;
 
-  private _boundUpdate = this.update.bind(this);
-
   private _scrolled = new Subject<{ left: number; top: number }>();
   private _topReached = new Subject<void>();
   private _bottomReached = new Subject<void>();
@@ -138,6 +136,8 @@ export class Scroll {
     private _contentElement: HTMLElement,
     config?: Partial<ScrollConfig>,
   ) {
+    this.update = this.update.bind(this);
+
     this._getThumbHWidth = this._getThumbHWidth.bind(this);
     this._getThumbVHeight = this._getThumbVHeight.bind(this);
     this._getScrollLeftForOffset = this._getScrollLeftForOffset.bind(this);
@@ -334,9 +334,8 @@ export class Scroll {
       this._hostElement.classList.add(HOST_SIZE_0_MODIFIER);
     }
 
-    this._contentElement.addEventListener('scroll', this._boundUpdate);
-    window.addEventListener('resize', this._boundUpdate);
-
+    this._contentElement.addEventListener('scroll', this.update);
+    window.addEventListener('resize', this.update);
     this._addDraggingListeners();
 
     this.update();
@@ -347,8 +346,10 @@ export class Scroll {
    * so that it can properly deallocate resources and clean after itself.
    */
   destroy() {
-    this._contentElement.removeEventListener('scroll', this._boundUpdate);
-    window.removeEventListener('resize', this._boundUpdate);
+    this._contentElement.removeEventListener('scroll', this.update);
+    window.removeEventListener('resize', this.update);
+    this._removeDraggingListeners();
+
     this._mo.disconnect();
     this._ro.disconnect();
 
@@ -363,8 +364,6 @@ export class Scroll {
     this._v.positionChanged.complete();
     this._v.positionAbsoluteChanged.complete();
     this._v.stateChanged.complete();
-
-    this._removeDraggingListeners();
   }
 
   /**
