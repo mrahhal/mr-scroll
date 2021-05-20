@@ -111,7 +111,7 @@
   display: flex;
 
   &:hover {
-    > .mr-scroll_bar-thumb {
+    > .mr-scroll_bar-track {
       opacity: 1;
     }
   }
@@ -146,19 +146,34 @@
   &--hidden {
     opacity: 0 !important;
   }
+
+  &--dragging {
+    > .mr-scroll_bar-track,
+    > .mr-scroll_bar-thumb {
+      opacity: 1;
+    }
+  }
 }
 
 .mr-scroll_bar-track {
   margin: 3px;
   flex-grow: 1;
   background: var(--mr-scroll-track-color);
+  cursor: pointer;
+  opacity: .7;
+  transition: opacity linear .1s;
 }
 
 .mr-scroll_bar-thumb {
   background: var(--mr-scroll-thumb-color);
   border-radius: var(--mr-scroll-thumb-border-radius);
+  cursor: pointer;
   position: absolute;
   margin: 3px;
   opacity: .7;
   transition: opacity linear .1s;
+
+  &:hover {
+    opacity: 1;
+  }
 }

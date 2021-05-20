@@ -62,6 +62,7 @@ const HOST_HIDDEN_CONTENT_BOTTOM_CLASS = `${HOST_HIDDEN_CONTENT_MODIFIER}-b`;
 const HOST_HIDDEN_CONTENT_FADE_CLASS = `${HOST_CLASS}_hidden-content-fade`;
 const CONTENT_CLASS = `${HOST_CLASS}_content`;
 const BAR_CLASS = `${HOST_CLASS}_bar`;
+const BAR_DRAGGING_MODIFIER = `${BAR_CLASS}--dragging`;
 const BAR_HIDDEN_CLASS = `${BAR_CLASS}--hidden`;
 const BAR_H_CLASS = `${BAR_CLASS}--h`;
 const BAR_V_CLASS = `${BAR_CLASS}--v`;
@@ -80,7 +81,9 @@ interface DirectionContext {
   scrollRatio: number;
   scroll: number | null;
   size: number;
+  sizePixels: number;
   translate: number;
+  dragging: boolean;
 
   positionChanged: Subject<ScrollPosition>;
   positionAbsoluteChanged: Subject<ScrollPosition>;
@@ -96,7 +99,9 @@ function createDirectionContext(): DirectionContext {
     scrollRatio: -1,
     scroll: null,
     size: -1,
+    sizePixels: -1,
     translate: -1,
+    dragging: false,
 
     positionChanged: new Subject<ScrollPosition>(),
     positionAbsoluteChanged: new Subject<ScrollPosition>(),
@@ -111,11 +116,13 @@ export class Scroll {
   private _config: ScrollConfig;
   private _mo: MutationObserver = null!;
   private _ro: ResizeObserver = null!;
-  private _browserScrollbarWidth: number;
-  private _scrollbarWidth: number;
+  private _browserScrollbarSize: number;
+  private _scrollbarSize: number;
   private _barTotalMargin: number;
   private _h = createDirectionContext();
   private _v = createDirectionContext();
+  private _prevPageX = 0;
+  private _prevPageY = 0;
 
   private _boundUpdate = this.update.bind(this);
 
@@ -130,6 +137,18 @@ export class Scroll {
     private _contentElement: HTMLElement,
     config?: Partial<ScrollConfig>,
   ) {
+    this._getThumbHWidth = this._getThumbHWidth.bind(this);
+    this._getThumbVHeight = this._getThumbVHeight.bind(this);
+    this._getScrollLeftForOffset = this._getScrollLeftForOffset.bind(this);
+    this._getScrollTopForOffset = this._getScrollTopForOffset.bind(this);
+
+    this._handleTrackHMouseDown = this._handleTrackHMouseDown.bind(this);
+    this._handleTrackVMouseDown = this._handleTrackVMouseDown.bind(this);
+    this._handleThumbHMouseDown = this._handleThumbHMouseDown.bind(this);
+    this._handleThumbVMouseDown = this._handleThumbVMouseDown.bind(this);
+    this._handleDrag = this._handleDrag.bind(this);
+    this._handleDragEnd = this._handleDragEnd.bind(this);
+
     // Filter out undefined
     config = Object.entries(config || {})
       .filter(([, value]) => value !== undefined)
@@ -146,8 +165,8 @@ export class Scroll {
 
     this._hostElement.classList.add(`${HOST_CLASS}--mode-` + config.mode);
 
-    this._browserScrollbarWidth = this._resolveBrowserScrollbarWidth();
-    this._scrollbarWidth = this._resolveScrollbarWidth()!;
+    this._browserScrollbarSize = this._resolveBrowserScrollbarSize();
+    this._scrollbarSize = this._resolveScrollbarSize()!;
     this._barTotalMargin = this._resolveBarMargin() * 2;
 
     // mr-scroll_hidden-content-fade
@@ -305,16 +324,18 @@ export class Scroll {
     this._mo.observe(this._contentElement, { childList: true });
 
     //
-    this._setCssProperty('--mr-scroll-browser-bar-size', `${this._browserScrollbarWidth}px`);
-    this._setCssProperty('--mr-scroll-bar-size', `${this._scrollbarWidth}px`);
+    this._setCssProperty('--mr-scroll-browser-bar-size', `${this._browserScrollbarSize}px`);
+    this._setCssProperty('--mr-scroll-bar-size', `${this._scrollbarSize}px`);
 
-    if (!this._browserScrollbarWidth) {
+    if (!this._browserScrollbarSize) {
       this._hostElement.classList.add(`${HOST_CLASS}--width-0`);
     }
 
     this._contentElement.addEventListener('scroll', this._boundUpdate);
     this._contentElement.addEventListener('mouseenter', this._boundUpdate);
     window.addEventListener('resize', this._boundUpdate);
+
+    this._addDraggingListeners();
 
     this.update();
   }
@@ -341,6 +362,8 @@ export class Scroll {
     this._v.positionChanged.complete();
     this._v.positionAbsoluteChanged.complete();
     this._v.stateChanged.complete();
+
+    this._removeDraggingListeners();
   }
 
   /**
@@ -419,6 +442,7 @@ export class Scroll {
         }
 
         c.size = width;
+        c.sizePixels = (width / 100) * ownWidth;
         c.translate = translate;
       }
 
@@ -442,6 +466,7 @@ export class Scroll {
         }
 
         c.size = height;
+        c.sizePixels = (height / 100) * ownHeight;
         c.translate = translate;
       }
 
@@ -454,6 +479,154 @@ export class Scroll {
   scrollTo(options: ScrollToOptions) {
     this._contentElement.scroll(options);
   }
+
+  //#region dragging
+
+  private _addDraggingListeners() {
+    if (!this._browserScrollbarSize) return;
+    this._h.bar.trackElement.addEventListener('mousedown', this._handleTrackHMouseDown);
+    this._v.bar.trackElement.addEventListener('mousedown', this._handleTrackVMouseDown);
+    this._h.bar.thumbElement.addEventListener('mousedown', this._handleThumbHMouseDown);
+    this._v.bar.thumbElement.addEventListener('mousedown', this._handleThumbVMouseDown);
+  }
+
+  private _removeDraggingListeners() {
+    if (!this._browserScrollbarSize) return;
+    this._h.bar.trackElement.removeEventListener('mousedown', this._handleTrackHMouseDown);
+    this._v.bar.trackElement.removeEventListener('mousedown', this._handleTrackVMouseDown);
+    this._h.bar.thumbElement.removeEventListener('mousedown', this._handleThumbHMouseDown);
+    this._v.bar.thumbElement.removeEventListener('mousedown', this._handleThumbVMouseDown);
+
+    this._destroyMoveDragging();
+  }
+
+  private _handleTrackHMouseDown(e: MouseEvent) {
+    e.preventDefault();
+    const { target, clientX } = e;
+    const { left } = (target as HTMLElement).getBoundingClientRect();
+    const thumbWidth = this._getThumbHWidth();
+    const offset = Math.abs(left - clientX) - thumbWidth / 2;
+    this.scrollTo({ left: this._getScrollLeftForOffset(offset), behavior: 'smooth' });
+  }
+
+  private _handleTrackVMouseDown(e: MouseEvent) {
+    e.preventDefault();
+    const { target, clientY } = e;
+    const { top } = (target as HTMLElement).getBoundingClientRect();
+    const thumbHeight = this._getThumbVHeight();
+    const offset = Math.abs(top - clientY) - thumbHeight / 2;
+    this.scrollTo({ top: this._getScrollTopForOffset(offset), behavior: 'smooth' });
+  }
+
+  private _handleThumbHMouseDown(e: MouseEvent) {
+    e.preventDefault();
+    this._handleDragStart(e, 'h');
+    const { target, clientX } = e;
+    const { offsetWidth } = target as HTMLElement;
+    const { left } = (target as HTMLElement).getBoundingClientRect();
+    this._prevPageX = offsetWidth - (clientX - left);
+  }
+
+  private _handleThumbVMouseDown(e: MouseEvent) {
+    e.preventDefault();
+    this._handleDragStart(e, 'v');
+    const { target, clientY } = e;
+    const { offsetHeight } = target as HTMLElement;
+    const { top } = (target as HTMLElement).getBoundingClientRect();
+    this._prevPageY = offsetHeight - (clientY - top);
+  }
+
+  private _setDragging(direction: ScrollDirection, dragging: boolean) {
+    const c = this._resolveDirectionContext(direction);
+    if (c.dragging == dragging) return;
+    c.dragging = dragging;
+    if (dragging) {
+      c.bar.barElement.classList.add(BAR_DRAGGING_MODIFIER);
+    } else {
+      c.bar.barElement.classList.remove(BAR_DRAGGING_MODIFIER);
+    }
+  }
+
+  private _setupMoveDragging() {
+    document.addEventListener('mousemove', this._handleDrag);
+    document.addEventListener('mouseup', this._handleDragEnd);
+    document.onselectstart = () => false;
+  }
+
+  private _destroyMoveDragging() {
+    document.removeEventListener('mousemove', this._handleDrag);
+    document.removeEventListener('mouseup', this._handleDragEnd);
+    document.onselectstart = null;
+  }
+
+  private _handleDragStart(e: MouseEvent, direction: ScrollDirection) {
+    e.stopImmediatePropagation();
+    this._setDragging(direction, true);
+    this._setupMoveDragging();
+  }
+
+  private _handleDrag(e: MouseEvent) {
+    if (this._prevPageX) {
+      const { clientX } = e;
+      const { left: trackLeft } = this._h.bar.trackElement.getBoundingClientRect();
+      const thumbWidth = this._getThumbHWidth();
+      const clickPosition = thumbWidth - this._prevPageX;
+      const offset = -trackLeft + clientX - clickPosition;
+      this._contentElement.scrollLeft = this._getScrollLeftForOffset(offset);
+    }
+    if (this._prevPageY) {
+      const { clientY } = e;
+      const { top: trackTop } = this._v.bar.trackElement.getBoundingClientRect();
+      const thumbHeight = this._getThumbVHeight();
+      const clickPosition = thumbHeight - this._prevPageY;
+      const offset = -trackTop + clientY - clickPosition;
+      this._contentElement.scrollTop = this._getScrollTopForOffset(offset);
+    }
+    return false;
+  }
+
+  private _handleDragEnd() {
+    this._setDragging('h', false);
+    this._setDragging('v', false);
+    this._prevPageX = this._prevPageY = 0;
+    this._destroyMoveDragging();
+  }
+
+  private _getThumbHWidth() {
+    return this._h.sizePixels;
+  }
+
+  private _getThumbVHeight() {
+    return this._v.sizePixels;
+  }
+
+  private _getScrollLeftForOffset(offset: number) {
+    const { scrollWidth, clientWidth } = this._contentElement;
+    const trackWidth = this._getInnerWidth(this._h.bar.trackElement);
+    const thumbWidth = this._getThumbHWidth();
+    return offset / (trackWidth - thumbWidth) * (scrollWidth - clientWidth);
+  }
+
+  private _getScrollTopForOffset(offset: number) {
+    const { scrollHeight, clientHeight } = this._contentElement;
+    const trackHeight = this._getInnerHeight(this._v.bar.trackElement);
+    const thumbHeight = this._getThumbVHeight();
+    return offset / (trackHeight - thumbHeight) * (scrollHeight - clientHeight);
+  }
+
+  private _getInnerWidth(el: HTMLElement) {
+    const { clientWidth } = el;
+    const { paddingLeft, paddingRight } = getComputedStyle(el);
+    return clientWidth - parseFloat(paddingLeft) - parseFloat(paddingRight);
+  }
+
+  private _getInnerHeight(el: HTMLElement) {
+    const { clientHeight } = el;
+    const { paddingTop, paddingBottom } = getComputedStyle(el);
+    return clientHeight - parseFloat(paddingTop) - parseFloat(paddingBottom);
+  }
+
+  //#endregion
 
   private _resolveDirectionContext(direction: ScrollDirection) {
     switch (direction) {
@@ -542,9 +715,9 @@ export class Scroll {
   }
 
   private _addSpacingH() {
-    this._contentElement.style.marginBottom = `-${this._browserScrollbarWidth}px`;
+    this._contentElement.style.marginBottom = `-${this._browserScrollbarSize}px`;
     if (this.mode == 'auto') {
-      this._contentElement.style.paddingBottom = `${this._scrollbarWidth}px`;
+      this._contentElement.style.paddingBottom = `${this._scrollbarSize}px`;
     }
   }
 
@@ -554,9 +727,9 @@ export class Scroll {
   }
 
   private _addSpacingV() {
-    this._contentElement.style.marginRight = `-${this._browserScrollbarWidth}px`;
+    this._contentElement.style.marginRight = `-${this._browserScrollbarSize}px`;
     if (this.mode == 'auto') {
-      this._contentElement.style.paddingRight = `${this._scrollbarWidth}px`;
+      this._contentElement.style.paddingRight = `${this._scrollbarSize}px`;
     }
   }
 
@@ -573,11 +746,11 @@ export class Scroll {
     this._hostElement.style.setProperty(name, value);
   }
 
-  private _resolveBrowserScrollbarWidth() {
+  private _resolveBrowserScrollbarSize() {
     return getScrollbarWidth();
   }
 
-  private _resolveScrollbarWidth(mode = this.mode) {
+  private _resolveScrollbarSize(mode = this.mode) {
     let type = 'normal';
     if (mode == 'overlay' || mode == 'hidden') {
       type = 'overlay';
