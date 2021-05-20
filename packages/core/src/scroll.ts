@@ -167,7 +167,7 @@ export class Scroll {
 
     this._browserScrollbarSize = this._resolveBrowserScrollbarSize();
     this._scrollbarSize = this._resolveScrollbarSize()!;
-    this._barTotalMargin = this._resolveBarMargin() * 2;
+    this._barTotalMargin = this._resolveBarMargin() * 3; // Logically this should be "* 2", but this is working better. Something's off.
 
     // mr-scroll_hidden-content-fade
     const createFade = (t: string) => {
