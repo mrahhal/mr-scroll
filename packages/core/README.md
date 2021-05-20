@@ -9,15 +9,11 @@ This is the core package. [Check here](../..) for a general usage guide.
 
 ## Implementation
 
-> NOTE: If you're using a framework we have a wrapper for then you don't need this. [Check here](../..) to see which ones we support.
+> NOTE: If you're using a framework we have a wrapper for then you don't need this. [Check here](../..#packages) to see which ones we support.
 
-@mr-scroll/core has the core logic to make a custom scrollbar.
+@mr-scroll/core has the core logic to make an mr-scroll custom scrollbar.
 
-We implement it by doing the following:
-- Wrap it in a component (or something similar)
-- Provide the compiled CSS styles that includes the SCSS from this package
-
-Implementing @mr-scroll/core in a framework is simple. You'll use the `Scroll` class inside your component.
+Implementing @mr-scroll/core in a framework is simple. You'll wrap the `Scroll` class inside your component (or something similar).
 
 The `Scroll` constructor takes 3 arguments:
 - Host element: The html element that will act as the host. Required.
@@ -35,14 +31,14 @@ So this requires you to provide the host and content elements. As an example you
 
 Use whatever is the idiomatic approach in your framework to do this.
 
-In your wrapper component:
+And then in your wrapper component:
 ```ts
 import { Scroll } from '@mr-scroll/core';
 
 // Inside the wrapper
 
 // You'll want to store the reference to the scroll
-this.scroll = new Scroll(hostElement, contentElement, /* config */ { ... });
+this.scroll = new Scroll(hostElement, contentElement, /* config: fill from your inputs */ { ... });
 
 // Initialize whenever is the right time to do so in your framework
 this.scroll.initialize();
@@ -51,7 +47,7 @@ this.scroll.initialize();
 this.scroll.destroy();
 ```
 
-Providing the compiled CSS is a matter of importing [scroll.scss](./src/scss/scroll.scss) in your own SCSS file, compiling it to CSS on build, and finally providing it in the final package.
+This package also provides the main CSS styles to be imported in your app. You can find the bundled styles at "@mr-scroll/core/dist/styles.css".
 
 Check our [angular wrapper](../angular) to see an example of all of this for Angular.
 

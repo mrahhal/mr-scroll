@@ -18,7 +18,7 @@ npm i @mr-scroll/core @mr-scroll/angular @mr-scroll/css-theming
 
 ## Usage
 
-You only need to import the scss file that this package provides in our global scss file and call the mixin it provides:
+You only need to import the SCSS file that this package provides in our global SCSS file and call the mixin it provides:
 ```scss
 // For example, in styles.scss
 
@@ -30,6 +30,8 @@ You only need to import the scss file that this package provides in our global s
 // You can optionally provide values here
 @include msct-apply();
 ```
+
+[Example from sample here.](https://github.com/mrahhal/mr-scroll/blob/0780d36414c7032a5853daa53ec390cc9427537c/samples/angular/src/styles.scss#L3-L7)
 
 That's it. If you have css-theming set up properly, you'll see that the scroll's thumb changes colors as the user switches between light and dark themes.
 

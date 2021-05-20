@@ -19,17 +19,17 @@ Note: If you're using [css-theming](https://github.com/mrahhal/css-theming), che
 
 Import `ScrollModule` into your module.
 
-[Example from sample here.](https://github.com/mrahhal/mr-scroll/blob/f2ca71702f9916f0b0a70b65e61a536506879bf3/samples/angular/src/app/app.module.ts#L13)
+[Example from sample here.](https://github.com/mrahhal/mr-scroll/blob/0780d36414c7032a5853daa53ec390cc9427537c/samples/angular/src/app/app.module.ts#L19)
 
-Import the CSS styles in `angular.json`, in projects>angular>architect>build>options>styles:
+Import the CSS styles from the core package in your `angular.json`, in projects>angular>architect>build>options>styles:
 ```json
 "styles": [
+  "node_modules/@mr-scroll/core/dist/styles.css",
   //...
-  "node_modules/@mr-scroll/angular/styles.css"
 ]
 ```
 
-[Example from sample here.](https://github.com/mrahhal/mr-scroll/blob/f2ca71702f9916f0b0a70b65e61a536506879bf3/samples/angular/angular.json#L35)
+[Example from sample here.](https://github.com/mrahhal/mr-scroll/blob/0780d36414c7032a5853daa53ec390cc9427537c/samples/angular/angular.json#L34)
 
 Use `mr-scroll` component:
 ```html
