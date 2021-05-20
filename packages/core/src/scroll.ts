@@ -55,17 +55,17 @@ const DEFAULT_CONFIG: ScrollConfig = {
 
 const HOST_CLASS = 'mr-scroll';
 const HOST_HIDDEN_CONTENT_MODIFIER = `${HOST_CLASS}--hidden-content`;
-const HOST_HIDDEN_CONTENT_LEFT_CLASS = `${HOST_HIDDEN_CONTENT_MODIFIER}-l`;
-const HOST_HIDDEN_CONTENT_RIGHT_CLASS = `${HOST_HIDDEN_CONTENT_MODIFIER}-r`;
-const HOST_HIDDEN_CONTENT_TOP_CLASS = `${HOST_HIDDEN_CONTENT_MODIFIER}-t`;
-const HOST_HIDDEN_CONTENT_BOTTOM_CLASS = `${HOST_HIDDEN_CONTENT_MODIFIER}-b`;
+const HOST_HIDDEN_CONTENT_LEFT_MODIFIER = `${HOST_HIDDEN_CONTENT_MODIFIER}-l`;
+const HOST_HIDDEN_CONTENT_RIGHT_MODIFIER = `${HOST_HIDDEN_CONTENT_MODIFIER}-r`;
+const HOST_HIDDEN_CONTENT_TOP_MODIFIER = `${HOST_HIDDEN_CONTENT_MODIFIER}-t`;
+const HOST_HIDDEN_CONTENT_BOTTOM_MODIFIER = `${HOST_HIDDEN_CONTENT_MODIFIER}-b`;
 const HOST_HIDDEN_CONTENT_FADE_CLASS = `${HOST_CLASS}_hidden-content-fade`;
 const CONTENT_CLASS = `${HOST_CLASS}_content`;
 const BAR_CLASS = `${HOST_CLASS}_bar`;
 const BAR_DRAGGING_MODIFIER = `${BAR_CLASS}--dragging`;
-const BAR_HIDDEN_CLASS = `${BAR_CLASS}--hidden`;
-const BAR_H_CLASS = `${BAR_CLASS}--h`;
-const BAR_V_CLASS = `${BAR_CLASS}--v`;
+const BAR_HIDDEN_MODIFIER = `${BAR_CLASS}--hidden`;
+const BAR_H_MODIFIER = `${BAR_CLASS}--h`;
+const BAR_V_MODIFIER = `${BAR_CLASS}--v`;
 
 interface Bar {
   barElement: HTMLDivElement;
@@ -193,9 +193,9 @@ export class Scroll {
     };
 
     const barH = this._h.bar = createBar();
-    barH.barElement.classList.add(BAR_H_CLASS);
+    barH.barElement.classList.add(BAR_H_MODIFIER);
     const barV = this._v.bar = createBar();
-    barV.barElement.classList.add(BAR_V_CLASS);
+    barV.barElement.classList.add(BAR_V_MODIFIER);
 
     if (this.mode != 'auto') {
       // In all modes but auto, we always have spacing
@@ -427,11 +427,11 @@ export class Scroll {
       const newStateH: ScrollState = newPositionH == 'full' ? 'hidden' : 'scrolling';
 
       if (newPositionH == 'full') {
-        this._h.bar.barElement.classList.add(BAR_HIDDEN_CLASS);
+        this._h.bar.barElement.classList.add(BAR_HIDDEN_MODIFIER);
       } else {
         const c = this._h;
 
-        c.bar.barElement.classList.remove(BAR_HIDDEN_CLASS);
+        c.bar.barElement.classList.remove(BAR_HIDDEN_MODIFIER);
         const translate = leftRatio * (ownWidth - this._barTotalMargin);
 
         if (c.size != width) {
@@ -451,11 +451,11 @@ export class Scroll {
       const newStateV: ScrollState = newPositionV == 'full' ? 'hidden' : 'scrolling';
 
       if (newPositionV == 'full') {
-        this._v.bar.barElement.classList.add(BAR_HIDDEN_CLASS);
+        this._v.bar.barElement.classList.add(BAR_HIDDEN_MODIFIER);
       } else {
         const c = this._v;
 
-        c.bar.barElement.classList.remove(BAR_HIDDEN_CLASS);
+        c.bar.barElement.classList.remove(BAR_HIDDEN_MODIFIER);
         const translate = topRatio * (ownHeight - this._barTotalMargin);
 
         if (c.size != height) {
@@ -685,8 +685,8 @@ export class Scroll {
         }
     };
 
-    const classesH = { start: HOST_HIDDEN_CONTENT_LEFT_CLASS, end: HOST_HIDDEN_CONTENT_RIGHT_CLASS };
-    const classesV = { start: HOST_HIDDEN_CONTENT_TOP_CLASS, end: HOST_HIDDEN_CONTENT_BOTTOM_CLASS };
+    const classesH = { start: HOST_HIDDEN_CONTENT_LEFT_MODIFIER, end: HOST_HIDDEN_CONTENT_RIGHT_MODIFIER };
+    const classesV = { start: HOST_HIDDEN_CONTENT_TOP_MODIFIER, end: HOST_HIDDEN_CONTENT_BOTTOM_MODIFIER };
 
     [{ position: this._h.positionAbsolute, classes: classesH }, { position: this._v.positionAbsolute, classes: classesV }].forEach(x => {
       switch (x.position) {
