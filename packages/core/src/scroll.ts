@@ -239,6 +239,8 @@ export class Scroll {
   private get _totalHeight() { return this._contentElement.scrollHeight; }
   private get _totalWidth() { return this._contentElement.scrollWidth; }
 
+  private get _hasScrollbar() { return !!this._browserScrollbarSize; }
+
   /**
    * Initializes the scroll.
    */
@@ -328,7 +330,7 @@ export class Scroll {
     this._setCssProperty('--mr-scroll-browser-bar-size', `${this._browserScrollbarSize}px`);
     this._setCssProperty('--mr-scroll-bar-size', `${this._scrollbarSize}px`);
 
-    if (!this._browserScrollbarSize) {
+    if (!this._hasScrollbar) {
       this._hostElement.classList.add(HOST_SIZE_0_MODIFIER);
     }
 
@@ -492,7 +494,7 @@ export class Scroll {
   //#region dragging
 
   private _addDraggingListeners() {
-    if (!this._browserScrollbarSize) return;
+    if (!this._hasScrollbar) return;
     this._h.bar.trackElement.addEventListener('mousedown', this._handleTrackHMouseDown);
     this._v.bar.trackElement.addEventListener('mousedown', this._handleTrackVMouseDown);
     this._h.bar.thumbElement.addEventListener('mousedown', this._handleThumbHMouseDown);
@@ -500,7 +502,7 @@ export class Scroll {
   }
 
   private _removeDraggingListeners() {
-    if (!this._browserScrollbarSize) return;
+    if (!this._hasScrollbar) return;
     this._h.bar.trackElement.removeEventListener('mousedown', this._handleTrackHMouseDown);
     this._v.bar.trackElement.removeEventListener('mousedown', this._handleTrackVMouseDown);
     this._h.bar.thumbElement.removeEventListener('mousedown', this._handleThumbHMouseDown);
@@ -724,6 +726,8 @@ export class Scroll {
   }
 
   private _addSpacingH() {
+    if (!this._hasScrollbar) return;
+
     this._contentElement.style.marginBottom = `-${this._browserScrollbarSize}px`;
     if (this.mode == 'auto') {
       this._contentElement.style.paddingBottom = `${this._scrollbarSize}px`;
@@ -731,11 +735,15 @@ export class Scroll {
   }
 
   private _removeSpacingH() {
+    if (!this._hasScrollbar) return;
+
     this._contentElement.style.marginBottom = '';
     this._contentElement.style.paddingBottom = '';
   }
 
   private _addSpacingV() {
+    if (!this._hasScrollbar) return;
+
     this._contentElement.style.marginRight = `-${this._browserScrollbarSize}px`;
     if (this.mode == 'auto') {
       this._contentElement.style.paddingRight = `${this._scrollbarSize}px`;
@@ -743,6 +751,8 @@ export class Scroll {
   }
 
   private _removeSpacingV() {
+    if (!this._hasScrollbar) return;
+
     this._contentElement.style.marginRight = '';
     this._contentElement.style.paddingRight = '';
   }
