@@ -54,6 +54,7 @@ const DEFAULT_CONFIG: ScrollConfig = {
 };
 
 const HOST_CLASS = 'mr-scroll';
+const HOST_SIZE_0_MODIFIER = `${HOST_CLASS}--size-0`;
 const HOST_HIDDEN_CONTENT_MODIFIER = `${HOST_CLASS}--hidden-content`;
 const HOST_HIDDEN_CONTENT_LEFT_MODIFIER = `${HOST_HIDDEN_CONTENT_MODIFIER}-l`;
 const HOST_HIDDEN_CONTENT_RIGHT_MODIFIER = `${HOST_HIDDEN_CONTENT_MODIFIER}-r`;
@@ -328,7 +329,7 @@ export class Scroll {
     this._setCssProperty('--mr-scroll-bar-size', `${this._scrollbarSize}px`);
 
     if (!this._browserScrollbarSize) {
-      this._hostElement.classList.add(`${HOST_CLASS}--width-0`);
+      this._hostElement.classList.add(HOST_SIZE_0_MODIFIER);
     }
 
     this._contentElement.addEventListener('scroll', this._boundUpdate);
