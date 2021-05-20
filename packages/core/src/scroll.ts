@@ -335,7 +335,6 @@ export class Scroll {
     }
 
     this._contentElement.addEventListener('scroll', this._boundUpdate);
-    this._contentElement.addEventListener('mouseenter', this._boundUpdate);
     window.addEventListener('resize', this._boundUpdate);
 
     this._addDraggingListeners();
@@ -349,7 +348,6 @@ export class Scroll {
    */
   destroy() {
     this._contentElement.removeEventListener('scroll', this._boundUpdate);
-    this._contentElement.removeEventListener('mouseenter', this._boundUpdate);
     window.removeEventListener('resize', this._boundUpdate);
     this._mo.disconnect();
     this._ro.disconnect();
