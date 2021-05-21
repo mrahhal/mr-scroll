@@ -1,3 +1,15 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+/// Gets the rgb values of the color.
+/// @access private
+@function get-rgb($color) {
+  $r: color.red($color);
+  $g: color.green($color);
+  $b: color.blue($color);
+  @return $r, $g, $b;
+}
+
 /// Sets the element to be a column flex container and adds proper flags to disable the auto min behavior of flexbox.
 /// Check this for more about the auto min behavior: https://stackoverflow.com/a/36247448/2172786.
 /// Note that you can override this to be a row flex container. We made it column because that's the most common case.
@@ -33,10 +45,24 @@
 
 /// Applies a hidden content fade to the scroll.
 /// @access public
-/// @param {Color} $color-rgb - The background color in rgb
-@mixin hidden-content-fade($color-rgb: null) {
-  @if ($color-rgb == null) {
-    $color-rgb: 255, 255, 255;
+/// @param {Color|String|List} $color - The background color (can be a CSS var that points to an rgb value, a color, or an rgb value)
+@mixin hidden-content-fade($color: null) {
+  @if ($color == null) {
+    $color: white;
+  }
+
+  $type: meta.type-of($color);
+  $color-rgb: null;
+
+  @if ($type == 'color') {
+    // i.e white, #fff, etc
+    $color-rgb: get-rgb($color);
+  } @else if ($type == 'string') {
+    // i.e var(--rgb)
+    $color-rgb: $color;
+  } @else {
+    // i.e a variable poiting to "255, 255, 255" (without quotes)
+    $color-rgb: $color;
   }
 
   > .mr-scroll {

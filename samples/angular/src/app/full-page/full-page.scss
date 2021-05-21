@@ -12,12 +12,13 @@
 }
 
 .full-page-sidebar {
-  width: 150px;
   @include msc-flex-adaptive-container($flex: false);
-  background: var(--indigo);
-  @include msc-pad-content(10px);
+  width: 150px;
+  $bg: #5700ff;
+  background: $bg;
   color: white;
-  @include msc-hidden-content-fade(var(--indigo-rgb));
+  @include msc-pad-content(10px);
+  @include msc-hidden-content-fade($bg);
 }
 
 .full-page-sidebar-item {
