@@ -2,7 +2,7 @@
 
 The best custom scroll for the web.
 
-[DEMO]
+[Live demo here.](https://stackblitz.com/edit/mr-scroll-demo)
 
 ## Features
 
