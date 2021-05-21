@@ -1,12 +1,12 @@
 <div class="full-page-sidebar">
   <mr-scroll mode="hidden">
     <h3>Sidebar</h3>
-    <div *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="full-page-sidebar-item">Item {{item}}</div>
+    <div *ngFor="let item of items" class="full-page-sidebar-item">Item {{item}}</div>
   </mr-scroll>
 </div>
 
 <div class="full-page-content">
   <mr-scroll>
-    <h1 *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">Content {{item}}</h1>
+    <h1 *ngFor="let item of items">Content {{item}}</h1>
   </mr-scroll>
 </div>

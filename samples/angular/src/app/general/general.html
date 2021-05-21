@@ -61,7 +61,7 @@
     <div class="general-example-content general-example-content--max-height">
       <mr-scroll mode="auto">
         <div class="general-content">
-          <div *ngFor="let item of [0, 1, 2]" class="general-content-item">
+          <div *ngFor="let item of items3" class="general-content-item">
             Item #{{item}}
           </div>
         </div>
@@ -74,7 +74,7 @@
     <div class="general-example-content general-example-content--h general-example-content--hidden-content-fade">
       <mr-scroll (leftReached)="_onLeftReached()" (rightReached)="_onRightReached()">
         <div class="general-content-h">
-          <div *ngFor="let item of values" class="general-content-h-item">
+          <div *ngFor="let item of items" class="general-content-h-item">
             Item #{{item}}
           </div>
         </div>
@@ -87,7 +87,7 @@
     <div class="general-example-content general-example-content--hv general-example-content--hidden-content-fade">
       <mr-scroll mode="overlay">
         <div class="general-content-hv">
-          <div *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]">
+          <div *ngFor="let item of items24">
             Item #{{item}}
           </div>
         </div>
@@ -98,7 +98,7 @@
 
 <ng-template #contentTemplate>
   <div class="general-content">
-    <div *ngFor="let item of values" class="general-content-item">
+    <div *ngFor="let item of items" class="general-content-item">
       Item #{{item}}
     </div>
   </div>

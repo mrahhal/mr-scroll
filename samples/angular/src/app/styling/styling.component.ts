@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'styling',
@@ -10,14 +11,6 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
     'class': 'styling',
   },
 })
-export class StylingComponent implements OnInit {
-  values: number[] = [];
-
-  constructor() {
-    for (let i = 0; i < 10; i++) {
-      this.values.push(i);
-    }
-  }
-
-  ngOnInit() { }
+export class StylingComponent {
+  items = _.range(1, 11);
 }

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'general',
@@ -11,18 +12,9 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   },
 })
 export class GeneralComponent {
-  values: number[] = [];
-  valuesLess: number[] = [];
-
-  constructor() {
-    for (let i = 0; i < 10; i++) {
-      this.values.push(i);
-    }
-
-    for (let i = 0; i < 3; i++) {
-      this.valuesLess.push(i);
-    }
-  }
+  items = _.range(1, 11);
+  items3 = _.range(1, 4);
+  items24 = _.range(1, 25);
 
   _onTopReached() {
     console.log('_onTopReached');
