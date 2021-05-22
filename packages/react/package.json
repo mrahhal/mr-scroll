@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
+  "types": "dist/index.d.ts",
   "source": "src/index.tsx",
   "engines": {
     "node": ">=10"
@@ -36,6 +37,7 @@
     "react": ">=16.0.0"
   },
   "devDependencies": {
+    "@mr-scroll/core": "file:../core",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
