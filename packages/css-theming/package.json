@@ -1,7 +1,7 @@
 {
   "name": "@mr-scroll/css-theming",
   "description": "The best custom scroll for the web. This is the css-theming support package.",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "keywords": [
     "custom",
     "scroll",
