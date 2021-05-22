@@ -34,6 +34,9 @@
     "dist",
     "src/scss"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "rxjs": ">=6.0.0"
   },
