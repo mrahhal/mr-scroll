@@ -13,6 +13,6 @@ jobs:
         node-version: '14'
     - name: Build
       run: |
-        npm ci
+        npm i
         npx lerna bootstrap
         npx lerna run build
