@@ -32,6 +32,8 @@ We also have support packages:
 
 - [@mr-scroll/css-theming](./packages/css-theming): A support package for styling the scrollbar according to the active theme when using [css-theming](https://github.com/mrahhal/css-theming).
 
+All packages in the @mr-scroll org here: https://www.npmjs.com/org/mr-scroll
+
 ## Samples
 
 Samples contain working examples of how to use mr-scroll.
