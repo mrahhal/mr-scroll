@@ -35,7 +35,8 @@
   },
   "distDir": "dist",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   },
   "peerDependencies": {
     "@angular/common": ">=11.0.0",
