@@ -1,5 +1,7 @@
 # mr-scroll
 
+[![CI](https://github.com/mrahhal/mr-scroll/actions/workflows/ci.yml/badge.svg)](https://github.com/mrahhal/mr-scroll/actions/workflows/ci.yml)
+
 The best custom scroll for the web.
 
 [Live demo here.](https://mr-scroll-demo.mrahhal.net)
