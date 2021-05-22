@@ -6,6 +6,6 @@ root = true
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{css,scss,json,yaml,yml,html,config,md,js,ts}]
+[*.{css,scss,json,yaml,yml,html,config,md,js,ts,tsx}]
 indent_style = space
 indent_size = 2
