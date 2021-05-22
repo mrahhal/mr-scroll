@@ -2,7 +2,7 @@
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@mr-scroll/angular",
   "description": "The best custom scroll for the web. This is the angular wrapper.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "compile": "ngc",
     "build": "ng-packagr -p package.json",
