@@ -29,15 +29,12 @@ export default class ScrollComponent extends React.Component<Props> {
 
   constructor(props: Props) {
     super(props);
+    this._hostRef = React.createRef();
     this._contentRef = React.createRef();
-
-    this.state = {
-      didMountUniversal: false,
-    };
   }
 
   componentDidMount() {
-    this._scroll = new Scroll(this._hostRef.current!, this._contentRef.current!, {
+    this._scroll = new Scroll(() => this._hostRef.current! as HTMLElement, () => this._contentRef.current! as HTMLElement, {
       mode: this.props.mode,
       topThreshold: this.props.topThreshold,
       bottomThreshold: this.props.bottomThreshold,
@@ -55,6 +52,8 @@ export default class ScrollComponent extends React.Component<Props> {
         }
       });
     }
+
+    this._scroll.initialize();
   }
 
   componentWillUnmount() {

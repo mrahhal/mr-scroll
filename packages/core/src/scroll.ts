@@ -114,6 +114,8 @@ function createDirectionContext(): DirectionContext {
  * The core class that implements the custom scroll logic.
  */
 export class Scroll {
+  private _hostElementAccessor: () => HTMLElement;
+  private _contentElementAccessor: () => HTMLElement;
   private _config: ScrollConfig;
   private _mo: MutationObserver = null!;
   private _ro: ResizeObserver = null!;
@@ -131,11 +133,22 @@ export class Scroll {
   private _leftReached = new Subject<void>();
   private _rightReached = new Subject<void>();
 
+  /**
+   * @param _hostElement The host element. If a function is provided, it'll be called to access the element each time it's needed.
+   * @param _contentElement The content element. If a function is provided, it'll be called to access the element each time it's needed.
+   * @param config The config object.
+   */
   constructor(
-    private _hostElement: HTMLElement,
-    private _contentElement: HTMLElement,
+    hostElement: HTMLElement | (() => HTMLElement),
+    contentElement: HTMLElement | (() => HTMLElement),
     config?: Partial<ScrollConfig>,
   ) {
+    this._hostElementAccessor = typeof hostElement == 'function' ? hostElement : () => hostElement;
+    this._contentElementAccessor = typeof contentElement == 'function' ? contentElement : () => contentElement;
+
+    const _hostElement = this._hostElementAccessor();
+    const _contentElement = this._contentElementAccessor();
+
     this.update = this.update.bind(this);
 
     this._getThumbHWidth = this._getThumbHWidth.bind(this);
@@ -234,6 +247,8 @@ export class Scroll {
   get positionAbsoluteVChanged() { return this._v.positionAbsoluteChanged.asObservable(); }
   get stateVChanged() { return this._v.stateChanged.asObservable(); }
 
+  private get _hostElement() { return this._hostElementAccessor(); }
+  private get _contentElement() { return this._contentElementAccessor(); }
   private get _ownHeight() { return this._contentElement.clientHeight; }
   private get _ownWidth() { return this._contentElement.clientWidth; }
   private get _totalHeight() { return this._contentElement.scrollHeight; }
