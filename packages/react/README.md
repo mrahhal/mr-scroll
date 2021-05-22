@@ -18,14 +18,16 @@ Note: If you're using [css-theming](https://github.com/mrahhal/css-theming), che
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
-
-import MyComponent from '@mr-scroll/react'
-import '@mr-scroll/react/dist/index.css'
+import React, { Component } from 'react';
+import Scroll from '@mr-scroll/react';
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return (
+      <Scroll>
+        Content
+      </Scroll>
+    );
   }
 }
 ```

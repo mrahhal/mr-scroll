@@ -1,5 +1,5 @@
 import './App.css';
-import ScrollComponent from '@mr-scroll/react';
+import Scroll from '@mr-scroll/react';
 
 function App() {
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item =>
@@ -9,15 +9,15 @@ function App() {
   return (
     <div className="App">
       <div className="general-example">
-        <ScrollComponent>
+        <Scroll>
           {items}
-        </ScrollComponent>
+        </Scroll>
       </div>
 
       <div className="general-example">
-        <ScrollComponent mode="overlay">
+        <Scroll mode="overlay">
           {items}
-        </ScrollComponent>
+        </Scroll>
       </div>
     </div>
   );
