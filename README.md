@@ -40,4 +40,6 @@ Samples contain working examples of how to use mr-scroll.
 
 ---
 
+[![CCSS](https://img.shields.io/badge/follows-CCSS-cc00ff.svg)](https://github.com/mrahhal/CCSS)
+
 This project follows [CCSS](https://github.com/mrahhal/CCSS) for CSS naming conventions.
