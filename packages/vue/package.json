@@ -1,0 +1,49 @@
+{
+  "name": "@mr-scroll/vue",
+  "description": "The best custom scroll for the web. This is the vue wrapper.",
+  "version": "0.1.0",
+  "main": "./dist/mr-scroll.common.js",
+  "scripts": {
+    "lint": "vue-cli-service lint",
+    "build": "vue-cli-service build --target lib --name mr-scroll src/index.ts"
+  },
+  "keywords": [
+    "custom",
+    "scroll",
+    "scrollbar",
+    "react",
+    "component"
+  ],
+  "author": "Mohammad Rahhal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrahhal/mr-scroll"
+  },
+  "bugs": {
+    "url": "https://github.com/mrahhal/mr-scroll/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@mr-scroll/core": "^0.1.0",
+    "vue": ">=3.0.0",
+    "vue-class-component": "^8.0.0-0",
+    "vue-property-decorator": "^10.0.0-0"
+  },
+  "devDependencies": {
+    "@mr-scroll/core": "file:../core",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "rollup": "^2.49.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "typescript": "~4.1.5"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "declarationDir": "lib",
+    "target": "es2015",
+    "module": "es2020",
+    "sourceMap": true,
+    "declaration": true,
+    "importHelpers": true,
+    "strict": true,
+    "experimentalDecorators": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
