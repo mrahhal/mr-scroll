@@ -7,7 +7,7 @@
     "compile": "ngc",
     "build": "ng-packagr -p package.json",
     "lint": "npx eslint \"src/**/*.ts\"",
-    "check-peer-dependencies": "check-peer-dependencies",
+    "check-peer-dependencies": "npx check-peer-dependencies",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -52,7 +52,6 @@
     "@mr-scroll/core": "file:../core",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
-    "check-peer-dependencies": "^4.0.0",
     "eslint": "^7.25.0",
     "ng-packagr": "^11.0.0",
     "ts-node": "9.1.1",
