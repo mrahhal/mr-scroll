@@ -1,5 +1,6 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 // eslint-disable-next-line no-undef
 const production = process.env.NODE_ENV === 'production';
@@ -18,8 +19,8 @@ export function createRollupConfig(format, name = undefined) {
       name,
       sourcemap: true,
     },
-    external: ['rxjs', 'rxjs/operators'],
     plugins: [
+      peerDepsExternal(),
       typescript({
         rootDir: 'src/',
         sourceMap: !production,
