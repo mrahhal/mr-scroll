@@ -8,10 +8,11 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@mr-scroll/core": "file:../../packages/core",
-    "@mr-scroll/vue": "file:../../packages/vue",
+    "@mr-scroll/core": "^0.1.4",
+    "@mr-scroll/vue": "^0.1.4",
     "vue": "^3.0.0",
-    "vue-class-component": "^8.0.0-0"
+    "vue-class-component": "^8.0.0-0",
+    "vue-property-decorator": "^10.0.0-0"
   },
   "devDependencies": {
     "@vue/cli-plugin-typescript": "~4.5.0",

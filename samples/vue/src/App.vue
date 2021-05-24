@@ -40,6 +40,15 @@ export default class App extends Vue {}
 <style src='@mr-scroll/core/dist/styles.css'></style>
 
 <style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .app {
   margin: 10px;
   display: grid;
