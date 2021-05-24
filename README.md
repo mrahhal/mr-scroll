@@ -19,12 +19,15 @@ The best custom scroll for the web.
 - Works exactly the same across supported browsers
 - Supports mobile browsers
 
-And finally, we have efficient idiomatic wrapper packages for popular frameworks (as of now: angular).
+And finally, we have efficient idiomatic wrapper packages for popular frameworks (angular, react, vue2, vue3).
 
 ## Packages
 
 - [@mr-scroll/core](./packages/core): The core package. This does the heavy lifting.
 - [@mr-scroll/angular](./packages/angular): The wrapper package for Angular.
+- [@mr-scroll/react](./packages/react): The wrapper package for React.
+- [@mr-scroll/vue2](./packages/vue2): The wrapper package for Vue 2.
+- [@mr-scroll/vue](./packages/vue): The wrapper package for Vue 3.
 
 Can't find your framework? This means we don't have a wrapper for it just yet. Feel free to suggest/contribute one.
 
