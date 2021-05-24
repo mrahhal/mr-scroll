@@ -21,7 +21,7 @@ Import `ScrollModule` into your module.
 
 [Example from sample here.](https://github.com/mrahhal/mr-scroll/blob/0780d36414c7032a5853daa53ec390cc9427537c/samples/angular/src/app/app.module.ts#L19)
 
-Import the CSS styles from the core package in your `angular.json`, in projects>angular>architect>build>options>styles:
+Import the global CSS styles in your `angular.json`, in projects>angular>architect>build>options>styles:
 ```json
 "styles": [
   "node_modules/@mr-scroll/core/dist/styles.css",
