@@ -1,0 +1,23 @@
+{
+  "name": "sample",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@mr-scroll/core": "file:../../packages/core",
+    "@mr-scroll/vue2": "file:../../packages/vue2",
+    "vue": "^2.0.0",
+    "vue-class-component": "^7.0.0",
+    "vue-property-decorator": "^9.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "typescript": "~4.1.5",
+    "vue-template-compiler": "^2.6.11"
+  }
+}

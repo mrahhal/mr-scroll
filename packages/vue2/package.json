@@ -1,6 +1,6 @@
 {
-  "name": "@mr-scroll/vue",
-  "description": "The best custom scroll for the web. This is the vue wrapper.",
+  "name": "@mr-scroll/vue2",
+  "description": "The best custom scroll for the web. This is the vue 2 wrapper.",
   "version": "0.1.4",
   "main": "dist/mr-scroll.umd.js",
   "module": "dist/mr-scroll.common.js",
@@ -34,18 +34,18 @@
   ],
   "peerDependencies": {
     "@mr-scroll/core": "^0.1.0",
-    "vue": ">=3.0.0",
-    "vue-class-component": ">=8.0.0-0",
-    "vue-property-decorator": ">=10.0.0-0"
+    "vue": ">=2.0.0 <3.0.0",
+    "vue-class-component": "*",
+    "vue-property-decorator": "*"
   },
   "devDependencies": {
     "@mr-scroll/core": "file:../core",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.11",
     "typescript": "~4.1.5",
-    "vue": "^3.0.0",
-    "vue-class-component": "^8.0.0-0",
-    "vue-property-decorator": "^10.0.0-0"
+    "vue": "^2.0.0",
+    "vue-class-component": "^7.0.0",
+    "vue-property-decorator": "^9.0.0",
+    "vue-template-compiler": "^2.6.11"
   }
 }
