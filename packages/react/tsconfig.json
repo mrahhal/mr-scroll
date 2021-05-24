@@ -2,7 +2,7 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "target": "es2015",
-    "module": "es2020",
+    "module": "esnext",
     "outDir": "dist",
     "lib": ["dom", "esnext"],
     "jsx": "react",
