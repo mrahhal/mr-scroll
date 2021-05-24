@@ -24,6 +24,8 @@ export default class ScrollComponent extends Vue {
   @Ref("hostRef") readonly _hostRef!: HTMLDivElement;
   @Ref("contentRef") readonly _contentRef!: HTMLDivElement;
 
+  get scroll() { return this._scroll; }
+
   mounted() {
     this._scroll = new Scroll(this._hostRef, this._contentRef, {
       mode: this.mode,

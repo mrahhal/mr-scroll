@@ -33,6 +33,8 @@ export default class ScrollComponent extends React.Component<Props> {
     this._contentRef = React.createRef();
   }
 
+  get scroll() { return this._scroll; }
+
   componentDidMount() {
     this._scroll = new Scroll(() => this._hostRef.current! as HTMLElement, () => this._contentRef.current! as HTMLElement, {
       mode: this.props.mode,
