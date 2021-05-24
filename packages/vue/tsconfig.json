@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "declarationDir": "lib",
     "target": "es2015",
     "module": "es2020",
     "sourceMap": true,
     "declaration": true,
+    "outDir": "dist",
     "importHelpers": true,
     "strict": true,
     "experimentalDecorators": true
