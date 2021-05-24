@@ -1,7 +1,7 @@
 {
   "name": "@mr-scroll/vue",
   "description": "The best custom scroll for the web. This is the vue wrapper.",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "main": "./dist/mr-scroll.umd.js",
   "module": "./dist/mr-scroll.common.js",
   "types": "./dist/index.d.ts",
