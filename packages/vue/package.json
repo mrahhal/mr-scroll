@@ -7,7 +7,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "vue-cli-service lint",
-    "build": "vue-cli-service build --target lib --name mr-scroll src/index.ts"
+    "build": "vue-cli-service build --target lib --name mr-scroll src/index.ts",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "custom",
