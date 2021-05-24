@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="general-example">
-      <mr-scroll>
+      <mr-scroll @scrolled="onScrolled">
         <div
           v-for="item in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
           :key="item"
@@ -34,7 +34,11 @@ import Scroll from "@mr-scroll/vue";
     "mr-scroll": Scroll,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  onScrolled(x: any) {
+    console.log('onScrolled', x);
+  }
+}
 </script>
 
 <style src='@mr-scroll/core/dist/styles.css'></style>

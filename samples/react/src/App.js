@@ -6,10 +6,14 @@ function App() {
     <div className="general-item" key={item.toString()}>Item {item}</div>
   );
 
+  function onScrolled(x) {
+    console.log('onScrolled', x);
+  }
+
   return (
     <div className="App">
       <div className="general-example">
-        <Scroll>
+        <Scroll scrolled={onScrolled}>
           {items}
         </Scroll>
       </div>
