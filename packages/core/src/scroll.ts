@@ -386,109 +386,107 @@ export class Scroll {
    * itself automatically whenever it needs to.
    */
   update() {
-    requestAnimationFrame(() => {
-      const ownHeight = this._ownHeight;
-      const ownWidth = this._ownWidth;
-      const totalHeight = this._totalHeight;
-      const totalWidth = this._totalWidth;
+    const ownHeight = this._ownHeight;
+    const ownWidth = this._ownWidth;
+    const totalHeight = this._totalHeight;
+    const totalWidth = this._totalWidth;
 
-      this._h.scrollRatio = ownWidth / totalWidth;
-      this._v.scrollRatio = ownHeight / totalHeight;
+    this._h.scrollRatio = ownWidth / totalWidth;
+    this._v.scrollRatio = ownHeight / totalHeight;
 
-      const { scrollTop, scrollLeft } = this._contentElement;
-      const width = (this._h.scrollRatio) * 100;
-      const leftRatio = scrollLeft / totalWidth;
-      const height = (this._v.scrollRatio) * 100;
-      const topRatio = scrollTop / totalHeight;
+    const { scrollTop, scrollLeft } = this._contentElement;
+    const width = (this._h.scrollRatio) * 100;
+    const leftRatio = scrollLeft / totalWidth;
+    const height = (this._v.scrollRatio) * 100;
+    const topRatio = scrollTop / totalHeight;
 
-      if (this._h.scroll == null || this._h.scroll != scrollLeft) {
-        this._h.scroll = scrollLeft;
-      }
-      if (this._v.scroll == null || this._v.scroll != scrollTop) {
-        this._v.scroll = scrollTop;
-      }
+    if (this._h.scroll == null || this._h.scroll != scrollLeft) {
+      this._h.scroll = scrollLeft;
+    }
+    if (this._v.scroll == null || this._v.scroll != scrollTop) {
+      this._v.scroll = scrollTop;
+    }
 
-      const computePosition = (scrollRatio: number, scroll: number, ownSize: number, totalSize: number, startThreshold: number, endThreshold: number) => {
-        let p: ScrollPosition = 'middle';
-        if (scrollRatio >= 1) {
-          p = 'full';
-        } else {
-          const isStart = scroll <= startThreshold;
-          if (isStart) {
-            p = 'start';
-          }
+    const computePosition = (scrollRatio: number, scroll: number, ownSize: number, totalSize: number, startThreshold: number, endThreshold: number) => {
+      let p: ScrollPosition = 'middle';
+      if (scrollRatio >= 1) {
+        p = 'full';
+      } else {
+        const isStart = scroll <= startThreshold;
+        if (isStart) {
+          p = 'start';
+        }
 
-          if (!isStart) {
-            const attainedSize = scroll + ownSize + endThreshold;
-            if (attainedSize >= totalSize) {
-              p = 'end';
-            }
+        if (!isStart) {
+          const attainedSize = scroll + ownSize + endThreshold;
+          if (attainedSize >= totalSize) {
+            p = 'end';
           }
         }
-
-        return p;
-      };
-
-      const computePositionH = (leftThreshold: number, rightThreshold: number) => {
-        return computePosition(this._h.scrollRatio, scrollLeft, ownWidth, totalWidth, leftThreshold, rightThreshold);
-      };
-
-      const computePositionV = (topThreshold: number, bottomThreshold: number) => {
-        return computePosition(this._v.scrollRatio, scrollTop, ownHeight, totalHeight, topThreshold, bottomThreshold);
-      };
-
-      const newPositionH = computePositionH(this._config.leftThreshold, this._config.rightThreshold);
-      const newPositionAbsoluteH = computePositionH(0, 0);
-      const newStateH: ScrollState = newPositionH == 'full' ? 'hidden' : 'scrolling';
-
-      if (newPositionH == 'full') {
-        this._h.bar.barElement.classList.add(BAR_HIDDEN_MODIFIER);
-      } else {
-        const c = this._h;
-
-        c.bar.barElement.classList.remove(BAR_HIDDEN_MODIFIER);
-        const translate = leftRatio * (ownWidth - this._barTotalMargin);
-
-        if (c.size != width) {
-          c.bar.thumbElement.style.width = `${width}%`;
-        }
-        if (c.translate != translate) {
-          c.bar.thumbElement.style.transform = `translateX(${translate}px)`;
-        }
-
-        c.size = width;
-        c.sizePixels = (width / 100) * ownWidth;
-        c.translate = translate;
       }
 
-      const newPositionV = computePositionV(this._config.topThreshold, this._config.bottomThreshold);
-      const newPositionAbsoluteV = computePositionV(0, 0);
-      const newStateV: ScrollState = newPositionV == 'full' ? 'hidden' : 'scrolling';
+      return p;
+    };
 
-      if (newPositionV == 'full') {
-        this._v.bar.barElement.classList.add(BAR_HIDDEN_MODIFIER);
-      } else {
-        const c = this._v;
+    const computePositionH = (leftThreshold: number, rightThreshold: number) => {
+      return computePosition(this._h.scrollRatio, scrollLeft, ownWidth, totalWidth, leftThreshold, rightThreshold);
+    };
 
-        c.bar.barElement.classList.remove(BAR_HIDDEN_MODIFIER);
-        const translate = topRatio * (ownHeight - this._barTotalMargin);
+    const computePositionV = (topThreshold: number, bottomThreshold: number) => {
+      return computePosition(this._v.scrollRatio, scrollTop, ownHeight, totalHeight, topThreshold, bottomThreshold);
+    };
 
-        if (c.size != height) {
-          c.bar.thumbElement.style.height = `${height}%`;
-        }
-        if (c.translate != translate) {
-          c.bar.thumbElement.style.transform = `translateY(${translate}px)`;
-        }
+    const newPositionH = computePositionH(this._config.leftThreshold, this._config.rightThreshold);
+    const newPositionAbsoluteH = computePositionH(0, 0);
+    const newStateH: ScrollState = newPositionH == 'full' ? 'hidden' : 'scrolling';
 
-        c.size = height;
-        c.sizePixels = (height / 100) * ownHeight;
-        c.translate = translate;
+    if (newPositionH == 'full') {
+      this._h.bar.barElement.classList.add(BAR_HIDDEN_MODIFIER);
+    } else {
+      const c = this._h;
+
+      c.bar.barElement.classList.remove(BAR_HIDDEN_MODIFIER);
+      const translate = leftRatio * (ownWidth - this._barTotalMargin);
+
+      if (c.size != width) {
+        c.bar.thumbElement.style.width = `${width}%`;
+      }
+      if (c.translate != translate) {
+        c.bar.thumbElement.style.transform = `translateX(${translate}px)`;
       }
 
-      this._setPositionAndStateH(newPositionH, newPositionAbsoluteH, newStateH);
-      this._setPositionAndStateV(newPositionV, newPositionAbsoluteV, newStateV);
-      this._scrolled.next({ left: scrollLeft, top: scrollTop });
-    });
+      c.size = width;
+      c.sizePixels = (width / 100) * ownWidth;
+      c.translate = translate;
+    }
+
+    const newPositionV = computePositionV(this._config.topThreshold, this._config.bottomThreshold);
+    const newPositionAbsoluteV = computePositionV(0, 0);
+    const newStateV: ScrollState = newPositionV == 'full' ? 'hidden' : 'scrolling';
+
+    if (newPositionV == 'full') {
+      this._v.bar.barElement.classList.add(BAR_HIDDEN_MODIFIER);
+    } else {
+      const c = this._v;
+
+      c.bar.barElement.classList.remove(BAR_HIDDEN_MODIFIER);
+      const translate = topRatio * (ownHeight - this._barTotalMargin);
+
+      if (c.size != height) {
+        c.bar.thumbElement.style.height = `${height}%`;
+      }
+      if (c.translate != translate) {
+        c.bar.thumbElement.style.transform = `translateY(${translate}px)`;
+      }
+
+      c.size = height;
+      c.sizePixels = (height / 100) * ownHeight;
+      c.translate = translate;
+    }
+
+    this._setPositionAndStateH(newPositionH, newPositionAbsoluteH, newStateH);
+    this._setPositionAndStateV(newPositionV, newPositionAbsoluteV, newStateV);
+    this._scrolled.next({ left: scrollLeft, top: scrollTop });
   }
 
   scrollTo(options: ScrollToOptions) {
