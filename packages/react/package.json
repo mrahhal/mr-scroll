@@ -1,7 +1,7 @@
 {
   "name": "@mr-scroll/react",
   "description": "The best custom scroll for the web. This is the react wrapper.",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "types": "dist/index.d.ts",
