@@ -18,7 +18,8 @@
   "angularCompilerOptions": {
     "strictTemplates": true,
     "skipTemplateCodegen": true,
-    "strictMetadataEmit": true
+    "strictMetadataEmit": true,
+    "compilationMode": "partial"
   },
   "files": ["src/index.ts"]
 }

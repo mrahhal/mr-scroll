@@ -34,7 +34,8 @@
               "node_modules/@mr-scroll/core/dist/styles.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "preserveSymlinks": true
           },
           "configurations": {
             "production": {
