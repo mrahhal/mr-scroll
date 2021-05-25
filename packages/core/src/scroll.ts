@@ -1,4 +1,3 @@
-import ResizeObserver from 'resize-observer-polyfill';
 import { Subject } from 'rxjs';
 
 import { getScrollbarWidth } from './support';

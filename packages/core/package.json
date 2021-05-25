@@ -56,8 +56,5 @@
     "stylelint-config-standard": "^22.0.0",
     "tslib": "^2.2.0",
     "typescript": "~4.2.4"
-  },
-  "dependencies": {
-    "resize-observer-polyfill": "^1.5.1"
   }
 }
