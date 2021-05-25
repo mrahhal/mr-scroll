@@ -11,6 +11,7 @@ export function createRollupConfig(format, name = undefined) {
     declaration: true,
     declarationDir: outputDir,
   } : {};
+
   return {
     input: 'src/index.ts',
     output: {

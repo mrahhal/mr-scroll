@@ -2,6 +2,7 @@
   "name": "@mr-scroll/core",
   "description": "The best custom scroll for the web. This is the core package.",
   "version": "0.1.4",
+  "main": "dist/umd/index.js",
   "module": "dist/es/index.js",
   "types": "dist/es/index.d.ts",
   "scripts": {
@@ -9,7 +10,7 @@
     "watch": "concurrently \"npm run watch:ts\" \"npm run watch:scss\"",
     "watch:ts": "rollup -c rollup.config.es.js -w",
     "watch:scss": "nodemon --watch ./src/scss -e scss -x \"npm run bundle:css\"",
-    "build": "rollup -c rollup.config.es.js && npm run bundle:css",
+    "build": "rollup -c rollup.config.es.js && rollup -c rollup.config.umd.js && npm run bundle:css",
     "lint": "npm run lint:ts && npm run lint:scss",
     "lint:ts": "npx eslint \"src/**/*.ts\"",
     "lint:scss": "npx stylelint \"src/**/*.scss\"",

@@ -63,7 +63,7 @@
     "lib": {
       "entryFile": "src/index.ts",
       "umdModuleIds": {
-        "@mr-scroll/core": "mr-scroll-core"
+        "@mr-scroll/core": "mrScrollCore"
       }
     }
   }
