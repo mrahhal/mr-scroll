@@ -1,5 +1,5 @@
-@use 'node_modules/@mr-scroll/core/src/scss/pure' as msc;
-@use 'node_modules/css-theming/src/scss/themes';
+@use '~@mr-scroll/core/src/scss/pure' as msc;
+@use '~css-theming/src/scss/themes';
 
 @mixin apply-thumb-color(
   $thumb-color-light: null,
