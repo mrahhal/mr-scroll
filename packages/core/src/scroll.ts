@@ -143,6 +143,13 @@ export class Scroll {
     contentElement: HTMLElement | (() => HTMLElement),
     config?: Partial<ScrollConfig>,
   ) {
+    if (!hostElement) {
+      throw new Error('hostElement can\'t be null or undefined.');
+    }
+    if (!contentElement) {
+      throw new Error('contentElement can\'t be null or undefined.');
+    }
+
     this._hostElementAccessor = typeof hostElement == 'function' ? hostElement : () => hostElement;
     this._contentElementAccessor = typeof contentElement == 'function' ? contentElement : () => contentElement;
 
