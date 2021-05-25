@@ -21,7 +21,7 @@ export function createRollupConfig(format, name = undefined) {
       sourcemap: true,
     },
     plugins: [
-      peerDepsExternal(),
+      format == 'es' ? peerDepsExternal() : null,
       typescript({
         rootDir: 'src/',
         sourceMap: !production,
