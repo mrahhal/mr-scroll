@@ -40,8 +40,9 @@
   &--max-height {
     > .mr-scroll {
       height: unset;
-      max-height: 200px;
     }
+
+    @include msc-max-height(200px);
   }
 
   &--h {

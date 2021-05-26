@@ -43,6 +43,15 @@
   }
 }
 
+/// Sets a max height for the content.
+/// @access public
+/// @param {Number} $max-height - The max height
+@mixin max-height($max-height) {
+  > .mr-scroll {
+    max-height: $max-height;
+  }
+}
+
 /// Applies a hidden content fade to the scroll.
 /// @access public
 /// @param {Color|String|List} $color - The background color (can be a CSS var that points to an rgb value, a color, or an rgb value)
