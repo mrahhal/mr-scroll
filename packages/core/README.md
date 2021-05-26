@@ -5,11 +5,11 @@
 
 The best custom scroll for the web.
 
-This is the core package. [Check here](../..) for a general usage guide.
+This is the core package. [Check here](../../README.md) for a general usage guide.
 
 ## Implementation
 
-> NOTE: If you're using a framework we have a wrapper for then you don't need this. [Check here](../..#packages) to see which ones we support.
+> NOTE: If you're using a framework we have a wrapper for then you don't need this. [Check here](../../README.md#packages) to see which ones we support.
 
 @mr-scroll/core has the core logic to make an mr-scroll custom scrollbar.
 

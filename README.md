@@ -44,6 +44,9 @@ All packages in the @mr-scroll org here: https://www.npmjs.com/org/mr-scroll
 Samples contain working examples of how to use mr-scroll.
 
 - [Angular](./samples/angular)
+- [React](./samples/react)
+- [Vue 2](./samples/vue2)
+- [Vue 3](./samples/vue)
 
 ---
 

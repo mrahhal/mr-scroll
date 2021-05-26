@@ -5,7 +5,7 @@
 
 The best custom scroll for the web.
 
-This is the react wrapper. [Check here](../..) (root of this repo) for an overview on mr-scroll.
+This is the react wrapper. [Check here](../../README.md) (root of this repo) for an overview on mr-scroll.
 
 ## Install
 
@@ -37,7 +37,7 @@ class Example extends Component {
 }
 ```
 
-> For more general usage info check the [README](../..) in the root of this repo.
+> For more general usage info check the [README](../../README.md) in the root of this repo.
 
 ## Release notes
 

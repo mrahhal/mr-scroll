@@ -5,7 +5,7 @@
 
 The best custom scroll for the web.
 
-This is the [css-theming](https://github.com/mrahhal/css-theming) support package. [Check here](../..) (root of this repo) for an overview on mr-scroll.
+This is the [css-theming](https://github.com/mrahhal/css-theming) support package. [Check here](../../README.md) (root of this repo) for an overview on mr-scroll.
 
 This package styles the scroll (thumb, etc) according to the active theme when using [css-theming](https://github.com/mrahhal/css-theming).
 

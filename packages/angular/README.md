@@ -5,7 +5,7 @@
 
 The best custom scroll for the web.
 
-This is the angular wrapper. [Check here](../..) (root of this repo) for an overview on mr-scroll.
+This is the angular wrapper. [Check here](../../README.md) (root of this repo) for an overview on mr-scroll.
 
 ## Install
 
@@ -38,7 +38,7 @@ Use `mr-scroll` component:
 </mr-scroll>
 ```
 
-> For more general usage info check the [README](../..) in the root of this repo.
+> For more general usage info check the [README](../../README.md) in the root of this repo.
 
 **NOTE:** The `scrolled` event is the only event that won't trigger change detection. This is by design as it's fired a lot. If you need change detection when you react to it, you can do this easily by using `NgZone`:
 ```ts
