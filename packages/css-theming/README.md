@@ -47,9 +47,3 @@ If you're using the SCSS module system instead:
 [Example from sample here.](https://github.com/mrahhal/mr-scroll/blob/0780d36414c7032a5853daa53ec390cc9427537c/samples/angular/src/styles.scss#L3-L7)
 
 That's it. If you have css-theming set up properly, you'll see that the scroll's thumb changes colors as the user switches between light and dark themes.
-
-## Release notes
-
-### 0.1.0
-
-Initial version.

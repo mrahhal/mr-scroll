@@ -51,9 +51,3 @@ _onScrolled() {
   });
 }
 ```
-
-## Release notes
-
-### 0.1.0
-
-Initial version.

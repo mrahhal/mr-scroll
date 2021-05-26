@@ -51,9 +51,3 @@ Use `mr-scroll` component:
 ```
 
 > For more general usage info check the [README](../../README.md) in the root of this repo.
-
-## Release notes
-
-### 0.1.0
-
-Initial version.

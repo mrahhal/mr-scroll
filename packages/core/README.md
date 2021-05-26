@@ -53,9 +53,3 @@ this.scroll.destroy();
 This package also provides the main CSS styles to be imported in your app. You can find the bundled styles at "@mr-scroll/core/dist/styles.css".
 
 Check our [angular wrapper](../angular) for an implementation example of all of this for Angular.
-
-## Release notes
-
-### 0.1.0
-
-Initial version.
