@@ -107,6 +107,17 @@ As an example, using the height mixin:
 
 To style mr-scroll in our whole app we can set some global CSS variables. But keep in mind that this sets the styles for all scrolls in the whole hierarchy.
 
+Here is a list of the CSS variables you can override, and their default values:
+```css
+--mr-scroll-bar-size-normal: 12px;
+--mr-scroll-bar-size-overlay: 8px;
+--mr-scroll-bar-margin: 3px;
+--mr-scroll-track-color: transparent;
+--mr-scroll-thumb-border-radius: 2px;
+--mr-scroll-thumb-color: #aaa;
+--mr-scroll-hidden-content-fade-size: 25px;
+```
+
 Sometimes you want to override a certain style just for one scroll without affecting the others. For that, you can use any of the `override-*` mixins in that mr-scroll's direct parent:
 
 | Name | Description |
