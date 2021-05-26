@@ -18,22 +18,22 @@ export interface ScrollConfig {
   mode: ScrollMode;
 
   /**
-   * The top threshold. Affects when the topReached event is raised.
+   * The top threshold in px. Affects when the topReached event is raised.
    */
   topThreshold: number;
 
   /**
-   * The bottom threshold. Affects when the bottomReached event is raised.
+   * The bottom threshold in px. Affects when the bottomReached event is raised.
    */
   bottomThreshold: number;
 
   /**
-   * The left threshold. Affects when the leftReached event is raised.
+   * The left threshold in px. Affects when the leftReached event is raised.
    */
   leftThreshold: number;
 
   /**
-   * The right threshold. Affects when the rightReached event is raised.
+   * The right threshold in px. Affects when the rightReached event is raised.
    */
   rightThreshold: number;
 
