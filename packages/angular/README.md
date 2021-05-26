@@ -13,6 +13,8 @@ This is the angular wrapper. [Check here](../../README.md) (root of this repo) f
 npm i @mr-scroll/core @mr-scroll/angular
 ```
 
+Angular 10 and above is supported.
+
 Note: If you're using [css-theming](https://github.com/mrahhal/css-theming), check the [css-theming support package](../css-theming).
 
 ## Usage

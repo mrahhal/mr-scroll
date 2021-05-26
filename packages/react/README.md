@@ -13,6 +13,8 @@ This is the react wrapper. [Check here](../../README.md) (root of this repo) for
 npm i @mr-scroll/core @mr-scroll/react
 ```
 
+React 16 and above is supported.
+
 Note: If you're using [css-theming](https://github.com/mrahhal/css-theming), check the [css-theming support package](../css-theming).
 
 ## Usage
