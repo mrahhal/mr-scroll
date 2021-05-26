@@ -12,6 +12,12 @@ npm i -g lerna
 lerna changed
 ```
 
+## Release without actual git push / npm publish
+
+```
+lerna publish [version] --skip-git --skip-npm --yes
+```
+
 ## Release
 
 ```
