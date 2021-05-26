@@ -15,6 +15,7 @@
     "lint:ts": "npx eslint \"src/**/*.ts\"",
     "lint:scss": "npx stylelint \"src/**/*.scss\"",
     "bundle:css": "npx sass src/scss/scroll.scss dist/styles.css",
+    "docs": "typedoc src/index.ts --out docs-ts && sassdoc src/scss -d docs-scss",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -53,9 +54,11 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rxjs": "^6.6.7",
     "sass": "^1.32.13",
+    "sassdoc": "^2.7.3",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "tslib": "^2.2.0",
+    "typedoc": "^0.20.36",
     "typescript": "~4.2.4"
   }
 }
