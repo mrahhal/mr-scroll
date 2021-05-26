@@ -15,7 +15,7 @@ lerna changed
 ## Release without actual git push / npm publish
 
 ```
-lerna publish [version] --skip-git --skip-npm --yes
+lerna version [version] --no-git-tag-version --no-push --yes
 ```
 
 ## Release
