@@ -1,7 +1,7 @@
 {
   "name": "@mr-scroll/react",
   "description": "The best custom scroll for the web. This is the react wrapper.",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "types": "dist/index.d.ts",
@@ -36,7 +36,7 @@
     "dist"
   ],
   "peerDependencies": {
-    "@mr-scroll/core": "^0.1.0",
+    "@mr-scroll/core": "^1.0.0",
     "react": ">=16.0.0"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 {
   "name": "@mr-scroll/vue2",
   "description": "The best custom scroll for the web. This is the vue 2 wrapper.",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "main": "dist/mr-scroll.umd.js",
   "module": "dist/mr-scroll.common.js",
   "types": "dist/index.d.ts",
@@ -33,7 +33,7 @@
     "dist"
   ],
   "peerDependencies": {
-    "@mr-scroll/core": "^0.1.0",
+    "@mr-scroll/core": "^1.0.0",
     "vue": ">=2.0.0 <3.0.0",
     "vue-class-component": "*",
     "vue-property-decorator": "*"
