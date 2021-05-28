@@ -17,7 +17,7 @@ The best custom scroll for the web.
 - Emits various useful events you can handle (scrolled, state changed, position changed, top/bottom reached with configurable thresholds, etc)
   - Great for implementing infinite paging
 - Works exactly the same across supported browsers
-- Supports mobile browsers
+- Supported on all modern browsers, including mobile browsers
 
 And finally, we have efficient idiomatic wrapper packages for popular frameworks (angular, react, vue2, vue3).
 
