@@ -37,16 +37,16 @@ import { Scroll } from '@mr-scroll/core';
 
 // Inside the wrapper
 
-// You'll want to store the reference to the scroll
+// You'll want to store the reference to the scroll.
 this.scroll = new Scroll(hostElement, contentElement, /* config: fill from your inputs */ { ... });
 
 // Delegate events in a way that makes sense in your framework.
 // For example, in angular, we add EventEmitters that delegate the inner events of Scroll.
 
-// Initialize whenever is the right time to do so in your framework
+// Initialize whenever is the right time to do so in your framework.
 this.scroll.initialize();
 
-// And don't forget to destroy it when your component is being destroyed
+// And don't forget to destroy it when your component is being destroyed.
 this.scroll.destroy();
 ```
 

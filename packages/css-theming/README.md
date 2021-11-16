@@ -27,7 +27,7 @@ You only need to import the SCSS file that this package includes in your global 
 // From @mr-scroll/css-theming
 @import '~@mr-scroll/css-theming/src/scss/css-theming';
 
-// You can optionally provide values here
+// You can optionally provide values here.
 @include msct-apply();
 ```
 
@@ -40,7 +40,7 @@ If you're using the SCSS module system instead:
 // From @mr-scroll/css-theming
 @use '~@mr-scroll/css-theming/src/scss/css-theming' as msct;
 
-// You can optionally provide values here
+// You can optionally provide values here.
 @include msct.apply();
 ```
 

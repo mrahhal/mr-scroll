@@ -44,12 +44,12 @@ Use `mr-scroll` component:
 
 **NOTE:** The `scrolled` event is the only event that won't trigger change detection. This is by design as it's fired a lot. If you need change detection when you react to it, you can do this easily by using `NgZone`:
 ```ts
-// Inject NgZone in your component
+// Inject NgZone in your component.
 constructor(private _zone: NgZone) { }
 
 _onScrolled() {
   _zone.Run(() => {
-    // Handle the event
+    // Handle the event.
   });
 }
 ```
