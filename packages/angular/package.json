@@ -38,33 +38,30 @@
     "directory": "dist"
   },
   "peerDependencies": {
-    "@angular/common": ">=10.0.0",
-    "@angular/core": ">=10.0.0",
+    "@angular/common": ">=13.0.0",
+    "@angular/core": ">=13.0.0",
     "@mr-scroll/core": "^1.0.0",
     "rxjs": ">=6.0.0"
   },
   "devDependencies": {
-    "@angular/animations": "^10.0.0",
-    "@angular/compiler": "^10.0.0",
-    "@angular/compiler-cli": "^10.0.0",
-    "@angular/platform-browser": "^10.0.0",
-    "@angular/platform-browser-dynamic": "^10.0.0",
+    "@angular/animations": "^13.0.0",
+    "@angular/compiler": "^13.0.0",
+    "@angular/compiler-cli": "^13.0.0",
+    "@angular/platform-browser": "^13.0.0",
+    "@angular/platform-browser-dynamic": "^13.0.0",
     "@mr-scroll/core": "file:../core",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "eslint": "^7.25.0",
-    "ng-packagr": "^10.0.0",
+    "ng-packagr": "^13.0.0",
     "ts-node": "9.1.1",
     "tslib": "^2.2.0",
-    "typescript": "~4.0.0",
-    "zone.js": "~0.10.0"
+    "typescript": "~4.4.4",
+    "zone.js": "~0.11.4"
   },
   "ngPackage": {
     "lib": {
-      "entryFile": "src/index.ts",
-      "umdModuleIds": {
-        "@mr-scroll/core": "mrScrollCore"
-      }
+      "entryFile": "src/index.ts"
     }
   }
 }
