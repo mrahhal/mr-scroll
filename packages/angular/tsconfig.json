@@ -19,7 +19,10 @@
     "strictTemplates": true,
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "compilationMode": "partial"
+    "compilationMode": "partial",
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
   },
   "files": ["src/index.ts"]
 }
