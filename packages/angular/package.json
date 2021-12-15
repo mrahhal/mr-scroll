@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "compile": "ngc",
-    "build": "ng-packagr -p package.json",
+    "build": "ng-packagr -p ng-package.json",
     "lint": "npx eslint \"src/**/*.ts\"",
     "check-peer-dependencies": "npx check-peer-dependencies",
     "prepublishOnly": "npm run build"
