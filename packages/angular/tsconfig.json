@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
@@ -16,13 +17,13 @@
     "importHelpers": true
   },
   "angularCompilerOptions": {
-    "strictTemplates": true,
-    "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
     "compilationMode": "partial",
     "enableI18nLegacyMessageIdFormat": false,
+    "skipTemplateCodegen": true,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true
+    "strictInputAccessModifiers": true,
+    "strictMetadataEmit": true,
+    "strictTemplates": true
   },
   "files": ["src/index.ts"]
 }
