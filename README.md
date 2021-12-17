@@ -1,6 +1,7 @@
 # mr-scroll
 
 [![CI](https://github.com/mrahhal/mr-scroll/actions/workflows/ci.yml/badge.svg)](https://github.com/mrahhal/mr-scroll/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 
 The best custom scroll for the web.
 
