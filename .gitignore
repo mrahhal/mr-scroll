@@ -1,4 +1,8 @@
 node_modules/
 dist/
 packages/*/docs-*
-.angular/
+**/.angular/cache/
+
+npm-debug.log
+yarn-error.log
+.DS_Store
