@@ -2,23 +2,30 @@
 
 We use [lerna](https://github.com/lerna/lerna) to publish our packages. We use the fixed versioning mode.
 
-```
-npm i -g lerna
-```
-
-## What changed since last release
+## Setting up the repo
 
 ```
-lerna changed
+npm install
+npx lerna bootstrap
 ```
 
-## Release without actual git push / npm publish
+## Releasing
+
+We use https://github.com/mrahhal/release-cycle as a reference when releasing.
+
+### What changed since last release
 
 ```
-lerna version [version] --no-git-tag-version --no-push --yes
+npx lerna changed
 ```
 
-## Release
+### Update version
+
+```
+npx lerna version [version] --no-git-tag-version --no-push --yes
+```
+
+### Release
 
 ```
 lerna publish [version]
