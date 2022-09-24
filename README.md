@@ -79,7 +79,7 @@ The [@mr-scroll/core](./packages/core) package provides several helper mixins in
 
 To use them, you'll import the pure file and include any mixin you want:
 ```scss
-@import '~@mr-scroll/core/src/scss/pure';
+@import '@mr-scroll/core/src/scss/pure';
 
 .foo {
   @include msc-[mixin name](...);
@@ -88,7 +88,7 @@ To use them, you'll import the pure file and include any mixin you want:
 
 If you're using the SCSS module system:
 ```scss
-@use '~@mr-scroll/core/src/scss/pure' as msc;
+@use '@mr-scroll/core/src/scss/pure' as msc;
 
 .foo {
   @include msc.[mixin name](...);
@@ -97,7 +97,7 @@ If you're using the SCSS module system:
 
 As an example, using the height mixin:
 ```scss
-@use '~@mr-scroll/core/src/scss/pure' as msc;
+@use '@mr-scroll/core/src/scss/pure' as msc;
 
 .my-scroll-parent {
   @include msc.height(200px);

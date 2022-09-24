@@ -1,7 +1,7 @@
 $ct-compute-rgb-variables: true;
 
-@import '~css-theming/src/scss/css-theming';
-@import '~@mr-scroll/css-theming/src/scss/css-theming';
+@import 'css-theming/src/scss/css-theming';
+@import '@mr-scroll/css-theming/src/scss/css-theming';
 
 // You can optionally provide values here
 @include msct-apply();

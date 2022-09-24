@@ -23,9 +23,9 @@ You only need to import the SCSS file that this package includes in your global 
 // For example, in styles.scss
 
 // From css-theming
-@import '~css-theming/src/scss/css-theming';
+@import 'css-theming/src/scss/css-theming';
 // From @mr-scroll/css-theming
-@import '~@mr-scroll/css-theming/src/scss/css-theming';
+@import '@mr-scroll/css-theming/src/scss/css-theming';
 
 // You can optionally provide values here.
 @include msct-apply();
@@ -36,9 +36,9 @@ If you're using the SCSS module system instead:
 // For example, in styles.scss
 
 // From css-theming
-@use '~css-theming/src/scss/css-theming';
+@use 'css-theming/src/scss/css-theming';
 // From @mr-scroll/css-theming
-@use '~@mr-scroll/css-theming/src/scss/css-theming' as msct;
+@use '@mr-scroll/css-theming/src/scss/css-theming' as msct;
 
 // You can optionally provide values here.
 @include msct.apply();
