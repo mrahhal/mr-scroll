@@ -1,7 +1,7 @@
 {
   "name": "@mr-scroll/core",
   "description": "The best custom scroll for the web. This is the core package.",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": "dist/umd/index.js",
   "module": "dist/es/index.js",
   "types": "dist/es/index.d.ts",
