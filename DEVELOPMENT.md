@@ -21,6 +21,8 @@ npx lerna changed
 
 ### Update version
 
+If we're updating to a version (usually a major version update) that requires updates to the peer dependencies, then use this `npx lerna version ...` command to allow lerna to update what it wants to update, and then go on and update peer dependencies manually (and run `npm i` so that the lock file is updated too). After that, commit the changes, and then finally run lerna publish.
+
 ```
 npx lerna version [version] --no-git-tag-version --no-push --yes
 ```
@@ -28,7 +30,10 @@ npx lerna version [version] --no-git-tag-version --no-push --yes
 ### Release
 
 ```
-npx lerna publish [version]
+npx lerna publish [version] --no-push
 ```
 
-If we're updating to a version (usually a major version update) that requires updates to the peer dependencies, then use the `npx lerna version ...` command above to allow lerna to update what it wants to update, and then go on and update peer dependencies manually (and run `npm i` so that the lock file is updated too). After that, commit the changes, and then finally run lerna publish.
+And if all goes well, push:
+```
+git push --follow-tags
+```
