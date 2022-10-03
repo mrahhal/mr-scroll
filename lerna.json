@@ -1,9 +1,12 @@
 {
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "version": "1.1.0",
   "packages": [
     "packages/*"
   ],
   "ignoreChanges": [
     "**/*.md"
-  ]
+  ],
+  "useNx": false,
+  "useWorkspaces": false
 }
