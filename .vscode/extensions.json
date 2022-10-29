@@ -2,10 +2,6 @@
   "recommendations": [
     "Angular.ng-template",
     "dbaeumer.vscode-eslint",
-    "EditorConfig.editorconfig",
-    "mkaufman.htmlhint",
-    "mrahhal.vscode-ng-tooling",
-    "rbbit.typescript-hero",
-    "stylelint.vscode-stylelint"
+    "mrahhal.vscode-ng-tooling"
   ]
 }
