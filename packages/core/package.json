@@ -11,9 +11,6 @@
     "watch:ts": "rollup -c rollup.config.es.js -w",
     "watch:scss": "nodemon --watch ./src/scss -e scss -x \"npm run bundle:css\"",
     "build": "rollup -c rollup.config.es.js && rollup -c rollup.config.umd.js && npm run bundle:css",
-    "lint": "npm run lint:ts && npm run lint:scss",
-    "lint:ts": "npx eslint \"src/**/*.ts\"",
-    "lint:scss": "npx stylelint \"src/**/*.scss\"",
     "bundle:css": "npx sass src/scss/scroll.scss dist/styles.css",
     "docs": "typedoc src/index.ts --out docs-ts && sassdoc src/scss -d docs-scss",
     "prepublishOnly": "npm run build"
@@ -45,18 +42,13 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-typescript": "^8.2.1",
-    "@typescript-eslint/eslint-plugin": "^4.22.1",
-    "@typescript-eslint/parser": "^4.22.1",
     "concurrently": "^6.1.0",
-    "eslint": "^7.25.0",
     "nodemon": "^2.0.7",
     "rollup": "^2.47.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rxjs": "^6.6.7",
     "sass": "^1.32.13",
     "sassdoc": "^2.7.3",
-    "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0",
     "tslib": "^2.2.0",
     "typedoc": "^0.20.36",
     "typescript": "~4.2.4"

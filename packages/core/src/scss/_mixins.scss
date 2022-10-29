@@ -1,5 +1,5 @@
-@use 'sass:color';
-@use 'sass:meta';
+@use "sass:color";
+@use "sass:meta";
 
 /// Gets the rgb values of the color.
 /// @access private
@@ -63,10 +63,10 @@
   $type: meta.type-of($color);
   $color-rgb: null;
 
-  @if ($type == 'color') {
+  @if ($type == "color") {
     // i.e white, #fff, etc
     $color-rgb: get-rgb($color);
-  } @else if ($type == 'string') {
+  } @else if ($type == "string") {
     // i.e var(--rgb)
     $color-rgb: $color;
   } @else {

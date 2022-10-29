@@ -6,12 +6,12 @@ let _scrollbarStylingSupported: boolean;
  * Computes the browser's native scrollbar width.
  */
 function computeScrollbarWidth() {
-  const test = document.createElement('div');
-  test.style.width = '100px';
-  test.style.height = '100px';
-  test.style.overflow = 'scroll';
-  test.style.position = 'absolute';
-  test.style.top = '-9999px';
+  const test = document.createElement("div");
+  test.style.width = "100px";
+  test.style.height = "100px";
+  test.style.overflow = "scroll";
+  test.style.position = "absolute";
+  test.style.top = "-9999px";
 
   document.body.appendChild(test);
   const scrollbarWidth = test.offsetWidth - test.clientWidth;
@@ -24,13 +24,13 @@ function computeScrollbarWidth() {
  * Computes whether or not scrollbar styling is supported.
  */
 function computeScrollbarStylingSupported() {
-  const test = document.createElement('div');
-  test.className = '__mr-sb-styling-test';
-  test.style.overflow = 'scroll';
-  test.style.width = '40px';
+  const test = document.createElement("div");
+  test.className = "__mr-sb-styling-test";
+  test.style.overflow = "scroll";
+  test.style.width = "40px";
 
-  const style = document.createElement('style');
-  style.innerHTML = '.__mr-sb-styling-test::-webkit-scrollbar { width: 0px; }';
+  const style = document.createElement("style");
+  style.innerHTML = ".__mr-sb-styling-test::-webkit-scrollbar { width: 0px; }";
 
   // Apply
   document.body.appendChild(test);

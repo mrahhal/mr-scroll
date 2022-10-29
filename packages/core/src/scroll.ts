@@ -1,12 +1,12 @@
-import { Subject } from 'rxjs';
+import { Subject } from "rxjs";
 
-import { getScrollbarWidth } from './support';
+import { getScrollbarWidth } from "./support";
 
-export type ScrollMode = 'auto' | 'overlay' | 'hidden';
-export type ScrollPosition = 'start' | 'middle' | 'end' | 'full';
-export type ScrollState = 'hidden' | 'scrolling';
-export type ScrollExtremity = 'start' | 'end';
-export type ScrollDirection = 'h' | 'v';
+export type ScrollMode = "auto" | "overlay" | "hidden";
+export type ScrollPosition = "start" | "middle" | "end" | "full";
+export type ScrollState = "hidden" | "scrolling";
+export type ScrollExtremity = "start" | "end";
+export type ScrollDirection = "h" | "v";
 
 /**
  * Contains configuration options for Scroll.
@@ -44,7 +44,7 @@ export interface ScrollConfig {
 }
 
 const DEFAULT_CONFIG: ScrollConfig = {
-  mode: 'auto',
+  mode: "auto",
   topThreshold: 50,
   bottomThreshold: 50,
   leftThreshold: 50,
@@ -52,7 +52,7 @@ const DEFAULT_CONFIG: ScrollConfig = {
   showOnHover: false,
 };
 
-const HOST_CLASS = 'mr-scroll';
+const HOST_CLASS = "mr-scroll";
 const HOST_SIZE_0_MODIFIER = `${HOST_CLASS}--size-0`;
 const HOST_HIDDEN_CONTENT_MODIFIER = `${HOST_CLASS}--hidden-content`;
 const HOST_HIDDEN_CONTENT_LEFT_MODIFIER = `${HOST_HIDDEN_CONTENT_MODIFIER}-l`;
@@ -140,17 +140,18 @@ export class Scroll {
   constructor(
     hostElement: HTMLElement | (() => HTMLElement),
     contentElement: HTMLElement | (() => HTMLElement),
-    config?: Partial<ScrollConfig>,
+    config?: Partial<ScrollConfig>
   ) {
     if (!hostElement) {
-      throw new Error('hostElement can\'t be null or undefined.');
+      throw new Error("hostElement can't be null or undefined.");
     }
     if (!contentElement) {
-      throw new Error('contentElement can\'t be null or undefined.');
+      throw new Error("contentElement can't be null or undefined.");
     }
 
-    this._hostElementAccessor = typeof hostElement == 'function' ? hostElement : () => hostElement;
-    this._contentElementAccessor = typeof contentElement == 'function' ? contentElement : () => contentElement;
+    this._hostElementAccessor = typeof hostElement == "function" ? hostElement : () => hostElement;
+    this._contentElementAccessor =
+      typeof contentElement == "function" ? contentElement : () => contentElement;
 
     const _hostElement = this._hostElementAccessor();
     const _contentElement = this._contentElementAccessor();
@@ -172,7 +173,7 @@ export class Scroll {
     // Filter out undefined
     config = Object.entries(config || {})
       .filter(([, value]) => value !== undefined)
-      .reduce((obj, [key, value]) => (obj[key] = value, obj), {} as any);
+      .reduce((obj, [key, value]) => ((obj[key] = value), obj), {} as any);
 
     this._config = config = { ...DEFAULT_CONFIG, ...config };
 
@@ -191,19 +192,19 @@ export class Scroll {
 
     // mr-scroll_hidden-content-fade
     const createFade = (t: string) => {
-      const fadeElement = _hostElement.appendChild(document.createElement('div'));
+      const fadeElement = _hostElement.appendChild(document.createElement("div"));
       fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS);
       fadeElement.classList.add(HOST_HIDDEN_CONTENT_FADE_CLASS + `--${t}`);
     };
-    ['t', 'r', 'b', 'l'].forEach(t => createFade(t));
+    ["t", "r", "b", "l"].forEach((t) => createFade(t));
 
     // mr-scroll_bar
     const createBar = (): Bar => {
-      const barElement = _hostElement.appendChild(document.createElement('div'));
+      const barElement = _hostElement.appendChild(document.createElement("div"));
       barElement.classList.add(`${BAR_CLASS}`);
-      const trackElement = barElement.appendChild(document.createElement('div'));
+      const trackElement = barElement.appendChild(document.createElement("div"));
       trackElement.classList.add(`${BAR_CLASS}-track`);
-      const thumbElement = barElement.appendChild(document.createElement('div'));
+      const thumbElement = barElement.appendChild(document.createElement("div"));
       thumbElement.classList.add(`${BAR_CLASS}-thumb`);
       return {
         barElement,
@@ -212,55 +213,109 @@ export class Scroll {
       };
     };
 
-    const barH = this._h.bar = createBar();
+    const barH = (this._h.bar = createBar());
     barH.barElement.classList.add(BAR_H_MODIFIER);
-    const barV = this._v.bar = createBar();
+    const barV = (this._v.bar = createBar());
     barV.barElement.classList.add(BAR_V_MODIFIER);
 
-    if (this.mode != 'auto') {
+    if (this.mode != "auto") {
       // In all modes but auto, we always have spacing
       this._addSpacing();
     }
   }
 
-  get mode() { return this._config.mode; }
+  get mode() {
+    return this._config.mode;
+  }
 
-  get scrollLeft() { return this._h.scroll; }
+  get scrollLeft() {
+    return this._h.scroll;
+  }
 
-  get scrollTop() { return this._v.scroll; }
+  get scrollTop() {
+    return this._v.scroll;
+  }
 
-  get positionH() { return this._h.position; }
+  get positionH() {
+    return this._h.position;
+  }
 
-  get positionV() { return this._v.position; }
+  get positionV() {
+    return this._v.position;
+  }
 
-  get positionAbsoluteH() { return this._h.positionAbsolute; }
+  get positionAbsoluteH() {
+    return this._h.positionAbsolute;
+  }
 
-  get positionAbsoluteV() { return this._v.positionAbsolute; }
+  get positionAbsoluteV() {
+    return this._v.positionAbsolute;
+  }
 
-  get stateH() { return this._h.state; }
+  get stateH() {
+    return this._h.state;
+  }
 
-  get stateV() { return this._v.state; }
+  get stateV() {
+    return this._v.state;
+  }
 
-  get scrolled() { return this._scrolled.asObservable(); }
-  get topReached() { return this._topReached.asObservable(); }
-  get bottomReached() { return this._bottomReached.asObservable(); }
-  get leftReached() { return this._leftReached.asObservable(); }
-  get rightReached() { return this._rightReached.asObservable(); }
-  get positionHChanged() { return this._h.positionChanged.asObservable(); }
-  get positionAbsoluteHChanged() { return this._h.positionAbsoluteChanged.asObservable(); }
-  get stateHChanged() { return this._h.stateChanged.asObservable(); }
-  get positionVChanged() { return this._v.positionChanged.asObservable(); }
-  get positionAbsoluteVChanged() { return this._v.positionAbsoluteChanged.asObservable(); }
-  get stateVChanged() { return this._v.stateChanged.asObservable(); }
+  get scrolled() {
+    return this._scrolled.asObservable();
+  }
+  get topReached() {
+    return this._topReached.asObservable();
+  }
+  get bottomReached() {
+    return this._bottomReached.asObservable();
+  }
+  get leftReached() {
+    return this._leftReached.asObservable();
+  }
+  get rightReached() {
+    return this._rightReached.asObservable();
+  }
+  get positionHChanged() {
+    return this._h.positionChanged.asObservable();
+  }
+  get positionAbsoluteHChanged() {
+    return this._h.positionAbsoluteChanged.asObservable();
+  }
+  get stateHChanged() {
+    return this._h.stateChanged.asObservable();
+  }
+  get positionVChanged() {
+    return this._v.positionChanged.asObservable();
+  }
+  get positionAbsoluteVChanged() {
+    return this._v.positionAbsoluteChanged.asObservable();
+  }
+  get stateVChanged() {
+    return this._v.stateChanged.asObservable();
+  }
 
-  private get _hostElement() { return this._hostElementAccessor(); }
-  private get _contentElement() { return this._contentElementAccessor(); }
-  private get _ownHeight() { return this._contentElement.clientHeight; }
-  private get _ownWidth() { return this._contentElement.clientWidth; }
-  private get _totalHeight() { return this._contentElement.scrollHeight; }
-  private get _totalWidth() { return this._contentElement.scrollWidth; }
+  private get _hostElement() {
+    return this._hostElementAccessor();
+  }
+  private get _contentElement() {
+    return this._contentElementAccessor();
+  }
+  private get _ownHeight() {
+    return this._contentElement.clientHeight;
+  }
+  private get _ownWidth() {
+    return this._contentElement.clientWidth;
+  }
+  private get _totalHeight() {
+    return this._contentElement.scrollHeight;
+  }
+  private get _totalWidth() {
+    return this._contentElement.scrollWidth;
+  }
 
-  private get _hasScrollbar() { return !!this._browserScrollbarSize; }
+  private get _hasScrollbar() {
+    return !!this._browserScrollbarSize;
+  }
 
   /**
    * Initializes the scroll.
@@ -269,15 +324,23 @@ export class Scroll {
     // Setup subjects
     this.positionHChanged.subscribe((position: ScrollPosition) => {
       switch (position) {
-        case 'start': this._leftReached.next(); break;
-        case 'end': this._rightReached.next(); break;
+        case "start":
+          this._leftReached.next();
+          break;
+        case "end":
+          this._rightReached.next();
+          break;
       }
     });
 
     this.positionVChanged.subscribe((position: ScrollPosition) => {
       switch (position) {
-        case 'start': this._topReached.next(); break;
-        case 'end': this._bottomReached.next(); break;
+        case "start":
+          this._topReached.next();
+          break;
+        case "end":
+          this._bottomReached.next();
+          break;
       }
     });
 
@@ -289,16 +352,16 @@ export class Scroll {
     });
     this._updateHiddenContentClasses();
 
-    if (this.mode == 'auto') {
+    if (this.mode == "auto") {
       // Only in auto mode, we add/remove spacing depending on the state
 
       this.stateHChanged.subscribe((state: ScrollState) => {
         switch (state) {
-          case 'scrolling':
+          case "scrolling":
             this._addSpacingH();
             break;
 
-          case 'hidden':
+          case "hidden":
             this._removeSpacingH();
             break;
         }
@@ -306,11 +369,11 @@ export class Scroll {
 
       this.stateVChanged.subscribe((state: ScrollState) => {
         switch (state) {
-          case 'scrolling':
+          case "scrolling":
             this._addSpacingV();
             break;
 
-          case 'hidden':
+          case "hidden":
             this._removeSpacingV();
             break;
         }
@@ -324,13 +387,13 @@ export class Scroll {
     this._ro.observe(this._contentElement);
 
     const observeNodes = (nodes: NodeList) => {
-      nodes.forEach(node => {
+      nodes.forEach((node) => {
         if (node.nodeType != node.ELEMENT_NODE) return;
         this._ro.observe(node as Element);
       });
     };
     const unobserveNodes = (nodes: NodeList) => {
-      nodes.forEach(node => {
+      nodes.forEach((node) => {
         if (node.nodeType != node.ELEMENT_NODE) return;
         this._ro.unobserve(node as Element);
       });
@@ -338,7 +401,7 @@ export class Scroll {
 
     observeNodes(this._contentElement.childNodes);
 
-    this._mo = new MutationObserver(mutationsList => {
+    this._mo = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
         unobserveNodes(mutation.removedNodes);
         observeNodes(mutation.addedNodes);
@@ -348,15 +411,15 @@ export class Scroll {
     this._mo.observe(this._contentElement, { childList: true });
 
     //
-    this._setCssProperty('--mr-scroll-browser-bar-size', `${this._browserScrollbarSize}px`);
-    this._setCssProperty('--mr-scroll-bar-size', `${this._scrollbarSize}px`);
+    this._setCssProperty("--mr-scroll-browser-bar-size", `${this._browserScrollbarSize}px`);
+    this._setCssProperty("--mr-scroll-bar-size", `${this._scrollbarSize}px`);
 
     if (!this._hasScrollbar) {
       this._hostElement.classList.add(HOST_SIZE_0_MODIFIER);
     }
 
-    this._contentElement.addEventListener('scroll', this.update);
-    window.addEventListener('resize', this.update);
+    this._contentElement.addEventListener("scroll", this.update);
+    window.addEventListener("resize", this.update);
     this._addDraggingListeners();
 
     this.update();
@@ -367,8 +430,8 @@ export class Scroll {
    * so that it can properly deallocate resources and clean after itself.
    */
   destroy() {
-    this._contentElement.removeEventListener('scroll', this.update);
-    window.removeEventListener('resize', this.update);
+    this._contentElement.removeEventListener("scroll", this.update);
+    window.removeEventListener("resize", this.update);
     this._removeDraggingListeners();
 
     this._mo.disconnect();
@@ -401,9 +464,9 @@ export class Scroll {
     this._v.scrollRatio = ownHeight / totalHeight;
 
     const { scrollTop, scrollLeft } = this._contentElement;
-    const width = (this._h.scrollRatio) * 100;
+    const width = this._h.scrollRatio * 100;
     const leftRatio = scrollLeft / totalWidth;
-    const height = (this._v.scrollRatio) * 100;
+    const height = this._v.scrollRatio * 100;
     const topRatio = scrollTop / totalHeight;
 
     if (this._h.scroll == null || this._h.scroll != scrollLeft) {
@@ -413,20 +476,27 @@ export class Scroll {
       this._v.scroll = scrollTop;
     }
 
-    const computePosition = (scrollRatio: number, scroll: number, ownSize: number, totalSize: number, startThreshold: number, endThreshold: number) => {
-      let p: ScrollPosition = 'middle';
+    const computePosition = (
+      scrollRatio: number,
+      scroll: number,
+      ownSize: number,
+      totalSize: number,
+      startThreshold: number,
+      endThreshold: number
+    ) => {
+      let p: ScrollPosition = "middle";
       if (scrollRatio >= 1) {
-        p = 'full';
+        p = "full";
       } else {
         const isStart = scroll <= startThreshold;
         if (isStart) {
-          p = 'start';
+          p = "start";
         }
 
         if (!isStart) {
           const attainedSize = scroll + ownSize + endThreshold;
           if (attainedSize >= totalSize) {
-            p = 'end';
+            p = "end";
           }
         }
       }
@@ -435,18 +505,32 @@ export class Scroll {
     };
 
     const computePositionH = (leftThreshold: number, rightThreshold: number) => {
-      return computePosition(this._h.scrollRatio, scrollLeft, ownWidth, totalWidth, leftThreshold, rightThreshold);
+      return computePosition(
+        this._h.scrollRatio,
+        scrollLeft,
+        ownWidth,
+        totalWidth,
+        leftThreshold,
+        rightThreshold
+      );
     };
 
     const computePositionV = (topThreshold: number, bottomThreshold: number) => {
-      return computePosition(this._v.scrollRatio, scrollTop, ownHeight, totalHeight, topThreshold, bottomThreshold);
+      return computePosition(
+        this._v.scrollRatio,
+        scrollTop,
+        ownHeight,
+        totalHeight,
+        topThreshold,
+        bottomThreshold
+      );
     };
 
     const newPositionH = computePositionH(this._config.leftThreshold, this._config.rightThreshold);
     const newPositionAbsoluteH = computePositionH(0, 0);
-    const newStateH: ScrollState = newPositionH == 'full' ? 'hidden' : 'scrolling';
+    const newStateH: ScrollState = newPositionH == "full" ? "hidden" : "scrolling";
 
-    if (newPositionH == 'full') {
+    if (newPositionH == "full") {
       this._h.bar.barElement.classList.add(BAR_HIDDEN_MODIFIER);
     } else {
       const c = this._h;
@@ -468,9 +552,9 @@ export class Scroll {
 
     const newPositionV = computePositionV(this._config.topThreshold, this._config.bottomThreshold);
     const newPositionAbsoluteV = computePositionV(0, 0);
-    const newStateV: ScrollState = newPositionV == 'full' ? 'hidden' : 'scrolling';
+    const newStateV: ScrollState = newPositionV == "full" ? "hidden" : "scrolling";
 
-    if (newPositionV == 'full') {
+    if (newPositionV == "full") {
       this._v.bar.barElement.classList.add(BAR_HIDDEN_MODIFIER);
     } else {
       const c = this._v;
@@ -499,11 +583,11 @@ export class Scroll {
     this._contentElement.scroll(options);
   }
 
-  scrollToTop(behavior: ScrollBehavior = 'auto') {
+  scrollToTop(behavior: ScrollBehavior = "auto") {
     this.scrollTo({ top: 0, behavior });
   }
 
-  scrollToLeft(behavior: ScrollBehavior = 'auto') {
+  scrollToLeft(behavior: ScrollBehavior = "auto") {
     this.scrollTo({ left: 0, behavior });
   }
 
@@ -511,18 +595,18 @@ export class Scroll {
 
   private _addDraggingListeners() {
     if (!this._hasScrollbar) return;
-    this._h.bar.trackElement.addEventListener('mousedown', this._handleTrackHMouseDown);
-    this._v.bar.trackElement.addEventListener('mousedown', this._handleTrackVMouseDown);
-    this._h.bar.thumbElement.addEventListener('mousedown', this._handleThumbHMouseDown);
-    this._v.bar.thumbElement.addEventListener('mousedown', this._handleThumbVMouseDown);
+    this._h.bar.trackElement.addEventListener("mousedown", this._handleTrackHMouseDown);
+    this._v.bar.trackElement.addEventListener("mousedown", this._handleTrackVMouseDown);
+    this._h.bar.thumbElement.addEventListener("mousedown", this._handleThumbHMouseDown);
+    this._v.bar.thumbElement.addEventListener("mousedown", this._handleThumbVMouseDown);
   }
 
   private _removeDraggingListeners() {
     if (!this._hasScrollbar) return;
-    this._h.bar.trackElement.removeEventListener('mousedown', this._handleTrackHMouseDown);
-    this._v.bar.trackElement.removeEventListener('mousedown', this._handleTrackVMouseDown);
-    this._h.bar.thumbElement.removeEventListener('mousedown', this._handleThumbHMouseDown);
-    this._v.bar.thumbElement.removeEventListener('mousedown', this._handleThumbVMouseDown);
+    this._h.bar.trackElement.removeEventListener("mousedown", this._handleTrackHMouseDown);
+    this._v.bar.trackElement.removeEventListener("mousedown", this._handleTrackVMouseDown);
+    this._h.bar.thumbElement.removeEventListener("mousedown", this._handleThumbHMouseDown);
+    this._v.bar.thumbElement.removeEventListener("mousedown", this._handleThumbVMouseDown);
 
     this._destroyMoveDragging();
   }
@@ -533,7 +617,7 @@ export class Scroll {
     const { left } = (target as HTMLElement).getBoundingClientRect();
     const thumbWidth = this._getThumbHWidth();
     const offset = Math.abs(left - clientX) - thumbWidth / 2;
-    this.scrollTo({ left: this._getScrollLeftForOffset(offset), behavior: 'smooth' });
+    this.scrollTo({ left: this._getScrollLeftForOffset(offset), behavior: "smooth" });
   }
 
   private _handleTrackVMouseDown(e: MouseEvent) {
@@ -542,12 +626,12 @@ export class Scroll {
     const { top } = (target as HTMLElement).getBoundingClientRect();
     const thumbHeight = this._getThumbVHeight();
     const offset = Math.abs(top - clientY) - thumbHeight / 2;
-    this.scrollTo({ top: this._getScrollTopForOffset(offset), behavior: 'smooth' });
+    this.scrollTo({ top: this._getScrollTopForOffset(offset), behavior: "smooth" });
   }
 
   private _handleThumbHMouseDown(e: MouseEvent) {
     e.preventDefault();
-    this._handleDragStart(e, 'h');
+    this._handleDragStart(e, "h");
     const { target, clientX } = e;
     const { offsetWidth } = target as HTMLElement;
     const { left } = (target as HTMLElement).getBoundingClientRect();
@@ -556,7 +640,7 @@ export class Scroll {
 
   private _handleThumbVMouseDown(e: MouseEvent) {
     e.preventDefault();
-    this._handleDragStart(e, 'v');
+    this._handleDragStart(e, "v");
     const { target, clientY } = e;
     const { offsetHeight } = target as HTMLElement;
     const { top } = (target as HTMLElement).getBoundingClientRect();
@@ -575,14 +659,14 @@ export class Scroll {
   }
 
   private _setupMoveDragging() {
-    document.addEventListener('mousemove', this._handleDrag);
-    document.addEventListener('mouseup', this._handleDragEnd);
+    document.addEventListener("mousemove", this._handleDrag);
+    document.addEventListener("mouseup", this._handleDragEnd);
     document.onselectstart = () => false;
   }
 
   private _destroyMoveDragging() {
-    document.removeEventListener('mousemove', this._handleDrag);
-    document.removeEventListener('mouseup', this._handleDragEnd);
+    document.removeEventListener("mousemove", this._handleDrag);
+    document.removeEventListener("mouseup", this._handleDragEnd);
     document.onselectstart = null;
   }
 
@@ -613,8 +697,8 @@ export class Scroll {
   }
 
   private _handleDragEnd() {
-    this._setDragging('h', false);
-    this._setDragging('v', false);
+    this._setDragging("h", false);
+    this._setDragging("v", false);
     this._prevPageX = this._prevPageY = 0;
     this._destroyMoveDragging();
   }
@@ -631,14 +715,14 @@ export class Scroll {
     const { scrollWidth, clientWidth } = this._contentElement;
     const trackWidth = this._getInnerWidth(this._h.bar.trackElement);
     const thumbWidth = this._getThumbHWidth();
-    return offset / (trackWidth - thumbWidth) * (scrollWidth - clientWidth);
+    return (offset / (trackWidth - thumbWidth)) * (scrollWidth - clientWidth);
   }
 
   private _getScrollTopForOffset(offset: number) {
     const { scrollHeight, clientHeight } = this._contentElement;
     const trackHeight = this._getInnerHeight(this._v.bar.trackElement);
     const thumbHeight = this._getThumbVHeight();
-    return offset / (trackHeight - thumbHeight) * (scrollHeight - clientHeight);
+    return (offset / (trackHeight - thumbHeight)) * (scrollHeight - clientHeight);
   }
 
   private _getInnerWidth(el: HTMLElement) {
@@ -657,12 +741,19 @@ export class Scroll {
 
   private _resolveDirectionContext(direction: ScrollDirection) {
     switch (direction) {
-      case 'h': return this._h;
-      case 'v': return this._v;
+      case "h":
+        return this._h;
+      case "v":
+        return this._v;
     }
   }
 
-  private _setPositionAndState(direction: ScrollDirection, position: ScrollPosition, positionAbsolute: ScrollPosition, state: ScrollState) {
+  private _setPositionAndState(
+    direction: ScrollDirection,
+    position: ScrollPosition,
+    positionAbsolute: ScrollPosition,
+    state: ScrollState
+  ) {
     const c = this._resolveDirectionContext(direction);
     const positionChanged = position != c.position;
     const positionAbsoluteChanged = positionAbsolute != c.positionAbsolute;
@@ -687,50 +778,70 @@ export class Scroll {
     }
   }
 
-  private _setPositionAndStateH(position: ScrollPosition, positionAbsolute: ScrollPosition, state: ScrollState) {
-    this._setPositionAndState('h', position, positionAbsolute, state);
+  private _setPositionAndStateH(
+    position: ScrollPosition,
+    positionAbsolute: ScrollPosition,
+    state: ScrollState
+  ) {
+    this._setPositionAndState("h", position, positionAbsolute, state);
   }
 
-  private _setPositionAndStateV(position: ScrollPosition, positionAbsolute: ScrollPosition, state: ScrollState) {
-    this._setPositionAndState('v', position, positionAbsolute, state);
+  private _setPositionAndStateV(
+    position: ScrollPosition,
+    positionAbsolute: ScrollPosition,
+    state: ScrollState
+  ) {
+    this._setPositionAndState("v", position, positionAbsolute, state);
   }
 
   private _updateHiddenContentClasses() {
-    const setClasses = (classes: { start: string; end: string }, extremities: ScrollExtremity[] | null) => {
+    const setClasses = (
+      classes: { start: string; end: string },
+      extremities: ScrollExtremity[] | null
+    ) => {
       this._hostElement.classList.remove(classes.start, classes.end);
       if (extremities != null)
         for (const c of extremities) {
           switch (c) {
-            case 'start':
+            case "start":
               this._hostElement.classList.add(classes.start);
               break;
 
-            case 'end':
+            case "end":
               this._hostElement.classList.add(classes.end);
               break;
           }
         }
     };
 
-    const classesH = { start: HOST_HIDDEN_CONTENT_LEFT_MODIFIER, end: HOST_HIDDEN_CONTENT_RIGHT_MODIFIER };
-    const classesV = { start: HOST_HIDDEN_CONTENT_TOP_MODIFIER, end: HOST_HIDDEN_CONTENT_BOTTOM_MODIFIER };
+    const classesH = {
+      start: HOST_HIDDEN_CONTENT_LEFT_MODIFIER,
+      end: HOST_HIDDEN_CONTENT_RIGHT_MODIFIER,
+    };
+    const classesV = {
+      start: HOST_HIDDEN_CONTENT_TOP_MODIFIER,
+      end: HOST_HIDDEN_CONTENT_BOTTOM_MODIFIER,
+    };
 
-    [{ position: this._h.positionAbsolute, classes: classesH }, { position: this._v.positionAbsolute, classes: classesV }].forEach(x => {
+    [
+      { position: this._h.positionAbsolute, classes: classesH },
+      { position: this._v.positionAbsolute, classes: classesV },
+    ].forEach((x) => {
       switch (x.position) {
-        case 'full':
+        case "full":
           setClasses(x.classes, null);
           break;
 
-        case 'start':
-          setClasses(x.classes, ['end']);
+        case "start":
+          setClasses(x.classes, ["end"]);
           break;
 
-        case 'middle':
-          setClasses(x.classes, ['start', 'end']);
+        case "middle":
+          setClasses(x.classes, ["start", "end"]);
           break;
 
-        case 'end':
-          setClasses(x.classes, ['start']);
+        case "end":
+          setClasses(x.classes, ["start"]);
           break;
       }
     });
@@ -745,7 +856,7 @@ export class Scroll {
     if (!this._hasScrollbar) return;
 
     this._contentElement.style.marginBottom = `-${this._browserScrollbarSize}px`;
-    if (this.mode == 'auto') {
+    if (this.mode == "auto") {
       this._contentElement.style.paddingBottom = `${this._scrollbarSize}px`;
     }
   }
@@ -753,15 +864,15 @@ export class Scroll {
   private _removeSpacingH() {
     if (!this._hasScrollbar) return;
 
-    this._contentElement.style.marginBottom = '';
-    this._contentElement.style.paddingBottom = '';
+    this._contentElement.style.marginBottom = "";
+    this._contentElement.style.paddingBottom = "";
   }
 
   private _addSpacingV() {
     if (!this._hasScrollbar) return;
 
     this._contentElement.style.marginRight = `-${this._browserScrollbarSize}px`;
-    if (this.mode == 'auto') {
+    if (this.mode == "auto") {
       this._contentElement.style.paddingRight = `${this._scrollbarSize}px`;
     }
   }
@@ -769,8 +880,8 @@ export class Scroll {
   private _removeSpacingV() {
     if (!this._hasScrollbar) return;
 
-    this._contentElement.style.marginRight = '';
-    this._contentElement.style.paddingRight = '';
+    this._contentElement.style.marginRight = "";
+    this._contentElement.style.paddingRight = "";
   }
 
   private _getCssProperty(name: string) {
@@ -786,9 +897,9 @@ export class Scroll {
   }
 
   private _resolveScrollbarSize(mode = this.mode) {
-    let type = 'normal';
-    if (mode == 'overlay' || mode == 'hidden') {
-      type = 'overlay';
+    let type = "normal";
+    if (mode == "overlay" || mode == "hidden") {
+      type = "overlay";
     }
     const widthRaw = this._getCssProperty(`--mr-scroll-bar-size-${type}`).trim();
     if (!widthRaw) {
@@ -798,7 +909,7 @@ export class Scroll {
   }
 
   private _resolveBarMargin() {
-    const margin = this._getCssProperty('--mr-scroll-bar-margin');
+    const margin = this._getCssProperty("--mr-scroll-bar-margin");
     return parseInt(margin.substring(0, margin.length - 2));
   }
 }

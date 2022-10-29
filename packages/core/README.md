@@ -16,15 +16,20 @@ This is the core package. [Check here](../../README.md) for a general usage guid
 Implementing @mr-scroll/core in a framework is simple. You'll wrap the `Scroll` class inside a component (or something similar).
 
 The `Scroll` constructor takes 3 arguments:
+
 - Host element: The html element that will act as the host. Required.
 - Content element: The html element that will contain the actual contents. Required.
 - A config object
 
 So this requires you to provide the host and content elements. Usually, you'll have this html template:
+
 ```html
-<div> <!-- host element -->
-  <div> <!-- content element -->
-    CONTENT <!-- transcluded content -->
+<div>
+  <!-- host element -->
+  <div>
+    <!-- content element -->
+    CONTENT
+    <!-- transcluded content -->
   </div>
 </div>
 ```
@@ -32,6 +37,7 @@ So this requires you to provide the host and content elements. Usually, you'll h
 Use whatever is the idiomatic approach in your framework to do this.
 
 And then in your wrapper component:
+
 ```ts
 import { Scroll } from '@mr-scroll/core';
 

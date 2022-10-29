@@ -20,21 +20,18 @@ Note: If you're using [css-theming](https://github.com/mrahhal/css-theming), che
 ## Usage
 
 Import the global CSS styles (for example in App.css):
+
 ```css
-@import '@mr-scroll/core/dist/styles.css';
+@import "@mr-scroll/core/dist/styles.css";
 ```
 
 ```tsx
-import React, { Component } from 'react';
-import Scroll from '@mr-scroll/react';
+import React, { Component } from "react";
+import Scroll from "@mr-scroll/react";
 
 class Example extends Component {
   render() {
-    return (
-      <Scroll>
-        Content
-      </Scroll>
-    );
+    return <Scroll>Content</Scroll>;
   }
 }
 ```

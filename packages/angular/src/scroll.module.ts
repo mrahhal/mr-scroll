@@ -1,17 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { ScrollComponent } from './scroll.component';
+import { ScrollComponent } from "./scroll.component";
 
-const exportedDeclarations = [
-  ScrollComponent,
-];
+const exportedDeclarations = [ScrollComponent];
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   declarations: exportedDeclarations,
   exports: exportedDeclarations,
 })
-export class ScrollModule { }
+export class ScrollModule {}

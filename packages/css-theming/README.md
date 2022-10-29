@@ -12,6 +12,7 @@ This package styles the scroll (thumb, etc) according to the active theme when u
 ## Install
 
 Assuming we're using angular (if not, install the respective wrapper package instead of @mr-scroll/angular):
+
 ```
 npm i @mr-scroll/core @mr-scroll/angular @mr-scroll/css-theming
 ```
@@ -19,26 +20,28 @@ npm i @mr-scroll/core @mr-scroll/angular @mr-scroll/css-theming
 ## Usage
 
 You only need to import the SCSS file that this package includes in your global SCSS file, and call the mixin it provides:
+
 ```scss
 // For example, in styles.scss
 
 // From css-theming
-@import 'css-theming/src/scss/css-theming';
+@import "css-theming/src/scss/css-theming";
 // From @mr-scroll/css-theming
-@import '@mr-scroll/css-theming/src/scss/css-theming';
+@import "@mr-scroll/css-theming/src/scss/css-theming";
 
 // You can optionally provide values here.
 @include msct-apply();
 ```
 
 If you're using the SCSS module system instead:
+
 ```scss
 // For example, in styles.scss
 
 // From css-theming
-@use 'css-theming/src/scss/css-theming';
+@use "css-theming/src/scss/css-theming";
 // From @mr-scroll/css-theming
-@use '@mr-scroll/css-theming/src/scss/css-theming' as msct;
+@use "@mr-scroll/css-theming/src/scss/css-theming" as msct;
 
 // You can optionally provide values here.
 @include msct.apply();

@@ -11,12 +11,12 @@ import {
   Output,
   ViewChild,
   ViewEncapsulation,
-} from '@angular/core';
-import { Scroll, ScrollMode, ScrollPosition, ScrollState } from '@mr-scroll/core';
+} from "@angular/core";
+import { Scroll, ScrollMode, ScrollPosition, ScrollState } from "@mr-scroll/core";
 
 @Component({
-  selector: 'mr-scroll',
-  templateUrl: './scroll.html',
+  selector: "mr-scroll",
+  templateUrl: "./scroll.html",
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -57,14 +57,13 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Output() stateVChanged = new EventEmitter<ScrollState>();
 
-  @ViewChild('content', { static: true }) _content: ElementRef<HTMLElement>;
+  @ViewChild("content", { static: true }) _content: ElementRef<HTMLElement>;
 
-  constructor(
-    private _el: ElementRef<HTMLElement>,
-    private _zone: NgZone,
-  ) { }
+  constructor(private _el: ElementRef<HTMLElement>, private _zone: NgZone) {}
 
-  get scroll() { return this._scroll; }
+  get scroll() {
+    return this._scroll;
+  }
 
   ngOnInit() {
     this._scroll = new Scroll(this._el.nativeElement, this._content.nativeElement, {
@@ -77,12 +76,23 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // Events that will normally trigger change detection.
-    const delegatedEvents = ['topReached', 'bottomReached', 'leftReached', 'rightReached', 'positionHChanged', 'positionAbsoluteHChanged', 'stateHChanged', 'positionVChanged', 'positionAbsoluteVChanged', 'stateVChanged'];
+    const delegatedEvents = [
+      "topReached",
+      "bottomReached",
+      "leftReached",
+      "rightReached",
+      "positionHChanged",
+      "positionAbsoluteHChanged",
+      "stateHChanged",
+      "positionVChanged",
+      "positionAbsoluteVChanged",
+      "stateVChanged",
+    ];
     // Events that won't trigger change detection. Change detection should be handled by the consumer.
-    const delegatedEventsOutsideNgZone = ['scrolled'];
+    const delegatedEventsOutsideNgZone = ["scrolled"];
 
     for (const eventName of delegatedEvents) {
-      (this._scroll[eventName]).subscribe((x: any) => {
+      this._scroll[eventName].subscribe((x: any) => {
         const e = this[eventName] as EventEmitter<any>;
         // Avoid calling zone.run if there are no subscribers to avoid triggering change detection
         if (e.observers.length) {
@@ -94,7 +104,7 @@ export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     for (const eventName of delegatedEventsOutsideNgZone) {
-      (this._scroll[eventName]).subscribe((x: any) => {
+      this._scroll[eventName].subscribe((x: any) => {
         const e = this[eventName] as EventEmitter<any>;
         e.emit(x);
       });

@@ -18,6 +18,7 @@ Note: If you're using [css-theming](https://github.com/mrahhal/css-theming), che
 ## Usage
 
 Register as a global component:
+
 ```js
 import { createApp } from 'vue';
 import Scroll from '@mr-scroll/vue2';
@@ -27,27 +28,28 @@ app.use(Scroll);
 ```
 
 Register as a local component:
+
 ```js
-import Scroll from '@mr-scroll/vue2';
+import Scroll from "@mr-scroll/vue2";
 
 export default {
-  name: 'MyComponent',
+  name: "MyComponent",
   components: {
-    'mr-scroll': Scroll,
+    "mr-scroll": Scroll,
   },
 };
 ```
 
 Import the global CSS styles (for example in your App.vue):
+
 ```vue
-<style src='@mr-scroll/core/dist/styles.css'></style>
+<style src="@mr-scroll/core/dist/styles.css"></style>
 ```
 
 Use `mr-scroll` component:
+
 ```html
-<mr-scroll>
-  Content
-</mr-scroll>
+<mr-scroll> Content </mr-scroll>
 ```
 
 > For more general usage info check the [README](../../README.md) in the root of this repo.

@@ -1,10 +1,7 @@
-@use '@mr-scroll/core/src/scss/pure' as msc;
-@use 'css-theming/src/scss/themes';
+@use "@mr-scroll/core/src/scss/pure" as msc;
+@use "css-theming/src/scss/themes";
 
-@mixin apply-thumb-color(
-  $thumb-color-light: null,
-  $thumb-color-dark: null,
-) {
+@mixin apply-thumb-color($thumb-color-light: null, $thumb-color-dark: null) {
   @if ($thumb-color-light == null) {
     $thumb-color-light: #aaa;
   }
@@ -13,13 +10,14 @@
   }
 
   @include themes.themes-apply {
-    --mr-scroll-thumb-color: #{if(themes.$brightness == 'light', $thumb-color-light, $thumb-color-dark)};
+    --mr-scroll-thumb-color: #{if(
+        themes.$brightness == "light",
+        $thumb-color-light,
+        $thumb-color-dark
+      )};
   }
 }
 
-@mixin apply(
-  $thumb-color-light: null,
-  $thumb-color-dark: null,
-) {
+@mixin apply($thumb-color-light: null, $thumb-color-dark: null) {
   @include apply-thumb-color($thumb-color-light, $thumb-color-dark);
 }

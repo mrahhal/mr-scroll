@@ -1,5 +1,5 @@
-import { Scroll, ScrollMode, ScrollPosition, ScrollState } from '@mr-scroll/core';
-import React from 'react';
+import { Scroll, ScrollMode, ScrollPosition, ScrollState } from "@mr-scroll/core";
+import React from "react";
 
 interface Props {
   mode?: ScrollMode;
@@ -33,21 +33,40 @@ export default class ScrollComponent extends React.Component<Props> {
     this._contentRef = React.createRef();
   }
 
-  get scroll() { return this._scroll; }
+  get scroll() {
+    return this._scroll;
+  }
 
   componentDidMount() {
-    this._scroll = new Scroll(() => this._hostRef.current! as HTMLElement, () => this._contentRef.current! as HTMLElement, {
-      mode: this.props.mode,
-      topThreshold: this.props.topThreshold,
-      bottomThreshold: this.props.bottomThreshold,
-      leftThreshold: this.props.leftThreshold,
-      rightThreshold: this.props.rightThreshold,
-      showOnHover: this.props.showOnHover,
-    });
+    this._scroll = new Scroll(
+      () => this._hostRef.current! as HTMLElement,
+      () => this._contentRef.current! as HTMLElement,
+      {
+        mode: this.props.mode,
+        topThreshold: this.props.topThreshold,
+        bottomThreshold: this.props.bottomThreshold,
+        leftThreshold: this.props.leftThreshold,
+        rightThreshold: this.props.rightThreshold,
+        showOnHover: this.props.showOnHover,
+      }
+    );
 
-    const delegatedEvents = ['scrolled', 'topReached', 'bottomReached', 'leftReached', 'rightReached', 'positionHChanged', 'positionAbsoluteHChanged', 'stateHChanged', 'positionVChanged', 'positionAbsoluteVChanged', 'stateVChanged'];
+    const delegatedEvents = [
+      "scrolled",
+      "topReached",
+      "bottomReached",
+      "leftReached",
+      "rightReached",
+      "positionHChanged",
+      "positionAbsoluteHChanged",
+      "stateHChanged",
+      "positionVChanged",
+      "positionAbsoluteVChanged",
+      "stateVChanged",
+    ];
     for (const eventName of delegatedEvents) {
-      (this._scroll[eventName]).subscribe((x: any) => {
+      this._scroll[eventName].subscribe((x: any) => {
+        // eslint-disable-next-line @typescript-eslint/ban-types
         const handler = this.props[eventName] as Function;
         if (handler) {
           handler(x);
@@ -65,9 +84,7 @@ export default class ScrollComponent extends React.Component<Props> {
   render() {
     return (
       <div ref={this._hostRef}>
-        <div ref={this._contentRef}>
-          {this.props.children}
-        </div>
+        <div ref={this._contentRef}>{this.props.children}</div>
       </div>
     );
   }
