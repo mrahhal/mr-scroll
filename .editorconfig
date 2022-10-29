@@ -1,5 +1,3 @@
-# Suppress: EC116
-
 root = true
 
 [*]
