@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undef
 module.exports = {
   chainWebpack: (config) => {
     // These are some necessary steps changing the default webpack config of the Vue CLI
@@ -6,7 +5,6 @@ module.exports = {
     // declaration (.d.ts) files.
     //
     // Discussed here https://github.com/vuejs/vue-cli/issues/1081
-    // eslint-disable-next-line no-undef
     if (process.env.NODE_ENV === "production") {
       config.module.rule("ts").uses.delete("cache-loader");
 
