@@ -140,7 +140,7 @@ export class Scroll {
   constructor(
     hostElement: HTMLElement | (() => HTMLElement),
     contentElement: HTMLElement | (() => HTMLElement),
-    config?: Partial<ScrollConfig>
+    config?: Partial<ScrollConfig>,
   ) {
     if (!hostElement) {
       throw new Error("hostElement can't be null or undefined.");
@@ -482,7 +482,7 @@ export class Scroll {
       ownSize: number,
       totalSize: number,
       startThreshold: number,
-      endThreshold: number
+      endThreshold: number,
     ) => {
       let p: ScrollPosition = "middle";
       if (scrollRatio >= 1) {
@@ -511,7 +511,7 @@ export class Scroll {
         ownWidth,
         totalWidth,
         leftThreshold,
-        rightThreshold
+        rightThreshold,
       );
     };
 
@@ -522,7 +522,7 @@ export class Scroll {
         ownHeight,
         totalHeight,
         topThreshold,
-        bottomThreshold
+        bottomThreshold,
       );
     };
 
@@ -752,7 +752,7 @@ export class Scroll {
     direction: ScrollDirection,
     position: ScrollPosition,
     positionAbsolute: ScrollPosition,
-    state: ScrollState
+    state: ScrollState,
   ) {
     const c = this._resolveDirectionContext(direction);
     const positionChanged = position != c.position;
@@ -781,7 +781,7 @@ export class Scroll {
   private _setPositionAndStateH(
     position: ScrollPosition,
     positionAbsolute: ScrollPosition,
-    state: ScrollState
+    state: ScrollState,
   ) {
     this._setPositionAndState("h", position, positionAbsolute, state);
   }
@@ -789,7 +789,7 @@ export class Scroll {
   private _setPositionAndStateV(
     position: ScrollPosition,
     positionAbsolute: ScrollPosition,
-    state: ScrollState
+    state: ScrollState,
   ) {
     this._setPositionAndState("v", position, positionAbsolute, state);
   }
@@ -797,7 +797,7 @@ export class Scroll {
   private _updateHiddenContentClasses() {
     const setClasses = (
       classes: { start: string; end: string },
-      extremities: ScrollExtremity[] | null
+      extremities: ScrollExtremity[] | null,
     ) => {
       this._hostElement.classList.remove(classes.start, classes.end);
       if (extremities != null)

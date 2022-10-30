@@ -48,7 +48,7 @@ export default class ScrollComponent extends React.Component<Props> {
         leftThreshold: this.props.leftThreshold,
         rightThreshold: this.props.rightThreshold,
         showOnHover: this.props.showOnHover,
-      }
+      },
     );
 
     const delegatedEvents = [
