@@ -1,4 +1,5 @@
 {
+  "name": "root",
   "private": true,
   "scripts": {
     "lint": "run-s lint:eslint lint:prettier",
